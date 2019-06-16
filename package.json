@@ -1,0 +1,51 @@
+{
+  "name": "trevor-atlas",
+  "description": "My personal website and blog",
+  "version": "0.1.0",
+  "author": "Trevor Atlas",
+  "dependencies": {
+    "gatsby": "^2.9.4",
+    "gatsby-image": "^2.1.4",
+    "gatsby-plugin-feed": "^2.2.3",
+    "gatsby-plugin-google-analytics": "^2.0.21",
+    "gatsby-plugin-manifest": "^2.1.1",
+    "gatsby-plugin-offline": "^2.1.3",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-sharp": "^2.1.5",
+    "gatsby-plugin-typescript": "^2.0.15",
+    "gatsby-plugin-typography": "^2.2.13",
+    "gatsby-remark-copy-linked-files": "^2.0.13",
+    "gatsby-remark-images": "^3.0.16",
+    "gatsby-remark-prismjs": "^3.2.11",
+    "gatsby-remark-responsive-iframe": "^2.1.1",
+    "gatsby-remark-smartypants": "^2.0.9",
+    "gatsby-source-filesystem": "^2.0.39",
+    "gatsby-transformer-remark": "^2.4.0",
+    "gatsby-transformer-sharp": "^2.1.21",
+    "prismjs": "^1.16.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
+    "react-typography": "^0.16.19",
+    "typeface-merriweather": "0.0.72",
+    "typeface-montserrat": "0.0.54",
+    "typography": "^0.16.19",
+    "typography-theme-wordpress-2016": "^0.16.19"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "@types/react": "^16.8.20",
+    "@types/react-dom": "^16.8.4",
+    "prettier": "^1.18.2",
+    "showdown": "^1.9.0"
+  },
+  "scripts": {
+    "build": "npx gatsby build",
+    "develop": "npx gatsby develop",
+    "format": "npx prettier --write src/**/*.{js,jsx,tsx,ts}",
+    "start": "npm run develop",
+    "serve": "npx gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "now-build": "npm i && npm run build"
+  }
+}
