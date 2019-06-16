@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Ampleheights`,
+    title: `Trevor Atlas`,
     author: `Trevor Atlas`,
     description: `Trevor is a Software developer, systems administrator, and technology enthusiast.
 
