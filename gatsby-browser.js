@@ -1,5 +1,5 @@
 // custom typefaces
-// import React from 'React''
+// import React from 'react''
 import 'prismjs/themes/prism-tomorrow.css'
 import "typeface-montserrat"
 import "typeface-merriweather"
