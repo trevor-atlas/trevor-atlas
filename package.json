@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Trevor Atlas",
   "engines": {
-    "node": ">= 11"
+    "node": ">= 10.x"
   },
   "dependencies": {
     "@types/d3": "^5.7.2",
