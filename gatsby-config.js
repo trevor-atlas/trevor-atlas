@@ -4,7 +4,7 @@ module.exports = {
     author: `Trevor Atlas`,
     description: `Trevor is a Software developer, systems administrator, and technology enthusiast.
 
-His life objectives include:
+	👋His life objectives include:
 1. Challenging himself constantly by learning new technologies and approaches to problems.
 2. Building best practices for himself and others
 3. Staying humble and hungry`,
@@ -25,7 +25,7 @@ His life objectives include:
     },
     siteUrl: `https://trevoratlas.com`,
     social: {
-      twitter: `trevor-atlas`,
+      twitter: `trevoratlas`,
       github: `https://github.com/trevor-atlas`,
     },
   },
@@ -143,11 +143,11 @@ His life objectives include:
     },
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-typography`,
+    //   options: {
+    //     pathToConfigModule: `src/utils/typography`,
+    //   },
+    // },
   ],
 }

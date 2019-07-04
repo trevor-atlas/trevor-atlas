@@ -1,0 +1,51 @@
+* {
+	scrollbar-color: #2a2c2e #1c1e1f
+}
+
+:root {
+	--primary-text:   #393e46;
+	--secondary-text: #39414e;
+	--primary-bg:     #fdfbfb;
+	--secondary-bg:   #ebedee;
+	--links:          #00adb5;
+}
+
+:root, body {
+	background: var(--primary-bg);
+	background: -webkit-linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+	background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+	color: var(--primary-text);
+	font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+	font-size: 1.25rem;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	position: relative;
+	z-index: 0;
+}
+
+:root *, body * {
+	z-index: 1;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: var(--secondary-text);
+	margin-bottom: .25rem;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: var(--secondary-text);
+}
+
+p {
+	margin-bottom: 1.5em;
+}
+
+a {
+	text-decoration: none;
+	color: var(--links)
+}
