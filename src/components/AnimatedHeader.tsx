@@ -53,25 +53,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 		this.canvas.height = this.height;
 		this.ctx = (this.canvas.getContext('2d') as CanvasRenderingContext2D);
 
-		// create points
-		this.points = [];
-		for (let x = 0; x < this.width; x = x + this.width / 10) {
-			for (let y = 0; y < this.height; y = y + this.height / 10) {
-				const px = x + Math.random() * this.width / 10;
-				const py = y + Math.random() * this.height / 10;
-				const p: Point = {
-					x: px,
-					originX: px,
-					y: py,
-					originY: py,
-					active: .3,
-					closest: []
-				};
-				const c = new Circle(p, 2 + Math.random() * 2, 'rgba(10,10,10,0.3)', this.ctx);
-				p.circle = c;
-				this.points.push(p);
-			}
-		}
+		this.initPoints();
 
 		// for each point find the 5 closest points
 		for (let i = 0; i < this.points.length; i++) {
@@ -105,6 +87,27 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 
 		this.addListeners();
 		this.initAnimation();
+	}
+
+	private initPoints = () => {
+		this.points = [];
+		for (let x = 0; x < this.width; x = x + this.width / 10) {
+			for (let y = 0; y < this.height; y = y + this.height / 10) {
+				const px = x + Math.random() * this.width / 10;
+				const py = y + Math.random() * this.height / 10;
+				const p: Point = {
+					x: px,
+					originX: px,
+					y: py,
+					originY: py,
+					active: .3,
+					closest: []
+				};
+				const c = new Circle(p);
+				p.circle = c;
+				this.points.push(p);
+			}
+		}
 	}
 
 	private addListeners() {
@@ -144,7 +147,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 		for (const i in this.points) {
 			setTimeout(
 				() => this.shiftPoint(this.points[i]),
-				this.randomInt(0, 500)
+				this.randomInt(0, 1000)
 			)
 		}
 	}
@@ -156,26 +159,24 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 				const point = this.points[i];
 				if (!point || !point.circle) continue;
 
-				if (Math.abs(this.getDistance(this.target, this.points[i])) < 4000) {
-					point.active = 0.3;
-					point.circle.active = 0.6;
-				} else if (Math.abs(this.getDistance(this.target, this.points[i])) < 20000) {
-					point.active = 0.1;
-					point.circle.active = 0.3;
-				} else if (Math.abs(this.getDistance(this.target, this.points[i])) < 40000) {
-					point.active = 0.02;
-					point.circle.active = 0.3;
-				} else {
-					point.active = 0.0;
-					point.circle.active = 0.3;
-				}
+				const {innerWidth, innerHeight} = window;
 
+				const distance = this.getDistance(this.target, point);
+				const windowSize = (innerWidth * innerHeight);
+				const lineOpacity = this.lerp(0, .1, (windowSize / distance) * .01);
+				point.active = lineOpacity;
 				this.drawLines(this.points[i]);
 				point.circle.draw();
 			}
 		}
 		requestAnimationFrame(this.animate);
 	}
+
+	private clamp = (a: number, b: number, c: number) =>
+		Math.max(b,Math.min(c,a));
+
+	private lerp = (start: number, end: number, amt: number) =>
+		this.clamp((1-amt)*start+amt*end, start, end);
 
 	private shiftPoint(p: Point) {
 		TweenLite.to(p, this.randomInt(3, 10),
