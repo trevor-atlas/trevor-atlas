@@ -132,6 +132,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 		if (this.canvas) {
 			this.canvas.width = this.width;
 			this.canvas.height = this.height;
+
 		}
 	}
 
