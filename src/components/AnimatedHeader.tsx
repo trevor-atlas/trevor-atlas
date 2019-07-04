@@ -12,7 +12,6 @@ export interface Point {
 	y: number;
 	originX: number;
 	originY: number;
-	circle?: Circle;
 	active: number;
 	closest?: Point[]
 }
@@ -32,10 +31,6 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 	componentDidMount() {
 		const {innerWidth, innerHeight} = window;
 
-		if (innerWidth < 1024) {
-			console.log('Detected a small screen, bailing out of the canvas animation');
-			return;
-		}
 		// sorry this is so large...
 		this.width = innerWidth;
 		this.height = innerHeight;
@@ -103,8 +98,6 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 					active: .3,
 					closest: []
 				};
-				const c = new Circle(p);
-				p.circle = c;
 				this.points.push(p);
 			}
 		}
@@ -157,7 +150,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 			this.ctx.clearRect(0, 0, this.width, this.height);
 			for (const i in this.points) {
 				const point = this.points[i];
-				if (!point || !point.circle) continue;
+				if (!point) continue;
 
 				const {innerWidth, innerHeight} = window;
 
@@ -166,7 +159,6 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 				const lineOpacity = this.lerp(0, .1, (windowSize / distance) * .01);
 				point.active = lineOpacity;
 				this.drawLines(this.points[i]);
-				point.circle.draw();
 			}
 		}
 		requestAnimationFrame(this.animate);
