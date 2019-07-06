@@ -18,7 +18,6 @@ const getCareerLength = () => {
 	return duration.get('months') > 5
 		? `${duration.get('years')} and a half years`
 		: `${duration.get('years')} years`
-
 }
  
 const link = (text: string, url: string) => <a href={url} target="_blank">{text}</a>
