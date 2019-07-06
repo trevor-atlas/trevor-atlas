@@ -2,6 +2,7 @@
 // import React from 'react''
 import 'prismjs/themes/prism-tomorrow.css'
 import 'modern-normalize/modern-normalize.css';
+import './src/grid.css';
 // import "typeface-montserrat"
 // import "typeface-merriweather"
 import "./src/global.css"

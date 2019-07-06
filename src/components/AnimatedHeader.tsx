@@ -16,7 +16,7 @@ export interface Point {
 	closest?: Point[]
 }
 
-export class AnimatedHeader extends React.PureComponent<{animating: boolean, dotColor: string, lineColor: string}> {
+export class AnimatedHeader extends React.PureComponent<{animating: boolean, color: string}> {
 	private width!: number;
 	private height!: number;
 	private canvas!: HTMLCanvasElement;
@@ -188,7 +188,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, dot
 			this.ctx.beginPath();
 			this.ctx.moveTo(p.x, p.y);
 			this.ctx.lineTo(p.closest[i].x, p.closest[i].y);
-			this.ctx.strokeStyle = 'rgba(10,50,150,' + p.active + ')';
+			this.ctx.strokeStyle = `rgba(${this.props.color},${p.active})`;
 			this.ctx.stroke();
 		}
 	}

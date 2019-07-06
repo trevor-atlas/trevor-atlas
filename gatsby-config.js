@@ -2,21 +2,17 @@ module.exports = {
   siteMetadata: {
     title: `Trevor Atlas`,
     author: `Trevor Atlas`,
-    description: `Trevor is a Software developer, systems administrator, and technology enthusiast.
+    description: `👋 Hello,
 
-	👋His life objectives include:
-1. Challenging himself constantly by learning new technologies and approaches to problems.
-2. Building best practices for himself and others
-3. Staying humble and hungry`,
+	My name is Trevor Atlas – I'm a Developer and Designer based in Washington, DC`,
     about: {
-      section2: `I've been working for the last 4 years for agencies and startups. My experience is primarily with:
+      section2: `I've been working for the last ${new Date().getFullYear - 2014} years for agencies and startups. My experience is primarily with:
 
       Angular
       React
       Typescript
       Node
-      PHP
-      Java 8
+      Java
       I've also dabbled in Go, PHP and Python`,
       section1: `I have a passion for solving problems, perfecting my craft, and producing work that I am proud of. I enjoy turning ambitious ideas into reality and I hold myself to a high standard of excellence.`,
       section: `As a dedicated lifelong learner I spend a lot of my free time teaching myself new skills and concepts. When I'm not building websites or studying I ride my bike around the beautiful DMV area, practice calligraphy and write.

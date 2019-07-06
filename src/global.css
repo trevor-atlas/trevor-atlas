@@ -1,5 +1,6 @@
-* {
-	scrollbar-color: #2a2c2e #1c1e1f
+*, *:before, *:after {
+	scrollbar-color: #2a2c2e #1c1e1f;
+	box-sizing: border-box;
 }
 
 :root {
@@ -7,7 +8,8 @@
 	--secondary-text: #39414e;
 	--primary-bg:     #fdfbfb;
 	--secondary-bg:   #ebedee;
-	--links:          #00adb5;
+	--links-hover:    #5bc0be;
+	--links:          #6dddf9;
 }
 
 :root, body {
@@ -28,11 +30,39 @@
 	z-index: 1;
 }
 
+/* smaller font size for iphone 8+ and smaller
+ https://www.kylejlarson.com/blog/iphone-6-screen-size-web-design-tips/ */
+@media (max-width: 414px) {
+	body	{
+		font-size: 16px;
+	}
+}
+
+.invert-fonts * {
+	color: var(--primary-bg);
+}
+
+.invert-fonts h1,
+.invert-fonts h2,
+.invert-fonts h3,
+.invert-fonts h4,
+.invert-fonts h5,
+.invert-fonts h6,
+.invert-fonts h1 a,
+.invert-fonts h2 a,
+.invert-fonts h3 a,
+.invert-fonts h4 a,
+.invert-fonts h5 a,
+.invert-fonts h6 a {
+	color: var(--secondary-bg);
+}
+
 h1,h2,h3,h4,h5,h6,p {
 	margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
+	line-height: 1.2;
 	color: var(--secondary-text);
 	margin-bottom: .25rem;
 }
@@ -47,5 +77,26 @@ p {
 
 a {
 	text-decoration: none;
-	color: var(--links)
+	color: var(--links);
+	transition: color .2s ease;
+}
+
+a:hover {
+	color: var(--links-hover)
+}
+
+
+.card {
+	background: white;
+	border-radius: 2px;
+	position: relative;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	transition: box-shadow .2s ease, transform .2s ease;
+	cursor: pointer;
+	transform: none;
+}
+
+.card:hover {
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	transform: scale(.95);
 }
