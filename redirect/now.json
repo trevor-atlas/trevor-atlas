@@ -1,0 +1,12 @@
+{
+	"version": 2,
+	"alias": ["www.trevoratlas.com", "blog.trevoratlas.com"],
+	"routes": [
+	  {
+		"src": "/(.*)",
+		"status": 301,
+		"headers": { "Location": "https://trevoratlas.com/$1" }
+	  }
+	]
+  }
+  
