@@ -1,6 +1,11 @@
 {
     "version": 2,
-    "name": "trevor-atlas",
+	"name": "trevor-atlas",
+	"alias": [
+		"trevoratlas.com",
+		"www.trevoratlas.com",
+		"blog.trevoratlas.com"
+	],
     "builds": [
         {
             "src": "package.json",
@@ -9,6 +14,15 @@
                 "distDir": "public"
             }
         },
-        { "src": "content/", "use": "@now/static" }
-    ]
+		{ "src": "content/", "use": "@now/static" },
+	],
+	"routes": [
+		{
+			"src": "/(.*)",
+			"status": 301,
+			"headers": {
+				"Location": "https://trevoratlas.com/$1"
+			}
+		}
+	 ]
 }
