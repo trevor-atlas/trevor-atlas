@@ -184,10 +184,25 @@ export class LazyFactory {
 }
 ```
 
-now back in `RealMyService` we can inject this baseURL as well!
+now back in `MyService` and `MockMyService` we can inject this baseURL as well!
 
+`services/MyService.ts`
 ```ts
-export class RealMyService implements IMyService {
+export class MyService implements IMyService {
+
+    @Inject
+    private baseURL: string; // <-- this will change dynamically if we are running locally or in production! 
+
+    public sayHello(name: string): void {
+        console.log(`Hello from the real service, ${name}!`);
+        console.log('baseURL is ', this.baseURL);
+    }
+}
+```
+
+`services/MockMyService.ts`
+```ts
+export class MockMyService implements IMyService {
 
     @Inject
     private baseURL: string; // <-- this will change dynamically if we are running locally or in production! 
