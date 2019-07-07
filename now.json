@@ -2,9 +2,7 @@
     "version": 2,
 	"name": "trevor-atlas",
 	"alias": [
-		"trevoratlas.com",
-		"www.trevoratlas.com",
-		"blog.trevoratlas.com"
+		"trevoratlas.com"
 	],
     "builds": [
         {
