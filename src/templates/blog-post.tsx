@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import { Container } from '../components/Container';
 // import { rhythm, scale } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
@@ -18,6 +19,7 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
+		<Container>
         <h1>{post.frontmatter.title}</h1>
         <p
           style={{
@@ -61,6 +63,7 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
+		</Container>
       </Layout>
     )
   }

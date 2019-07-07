@@ -43,7 +43,7 @@ class Layout extends React.PureComponent<{ location: Location, title: string }> 
 
 		return (
 			<>
-				<nav style={{
+				<nav className="middle-xs" style={{
 					padding: '1em',
 					display: 'flex',
 					background: Colors.primary.get(),
@@ -51,7 +51,7 @@ class Layout extends React.PureComponent<{ location: Location, title: string }> 
 					marginBottom: '2em'
 				}}
 				>
-					<h4 style={{ color: 'white' }}>
+					<h4 className="white mbn">
 						<Link
 							style={{
 								boxShadow: `none`,

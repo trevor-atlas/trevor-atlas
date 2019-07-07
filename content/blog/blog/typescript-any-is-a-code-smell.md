@@ -6,7 +6,7 @@ tags: typescript
 
 Typescript is a really powerful tool for making javascript more maintainable, easier to refactor and faster to write.
 one of Typescript's strengths is that any javascript code is also valid Typescript so the migration of a legacy js codebase is easy!
-While using any is about convenience, I consider it an code smell. Why?
+While using any is about convenience, I consider it a code smell. Why?
 
 ### No advantage over vanilla js
 

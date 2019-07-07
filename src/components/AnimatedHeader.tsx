@@ -88,8 +88,8 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 		this.points = [];
 		for (let x = 0; x < this.width; x = x + this.width / 10) {
 			for (let y = 0; y < this.height; y = y + this.height / 10) {
-				const px = x + Math.random() * this.width / 10;
-				const py = y + Math.random() * this.height / 10;
+				const px = x + Math.round(Math.random() * this.width / 10);
+				const py = y + Math.round(Math.random() * this.height / 10);
 				const p: Point = {
 					x: px,
 					originX: px,
@@ -157,7 +157,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 
 				const distance = this.getDistance(this.target, point);
 				const windowSize = (innerWidth * innerHeight);
-				const lineOpacity = this.lerp(0, .1, (windowSize / distance) * .01);
+				const lineOpacity = this.lerp(0, .2, (windowSize / distance) * .01);
 				point.active = lineOpacity;
 				this.drawLines(this.points[i]);
 			}
@@ -174,8 +174,8 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	private shiftPoint(p: Point) {
 		TweenLite.to(p, this.randomInt(3, 10),
 			{
-				x: p.originX - this.randomInt(10, 300),
-				y: p.originY - this.randomInt(10, 300),
+				x: Math.round(p.originX - this.randomInt(10, 300)),
+				y: Math.round(p.originY - this.randomInt(10, 300)),
 				ease: Power1.easeInOut,
 				onComplete: () => this.shiftPoint(p)
 			});
@@ -186,9 +186,10 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 		if (!p.closest) return;
 		for (let i in p.closest) {
 			this.ctx.beginPath();
-			this.ctx.moveTo(p.x, p.y);
+			this.ctx.moveTo(Math.round(p.x), Math.round(p.y));
 			this.ctx.lineTo(p.closest[i].x, p.closest[i].y);
 			this.ctx.strokeStyle = `rgba(${this.props.color},${p.active})`;
+			this.ctx.lineWidth = 1;
 			this.ctx.stroke();
 		}
 	}

@@ -12,6 +12,8 @@ import { Section } from '../components/Section';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub, faTwitter, faLinkedin, faReddit, faStackOverflow, faDribbble } from '@fortawesome/free-brands-svg-icons';
 import { GithubCard } from '../components/GithubCard';
+import { Card } from '../components/Card';
+import vor from '../vor'
 
 class BlogIndex extends React.Component<{ location: Location, data: any }> {
 	render() {
@@ -34,15 +36,54 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 						invert={true}
 					>
 						<Container>
-							<div className="column">
-								<h3 style={{color: 'white'}}>Projects</h3>
-								<div className="row">
-
-								<div className="col-xs-12 col-md-6">
-									<GithubCard user="trevor-atlas" repo="vor" />
+							<div className="column center-md">
+								<h2 className="tac pblg" style={{ color: 'white' }}>Projects</h2>
+								<div className="row center-xs mbxlg">
+									<div className="col-xs-12 col-md-6">
+										<h4 style={{color: 'white'}}>Vör – Jira & Git made simple</h4>
+										<p style={{color: 'white', marginBottom: '.25em'}}>Vör is a CLI tool that makes it easy to connect Jira and Git/Github. It provides commands to create branches from a given jira ticket, github pull requests from that branch and makes it easy to view your assigned tickets - all without leaving the command line! </p>
+										<a
+											href="https://github.com/trevor-atlas/vor"
+											target="_blank"
+											className="button"
+										>View on Github</a>
+									</div>
 								</div>
+								<div className="row center-xs mbxlg">
+									<div className="col-xs-12 col-md-6">
+										<h4 style={{color: 'white'}}>Go Sitemap</h4>
+										<p style={{color: 'white', marginBottom: '.25em'}}>A web scraper that builds a sitemap of a given website</p>
+										<a
+											href="https://github.com/trevor-atlas/go-sitemap"
+											target="_blank"
+											className="button"
+										>View on Github</a>
+									</div>
 								</div>
 							</div>
+						</Container>
+					</Section>
+					<Section
+						background={''}
+					>
+						<Container>
+						<div className="column center-md ">
+							<h2 className="tac pblg" >Latest Posts</h2>
+							<div className="row center-xs mbxlg">
+							<div className="col-xs-12 col-md-6">
+								{data.allMarkdownRemark.edges
+								.map(node => node.node)
+								.slice(0,3)
+								.map(node => (
+									<Link to={node.fields.slug} className="mblg db">
+										<h4>{node.frontmatter.title}</h4>
+										<small>{node.frontmatter.date}</small>
+									</Link>
+									)
+								)}
+							</div>
+							</div>
+						</div>	
 						</Container>
 					</Section>
 				</Layout>

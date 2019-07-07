@@ -100,3 +100,40 @@ a:hover {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 	transform: scale(.95);
 }
+
+.button {
+	background: var(--primary-text);
+	color: white;
+	padding: .25em .5em;
+	box-shadow: #1c1e1f 3px 3px 0;
+	transition: box-shadow .2s ease;
+	margin: 0 0 .5em 0;
+}
+
+.button:hover {
+	color: white;
+	box-shadow: #1c1e1f 5px 7px 0 
+}
+
+.white, .white.white {color: white}
+
+.db {display: block;}
+.dib {display: inline-block;}
+
+.tac {text-align: center}
+.tal {text-align: left}
+.tar {text-align: right}
+
+.mbn {margin-bottom: 0}
+.mbxs {margin-bottom: .25em}
+.mbsm {margin-bottom: .5em}
+.mbmd {margin-bottom: .75em}
+.mblg {margin-bottom: 1em}
+.mbxlg {margin-bottom: 2em}
+
+.pbn {padding-bottom: 0}
+.pbxs {padding-bottom: .25em}
+.pbsm {padding-bottom: .5em}
+.pbmd {padding-bottom: .75em}
+.pblg {padding-bottom: 1em}
+.pbxlg {padding-bottom: 2em}
