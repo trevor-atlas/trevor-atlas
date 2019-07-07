@@ -1,6 +1,6 @@
 ---
 title: "Typescipt Dependency Injection"
-date: 2019-07-07 16:56:34
+date: 2019-07-07 16:33:32
 tags: typescript
 ---
 
