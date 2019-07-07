@@ -191,7 +191,7 @@ now back in `MyService` and `MockMyService` we can inject this baseURL as well!
 export class MyService implements IMyService {
 
     @Inject
-    private baseURL: string; // <-- this will change dynamically if we are running locally or in production! 
+    private baseURL: string; // <-- 'https://prod.myAPI.com'
 
     public sayHello(name: string): void {
         console.log(`Hello from the real service, ${name}!`);
@@ -205,10 +205,10 @@ export class MyService implements IMyService {
 export class MockMyService implements IMyService {
 
     @Inject
-    private baseURL: string; // <-- this will change dynamically if we are running locally or in production! 
+    private baseURL: string; // <-- 'https://stage.myAPI.com'
 
     public sayHello(name: string): void {
-        console.log(`Hello from the real service, ${name}!`);
+        console.log(`Hello from the mock service, ${name}!`);
         console.log('baseURL is ', this.baseURL);
     }
 }
