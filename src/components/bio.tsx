@@ -34,15 +34,15 @@ class Bio extends React.PureComponent {
 							invert={false}
 						>
 							<Container>
-								<div className="row center-xs start-sm">
-									<div className="col-xs-12 col-sm-4 col-md-3 center-xs">
+								<div className="row center-xs start-md">
+									<div className="col-xs-12 col-sm-4 col-md-3">
 										<Image
 											fixed={data.avatar.childImageSharp.fixed}
 											alt={author}
 											style={{
 												marginBottom: 0,
-												minWidth: 200,
-												minHeight: 200
+												minWidth: 250,
+												minHeight: 250
 											}}
 											imgStyle={{
 												borderRadius: `50%`
@@ -55,7 +55,7 @@ class Bio extends React.PureComponent {
 										<p>My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC</p>
 										<p>I've been working for the last {getCareerLength()} for agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
 
-										<p>Much of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
+										<p>When I'm not writing {link('React', 'https://reactjs.org/')} interfaces most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
 											I've also been working on mobile applications with {link('React Native', 'https://facebook.github.io/react-native/')} and {link('Expo', 'https://expo.io/')}.
 										</p>
 									</div>
@@ -72,7 +72,7 @@ const bioQuery = graphql`
   query BioQuery {
     avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
       childImageSharp {
-        fixed(width: 200, height: 200) {
+        fixed(width: 250, height: 250) {
           ...GatsbyImageSharpFixed
         }
       }
