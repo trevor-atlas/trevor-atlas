@@ -58,7 +58,7 @@ Now we can define a mock and real implementation of the service using this inter
 ```ts
 export class MyService implements IMyService {
     public sayHello(name: string): void {
-       console.log(`Hello from the real service, ${name}!`)e
+       console.log(`Hello from the real service, ${name}!`);
     }
 }
 ```
@@ -67,7 +67,7 @@ export class MyService implements IMyService {
 ```ts
 export class MockMyService implements IMyService {
     public sayHello(name: string): void {
-        console.log(`Hello from the mock service, ${name}!`))
+        console.log(`Hello from the mock service, ${name}!`);
     }
 }
 ```
@@ -170,7 +170,7 @@ We can now add as many other services to our `LazyFactory` as we want, and `@Inj
 
 But wait! There's more!
 
-`LazyFactory` doesn't actually care what we return from any method - this is uper useful because it let's us swap out any kind of data we want. I've used it to return a `baseURL` that differs locally vs in production:
+`LazyFactory` doesn't actually care what we return from any method - this is super useful because it lets us swap out any kind of data we want. I've used it to return a `baseURL` that differs locally vs in production:
 
 ```ts
 export class LazyFactory {

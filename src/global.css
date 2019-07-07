@@ -3,12 +3,12 @@
 }
 
 :root {
-	--primary-text:   #393e46;
+	--primary-text: #393e46;
 	--secondary-text: #39414e;
-	--primary-bg:     #fdfbfb;
-	--secondary-bg:   #ebedee;
-	--links-hover:    #5bc0be;
-	--links:          #6dddf9;
+	--primary-bg: #fdfbfb;
+	--secondary-bg: #ebedee;
+	--links-hover: #5bc0be;
+	--links: #6dddf9;
 }
 
 :root, body {
@@ -31,8 +31,9 @@
 
 /* smaller font size for iphone 8+ and smaller
  https://www.kylejlarson.com/blog/iphone-6-screen-size-web-design-tips/ */
+
 @media (max-width: 414px) {
-	body	{
+	body {
 		font-size: 16px;
 	}
 }
@@ -41,22 +42,11 @@
 	color: var(--primary-bg);
 }
 
-.invert-fonts h1,
-.invert-fonts h2,
-.invert-fonts h3,
-.invert-fonts h4,
-.invert-fonts h5,
-.invert-fonts h6,
-.invert-fonts h1 a,
-.invert-fonts h2 a,
-.invert-fonts h3 a,
-.invert-fonts h4 a,
-.invert-fonts h5 a,
-.invert-fonts h6 a {
+.invert-fonts h1, .invert-fonts h2, .invert-fonts h3, .invert-fonts h4, .invert-fonts h5, .invert-fonts h6, .invert-fonts h1 a, .invert-fonts h2 a, .invert-fonts h3 a, .invert-fonts h4 a, .invert-fonts h5 a, .invert-fonts h6 a {
 	color: var(--secondary-bg);
 }
 
-h1,h2,h3,h4,h5,h6,p {
+h1, h2, h3, h4, h5, h6, p {
 	margin: 0;
 }
 
@@ -84,19 +74,18 @@ a:hover {
 	color: var(--links-hover)
 }
 
-
 .card {
 	background: white;
 	border-radius: 2px;
 	position: relative;
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 	transition: box-shadow .2s ease, transform .2s ease;
 	cursor: pointer;
 	transform: none;
 }
 
 .card:hover {
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 	transform: scale(.95);
 }
 
@@ -111,28 +100,107 @@ a:hover {
 
 .button:hover {
 	color: white;
-	box-shadow: #1c1e1f 5px 7px 0 
+	box-shadow: #1c1e1f 5px 7px 0
 }
 
-.white, .white.white {color: white}
+blockquote {
+	position: relative;
+	padding-left: 1em;
+	font-family: "Georgia", serif;
+	font-size: 1.2rem;
+	font-weight: 500;
+	color: #333;
+	quotes: "\201C""\201D""\2018""\2019";
+}
 
-.db {display: block;}
-.dib {display: inline-block;}
+blockquote::before, blockquote::after {
+	color: #c6c6c6;
+	font-size: 2.0em;
+	font-weight: 400;
+	line-height: 0.1em;
+}
 
-.tac {text-align: center}
-.tal {text-align: left}
-.tar {text-align: right}
+blockquote::before {
+	position: absolute;
+	left: 0;
+	content: open-quote;
+	margin-right: 0.15em;
+	vertical-align: -0.15em;
+}
 
-.mbn {margin-bottom: 0}
-.mbxs {margin-bottom: .25em}
-.mbsm {margin-bottom: .5em}
-.mbmd {margin-bottom: .75em}
-.mblg {margin-bottom: 1em}
-.mbxlg {margin-bottom: 2em}
+blockquote::after {
+	content: close-quote;
+	vertical-align: -0.7em;
+}
 
-.pbn {padding-bottom: 0}
-.pbxs {padding-bottom: .25em}
-.pbsm {padding-bottom: .5em}
-.pbmd {padding-bottom: .75em}
-.pblg {padding-bottom: 1em}
-.pbxlg {padding-bottom: 2em}
+.white, .white.white {
+	color: white
+}
+
+.db {
+	display: block;
+}
+
+.dib {
+	display: inline-block;
+}
+
+.tac {
+	text-align: center
+}
+
+.tal {
+	text-align: left
+}
+
+.tar {
+	text-align: right
+}
+
+.mbn {
+	margin-bottom: 0
+}
+
+.mbxs {
+	margin-bottom: .25em
+}
+
+.mbsm {
+	margin-bottom: .5em
+}
+
+.mbmd {
+	margin-bottom: .75em
+}
+
+.mblg {
+	margin-bottom: 1em
+}
+
+.mbxlg {
+	margin-bottom: 2em
+}
+
+.pbn {
+	padding-bottom: 0
+}
+
+.pbxs {
+	padding-bottom: .25em
+}
+
+.pbsm {
+	padding-bottom: .5em
+}
+
+.pbmd {
+	padding-bottom: .75em
+}
+
+.pblg {
+	padding-bottom: 1em
+}
+
+.pbxlg {
+	padding-bottom: 2em
+}
