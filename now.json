@@ -14,7 +14,7 @@
                 "distDir": "public"
             }
         },
-		{ "src": "content/", "use": "@now/static" },
+		{ "src": "content/", "use": "@now/static" }
 	],
 	"routes": [
 		{
