@@ -40,7 +40,7 @@ export class LazyFactory {
 }
 ```
 
-That's all we need to get rolling! now we can add methods to the `LazyFactory` to return whatever we need at runtime. Lets add one now to return an instance of `MyService`.
+That's all we need to get rolling! now we can add methods to the `LazyFactory` to return whatever we need at runtime. Let's add one now to return an instance of `MyService`.
 One of the benefits of our lazy factory is we can easily swap out implementations of what it returns for mocking purposes. We'll use an interface to define `MyService`'s public methods and fields, then we can implement that interface with a mock and real implementation. Our `LazyFactory` can then determine which version of the service to give us dynamically!
 
 First we'll define the `IMyservice` interface like so:
