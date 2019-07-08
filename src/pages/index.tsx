@@ -33,8 +33,9 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 
 					<Section
 						background={Colors.secondary.get()}
-						invert={true}
+						type="triangles"
 					>
+
 						<Container>
 							<div className="column center-md">
 								<h2 className="tac pblg" style={{ color: 'white' }}>Projects</h2>
@@ -63,10 +64,11 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 							</div>
 						</Container>
 					</Section>
-					<Section
-						background={''}
-					>
+
+					<Section background={''}>
+
 						<Container>
+							
 						<div className="column center-md ">
 							<h2 className="tac pblg" >Latest Posts</h2>
 							<div className="row center-xs mbxlg">

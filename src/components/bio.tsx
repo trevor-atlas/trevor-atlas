@@ -1,12 +1,10 @@
 import React from 'react'
-import { StaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
-import showdown from 'showdown';
+import { StaticQuery, graphql } from 'gatsby'
+import Image from 'gatsby-image'
 import { Section } from './Section';
 import { Container } from './Container';
-import { DateTime, Duration } from 'luxon';
+import { Duration } from 'luxon';
 
-const converter = new showdown.Converter();
 const getCareerLength = () => {
 	const start = new Date('03/14/2014');
 	const now = new Date();
@@ -21,6 +19,7 @@ const getCareerLength = () => {
 }
  
 const link = (text: string, url: string) => <a href={url} target="_blank">{text}</a>
+
 class Bio extends React.PureComponent {
 	render() {
 		return (
@@ -53,9 +52,9 @@ class Bio extends React.PureComponent {
 										<h3>👋 Hello,</h3>
 
 										<p>My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC</p>
-										<p>I've been working for the last {getCareerLength()} for agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
+										<p>For the past {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
 
-										<p>When I'm not writing {link('React', 'https://reactjs.org/')} interfaces most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
+										<p>When I'm not writing {link('React', 'https://reactjs.org/')} interfaces, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
 											I've also been working on mobile applications with {link('React Native', 'https://facebook.github.io/react-native/')} and {link('Expo', 'https://expo.io/')}.
 										</p>
 									</div>

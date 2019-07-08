@@ -1,4 +1,8 @@
-*, *:before, *:after {
+*,
+*:after,
+*::before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -17,8 +21,8 @@
 	background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
 	color: var(--primary-text);
 	font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-	font-size: 1.25rem;
-	line-height: 1.6;
+	font-size: 30px;
+	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	position: relative;
@@ -104,23 +108,33 @@ a:hover {
 }
 
 blockquote {
+	border-left: 5px solid #ddd;
 	position: relative;
 	padding-left: 1em;
 	font-family: "Georgia", serif;
-	font-size: 1.2rem;
+	font-size: 1em;
+	font-weight: 500;
+	color: #333;
+}
+
+blockquote.quote {
+	position: relative;
+	padding-left: 1em;
+	font-family: "Georgia", serif;
+	font-size: 1em;
 	font-weight: 500;
 	color: #333;
 	quotes: "\201C""\201D""\2018""\2019";
 }
 
-blockquote::before, blockquote::after {
+blockquote.quote::before, blockquote::after {
 	color: #c6c6c6;
 	font-size: 2.0em;
 	font-weight: 400;
 	line-height: 0.1em;
 }
 
-blockquote::before {
+blockquote.quote::before {
 	position: absolute;
 	left: 0;
 	content: open-quote;
@@ -131,6 +145,13 @@ blockquote::before {
 blockquote::after {
 	content: close-quote;
 	vertical-align: -0.7em;
+}
+
+section::before,
+section::after {
+	position: absolute;
+	content: '';
+	pointer-events: none;
 }
 
 .white, .white.white {
