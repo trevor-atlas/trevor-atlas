@@ -54,7 +54,7 @@ class Bio extends React.PureComponent {
 										<p>My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC</p>
 										<p>For the past {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
 
-										<p>When I'm not writing {link('React', 'https://reactjs.org/')} interfaces, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
+										<p>When I'm not building user interfaces in {link('React', 'https://reactjs.org/')}, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
 											I've also been working on mobile applications with {link('React Native', 'https://facebook.github.io/react-native/')} and {link('Expo', 'https://expo.io/')}.
 										</p>
 									</div>

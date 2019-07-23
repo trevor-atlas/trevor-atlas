@@ -5,7 +5,7 @@ import { Container } from './Container';
 import { Colors } from '../utils/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStackOverflow, faGithub, faTwitter, faLinkedin, faReddit, faDribbble, IconDefinition } from '@fortawesome/free-brands-svg-icons';
-import {faPaperPlane} from '@fortawesome/pro-solid-svg-icons'
+import {faFilePdf, faPaperPlane} from '@fortawesome/pro-solid-svg-icons'
 
 const sites: {url: string, icon: IconDefinition, title: string}[] = [
 	{url: 'https://github.com/trevor-atlas', icon: faGithub, title: 'Github'},
@@ -14,6 +14,7 @@ const sites: {url: string, icon: IconDefinition, title: string}[] = [
 	{url: 'https://www.reddit.com/user/trevoristall', icon: faReddit, title: 'Reddit'},
 	{url: 'https://dribbble.com/trevoratlas', icon: faDribbble, title: 'Dribbble'},
 	{url: 'https://stackoverflow.com/users/5770188/trevor-atlas', icon: faStackOverflow, title: 'Stack Overflow'},
+	{url: 'https://app.standardresume.co/r/TrevorAllen', icon: faFilePdf, title: 'Resume'},
 	{url: 'mailto:me@trevoratlas.com', icon: faPaperPlane, title: 'Email'},
 ];
 
