@@ -16,7 +16,7 @@ export interface Point {
 	closest?: Point[]
 }
 
-export class AnimatedHeader extends React.PureComponent<{animating: boolean, color: string}> {
+export class AnimatedHeader extends React.PureComponent<{animating: boolean, color?: string}> {
 	private width!: number;
 	private height!: number;
 	private canvas!: HTMLCanvasElement;

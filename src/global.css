@@ -21,7 +21,7 @@
 	background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
 	color: var(--primary-text);
 	font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-	font-size: 30px;
+	font-size: 110%;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -55,7 +55,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	line-height: 1.2;
+	line-height: 1.6;
 	color: var(--secondary-text);
 	margin-bottom: .25rem;
 }
@@ -65,7 +65,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
 }
 
 p {
-	margin-bottom: 1.5em;
+	margin-bottom: 1.6em;
 }
 
 a {
@@ -224,4 +224,9 @@ section::after {
 
 .pbxlg {
 	padding-bottom: 2em
+}
+
+
+.post-body section {
+	margin-bottom: 5em;
 }

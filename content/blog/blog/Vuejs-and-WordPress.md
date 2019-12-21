@@ -3,7 +3,7 @@ title: Vue.js and WordPress
 date: 2016-11-06 16:56:34
 tags:
 path: blog/vue-wordpress
-featured_image: /images/vue.jpg
+featured_image: /static/vue.jpg
 thumbnail: https://trevoristall.github.io/images/vue.jpg
 ---
 

@@ -2,7 +2,7 @@
 title: Functional Programming
 date: 2016-10-28 14:54:23
 tags:
-featured_image: /images/functional.jpg
+featured_image: /static/functional.jpg
 ---
 
 # Functional Programming in ES6

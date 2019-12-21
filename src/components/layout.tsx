@@ -33,10 +33,7 @@ const icons = sites.map((site) =>
 	</a>
 );
 
-class Layout extends React.PureComponent<{ location: Location, title: string }> {
-	constructor(props: Readonly<{ location: Location<any>; title: string; }>) {
-		super(props);
-	}
+class Layout extends React.PureComponent<{ location: Location<any>, title: string }> {
 
 	render() {
 		const { location, title, children } = this.props;
