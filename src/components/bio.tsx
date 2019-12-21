@@ -13,9 +13,15 @@ const getCareerLength = () => {
 		months: (now.getMonth() - start.getMonth()) || 0
 	});
 
-	return duration.get('months') > 5
-		? `${duration.get('years')} and a half years`
-		: `${duration.get('years')} years`
+	const years = duration.get('years');
+	const months = duration.get('months');
+	if (months > 8) {
+		return `nearly ${years + 1} years`
+	}
+	if (months > 5) {
+		return `${years} and a half years`
+	}
+	return `${years} years`
 }
  
 const link = (text: string, url: string) => <a href={url} target="_blank">{text}</a>
@@ -30,29 +36,25 @@ class Bio extends React.PureComponent {
 					return (
 						<Section
 							background={''}
-							invert={false}
 						>
 							<Container>
 								<div className="row center-xs start-md">
-									<div className="col-xs-12 col-sm-4 col-md-3">
+									<div className="col-xs-12 col-sm-4 col-md-3 tac">
 										<Image
 											fixed={data.avatar.childImageSharp.fixed}
 											alt={author}
 											style={{
 												marginBottom: 0,
-												minWidth: 250,
-												minHeight: 250
 											}}
 											imgStyle={{
-												borderRadius: `50%`
+												borderRadius: `50%`,
 											}}
 										/>
 									</div>
 									<div className="col-xs-12 col-sm-8 col-md-9">
 										<h3>👋 Hello,</h3>
-
 										<p>My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC</p>
-										<p>For the past {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
+										<p>For {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
 
 										<p>When I'm not building user interfaces in {link('React', 'https://reactjs.org/')}, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
 											I've also been working on mobile applications with {link('React Native', 'https://facebook.github.io/react-native/')} and {link('Expo', 'https://expo.io/')}.
@@ -71,7 +73,7 @@ const bioQuery = graphql`
   query BioQuery {
     avatar: file(absolutePath: { regex: "/assets/profile.jpg/" }) {
       childImageSharp {
-        fixed(width: 250, height: 250) {
+        fixed(width: 200, height: 200) {
           ...GatsbyImageSharpFixed
         }
       }

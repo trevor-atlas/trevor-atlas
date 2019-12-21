@@ -11,8 +11,8 @@
 	--secondary-text: #39414e;
 	--primary-bg: #fdfbfb;
 	--secondary-bg: #ebedee;
-	--links-hover: #5bc0be;
-	--links: #6dddf9;
+	--links-hover: #5b30be;
+	--links: #3d99ff;
 }
 
 :root, body {
@@ -152,6 +152,10 @@ section::after {
 	position: absolute;
 	content: '';
 	pointer-events: none;
+}
+
+img {
+	max-width: 100%;
 }
 
 .white, .white.white {

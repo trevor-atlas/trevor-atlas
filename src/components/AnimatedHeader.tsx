@@ -166,10 +166,10 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	}
 
 	private clamp = (a: number, b: number, c: number) =>
-		Math.max(b,Math.min(c,a));
+		Math.max(b, Math.min(c,a));
 
 	private lerp = (start: number, end: number, amt: number) =>
-		this.clamp((1-amt)*start+amt*end, start, end);
+		this.clamp((1-amt) * start + amt * end, start, end);
 
 	private shiftPoint(p: Point) {
 		TweenLite.to(p, this.randomInt(3, 10),
