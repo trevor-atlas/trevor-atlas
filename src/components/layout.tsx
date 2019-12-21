@@ -11,7 +11,6 @@ const sites: {url: string, icon: IconDefinition, title: string}[] = [
 	{url: 'https://github.com/trevor-atlas', icon: faGithub, title: 'Github'},
 	{url: 'https://twitter.com/trevoratlas', icon: faTwitter, title: 'Twitter'},
 	{url: 'https://www.linkedin.com/in/trevoristall/', icon: faLinkedin, title: 'Linkedin'},
-	{url: 'https://www.reddit.com/user/trevoristall', icon: faReddit, title: 'Reddit'},
 	{url: 'https://dribbble.com/trevoratlas', icon: faDribbble, title: 'Dribbble'},
 	{url: 'https://stackoverflow.com/users/5770188/trevor-atlas', icon: faStackOverflow, title: 'Stack Overflow'},
 	{url: 'https://app.standardresume.co/r/TrevorAllen', icon: faFilePdf, title: 'Resume'},
