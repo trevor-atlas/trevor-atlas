@@ -18,9 +18,9 @@ class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
 		const entries = posts.map(({ node }: any) => {
 			const title = node.frontmatter.title || node.fields.slug
 			return (
-				<div key={node.fields.slug}>
+				<div key={node.fields.slug} style={{ marginBottom: '3em' }}>
 					<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-						<h3>
+						<h3 className="bp3-heading">
 							<Link style={{ boxShadow: `none` }} to={node.fields.slug}>
 								{title}
 							</Link>
@@ -28,10 +28,12 @@ class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
 						<small>{node.frontmatter.date}</small>
 					</div>
 					<p
+						className="bp3-running-text bp3-text-large"
 						dangerouslySetInnerHTML={{
 							__html: node.frontmatter.description || node.excerpt,
 						}}
 					/>
+					<hr/>
 				</div>
 			)
 		})

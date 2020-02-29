@@ -7,9 +7,9 @@ export const Section: React.FunctionComponent<{background: string, style?: CSSPr
 		className={props.type}
 		style={{
 			background: props.background,
-			paddingTop: props.type === 'triangles' ? '2em' : '3em',
+			paddingTop: props.type === 'triangles' ? '4em' : '6em',
 			marginTop: triangle ? '2em' : 0,
-			paddingBottom: props.type === 'triangles' ? '1em' : '3em',
+			paddingBottom: props.type === 'triangles' ? '2em' : '6em',
 			margin: 0,
 			position: 'relative',
 			...props.style

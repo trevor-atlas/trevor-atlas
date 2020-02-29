@@ -1,20 +1,43 @@
+import { Button, Intent } from '@blueprintjs/core'
 import { graphql, Link } from 'gatsby'
 import React from 'react'
 import { AnimatedHeader } from '../components/AnimatedHeader'
-
 import Bio from '../components/bio'
 import { Container } from '../components/Container'
 import Layout from '../components/layout'
 import { Section } from '../components/Section'
 import SEO from '../components/seo'
 import { Colors } from '../utils/colors'
+import { navigate } from 'gatsby'
+
+const projects: { title: string; url: string; description: string; }[] = [
+	{
+		title: 'Vör – Jira & Git made simple',
+		url: 'https://github.com/trevor-atlas/vor',
+		description: 'Vör is a CLI tool that makes it easy to connect Jira and Git/Github - all without leaving the command line!'
+	},
+	{
+		title: 'Monkey Interpreter',
+		url: 'https://github.com/trevor-atlas/go-interpreter',
+		description: 'A tree-walking interpreter for the Monkey programming language, written in golang'
+	},
+	{
+		title: 'Typescript Dependency Injection',
+		url: 'https://github.com/trevor-atlas/Typescript-Inject',
+		description: 'A simple DI library based on decorators, for Typescript'
+	}
+];
+
+const experiments: { title: string; url: string; description: string; }[] = [
+	{title: 'Numeric Base Converter', url: '/experiments/numeric-base-converter', description: 'convert decimal numbers to other bases'},
+];
 
 class BlogIndex extends React.Component<{ location: Location, data: any }> {
 	render() {
 		const { data, location } = this.props
 		const siteTitle = data.site.siteMetadata.title
 		const rootPath = `${__PATH_PREFIX__}/`
-		const color = Colors.tertiary.getRGB()
+		const color = Colors.lines.getRGB()
 
 		return (
 			<>
@@ -26,54 +49,50 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 					<Bio/>
 
 					<Section
-						background={Colors.secondary.get()}
+						background={Colors.primary.get()}
 						type="triangles"
 					>
-
 						<Container>
-							<div className="column center-md">
-								<h2 className="tac pblg" style={{ color: 'white' }}>Projects</h2>
-								<div className="row center-xs mbxlg">
-									<div className="col-xs-12">
-										<h3 style={{ color: 'white' }}>Vör – Jira & Git made
-											simple</h3>
-										<p style={{ color: 'white', marginBottom: '.25em' }}>Vör is
-											a CLI tool that makes it easy to connect Jira and
-											Git/Github - all without leaving the command line! </p>
-										<a
-											href="https://github.com/trevor-atlas/vor"
-											target="_blank"
-											className="button"
-										>View on Github</a>
-									</div>
-								</div>
-								<div className="row center-xs mbxlg">
-									<div className="col-xs-12">
-										<h3 style={{ color: 'white' }}>go-interpreter</h3>
-										<p style={{ color: 'white', marginBottom: '.25em' }}>A
-											tree-walking interpreter for the Monkey programming
-											language, written in golang </p>
-										<a
-											href="https://github.com/trevor-atlas/go-interpreter"
-											target="_blank"
-											className="button"
-										>View on Github</a>
-									</div>
-								</div>
-								<div className="row center-xs mbxlg">
-									<div className="col-xs-12">
-										<h3 style={{ color: 'white' }}>Typescript Dependency
-											Injection</h3>
-										<p style={{ color: 'white', marginBottom: '.25em' }}>A
-											simple DI library based on decorators, for
-											Typescript</p>
-										<a
-											href="https://github.com/trevor-atlas/Typescript-Inject"
-											target="_blank"
-											className="button"
-										>View on Github</a>
-									</div>
-								</div>
+							<div className="column center-md paxlg">
+								<h2 className="bp3-heading tac pblg" style={{ color: 'white' }}>Projects</h2>
+								{projects.map(project => {
+									return (
+										<div className="row center-xs mbxlg">
+											<div className="col-xs-12">
+												<h3 className="bp3-heading" style={{ color: 'white' }}>{project.title}</h3>
+												<p className="bp3-running-text bp3-text-large" style={{ }}>{project.description}</p>
+												<Button
+													icon="code"
+													text="View on Github"
+													type="button"
+													intent={Intent.PRIMARY}
+													onClick={() => window.open(project.url)}
+												/>
+											</div>
+										</div>
+									)
+								})}
+							</div>
+							<hr/>
+							<div className="column center-md paxlg">
+								<h2 className="bp3-heading tac pblg" style={{ color: 'white' }}>Experiments</h2>
+								{experiments.map(exp => {
+									return (
+										<div className="row center-xs mbxlg">
+											<div className="col-xs-12">
+												<h3 className="bp3-heading" style={{ color: 'white' }}>{exp.title}</h3>
+												<p className="bp3-running-text bp3-text-large" style={{ }}>{exp.description}</p>
+												<Button
+													icon="code"
+													text="View"
+													type="button"
+													intent={Intent.PRIMARY}
+													onClick={() => navigate(exp.url)}
+												/>
+											</div>
+										</div>
+									)
+								})}
 							</div>
 						</Container>
 					</Section>
@@ -81,7 +100,7 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 					<Section background={''}>
 						<Container>
 							<div className="column center-md ">
-								<h2 className="tac pblg">Latest Posts</h2>
+								<h2 className="bp3-heading tac">Latest Posts</h2>
 								<div className="row center-xs mbxlg">
 									<div className="col-xs-12 col-md-6">
 										{data.allMarkdownRemark.edges
@@ -89,7 +108,7 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 											.slice(0, 5)
 											.map((node: any) => (
 													<Link to={node.fields.slug} className="mblg db">
-														<h4>{node.frontmatter.title}</h4>
+														<h4  className="bp3-heading">{node.frontmatter.title}</h4>
 														<small>{node.frontmatter.date}</small>
 													</Link>
 												),

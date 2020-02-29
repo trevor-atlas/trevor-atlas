@@ -6,11 +6,16 @@
 	box-sizing: border-box;
 }
 
+.bp3-dark .bp3-running-text code, .bp3-running-text .bp3-dark code, .bp3-dark .bp3-code{
+	box-shadow: none!important;
+	background: none!important;
+}
+
 :root {
-	--primary-text: #393e46;
-	--secondary-text: #39414e;
-	--primary-bg: #fdfbfb;
-	--secondary-bg: #ebedee;
+	--primary-text: #F5F8FA;
+	--secondary-text: #E1E8ED;
+	--primary-bg: #202B33;
+	--secondary-bg: #30404D;
 	--links-hover: #5b30be;
 	--links: #3d99ff;
 }
@@ -228,6 +233,10 @@ img {
 
 .pbxlg {
 	padding-bottom: 2em
+}
+
+.paxlg {
+	padding: 2em
 }
 
 

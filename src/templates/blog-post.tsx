@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, graphql } from "gatsby"
+import { inspect } from 'util'
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Container } from '../components/Container';
+import { Colors } from '../utils/colors';
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -26,12 +28,15 @@ class BlogPostTemplate extends React.Component {
           style={{
             fontSize: '.8em',
             display: `block`,
-			  color: '#555'
+			  color: Colors.secondaryText.get()
           }}
         >
           {post.frontmatter.date}
         </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div
+
+			className="bp3-running-text bp3-text-large"
+        dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr
           style={{
             // marginBottom: rhythm(1),

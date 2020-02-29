@@ -80,7 +80,7 @@ class Layout extends React.PureComponent<{ location: Location<any>, title: strin
 								padding: 0,
 								margin: `0 2em`,
 							}}>
-								<li>
+								<li style={{ display: 'inline-block', marginRight: '1em'}}>
 									<Link
 										style={{
 											boxShadow: `none`,
@@ -90,7 +90,6 @@ class Layout extends React.PureComponent<{ location: Location<any>, title: strin
 									>
 										Blog
 									</Link>
-
 								</li>
 							</ul>
 						</div>
