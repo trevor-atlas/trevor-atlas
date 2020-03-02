@@ -32,10 +32,28 @@
 	-moz-osx-font-smoothing: grayscale;
 	position: relative;
 	z-index: 0;
+	scrollbar-color:  var(--secondary-bg) var(--primary-bg);
+	scrollbar-width: thin;
 }
 
 :root *, body * {
 	z-index: 1;
+}
+
+body::-webkit-scrollbar {
+	width: .5rem;
+}
+
+body::-webkit-scrollbar-track {
+	background: var(--primary-bg);
+}
+
+body::-webkit-scrollbar-thumb {
+	background: var(--secondary-bg);
+}
+
+.scroller {
+
 }
 
 /* smaller font size for iphone 8+ and smaller
