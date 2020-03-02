@@ -1,6 +1,5 @@
 import React from 'react';
-import { TweenLite, Circ, Power1, Power0 } from 'gsap';
-import { Circle } from '../Circle';
+import { TweenLite, Power1 } from 'gsap';
 
 export interface Target {
 	x: number;
@@ -29,11 +28,11 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	}
 
 	componentDidMount() {
-		const {innerWidth, innerHeight} = window;
+		const {devicePixelRatio, innerWidth, innerHeight} = window;
 
 		// sorry this is so large...
-		this.width = innerWidth;
-		this.height = innerHeight;
+		this.width = innerWidth * devicePixelRatio;
+		this.height = innerHeight * devicePixelRatio;
 		this.target = {
 			x: this.width / 2,
 			y: this.height / 2
@@ -86,14 +85,15 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 
 	private initPoints = () => {
 		this.points = [];
-		for (let x = 0; x < this.width; x = x + this.width / 10) {
-			for (let y = 0; y < this.height; y = y + this.height / 10) {
-				const px = x + Math.round(Math.random() * this.width / 10);
-				const py = y + Math.round(Math.random() * this.height / 10);
+		const spacing = 10 * window.devicePixelRatio;
+		for (let x = 0; x < this.width; x = x + this.width / spacing) {
+			for (let y = 0; y < this.height; y = y + this.height / spacing) {
+				const px = x + Math.round(Math.random() * this.width / spacing);
+				const py = y + Math.round(Math.random() * this.height / spacing);
 				const p: Point = {
 					x: px,
-					originX: px,
 					y: py,
+					originX: px,
 					originY: py,
 					active: .3,
 					closest: []
@@ -153,11 +153,9 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 				const point = this.points[i];
 				if (!point) continue;
 
-				const {innerWidth, innerHeight} = window;
-
 				const distance = this.getDistance(this.target, point);
-				const windowSize = (innerWidth * innerHeight);
-				const lineOpacity = this.lerp(0, .2, (windowSize / distance) * .01);
+				const windowSize = (this.width * this.height) / 3;
+				const lineOpacity = this.lerp(0, 1, (windowSize / ( distance * 1.5)) * .005);
 				point.active = lineOpacity;
 				this.drawLines(this.points[i]);
 			}
@@ -166,18 +164,20 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	}
 
 	private clamp = (a: number, b: number, c: number) =>
-		Math.max(b, Math.min(c,a));
+		Math.max(b, Math.min(c, a));
 
 	private lerp = (start: number, end: number, amt: number) =>
 		this.clamp((1-amt) * start + amt * end, start, end);
 
+	private onCompleteShiftPoint = (p: Point) => () => this.shiftPoint(p)
+
 	private shiftPoint(p: Point) {
-		TweenLite.to(p, this.randomInt(3, 10),
+		TweenLite.to(p, this.randomInt(10, 20),
 			{
-				x: Math.round(p.originX - this.randomInt(10, 300)),
-				y: Math.round(p.originY - this.randomInt(10, 300)),
+				x: Math.round(p.originX - this.randomInt(20, 200)),
+				y: Math.round(p.originY - this.randomInt(20, 200)),
 				ease: Power1.easeInOut,
-				onComplete: () => this.shiftPoint(p)
+				onComplete: this.onCompleteShiftPoint(p)
 			});
 	}
 
@@ -203,6 +203,9 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	public render() {
 		return <>
 			<canvas style={{
+				backfaceVisibility: 'hidden',
+				perspective: 1000,
+				transform: "translate3d(0,0,0), translateZ(0)",
 				position: 'fixed',
 				top: 0,
 				left: 0,
