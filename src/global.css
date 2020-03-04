@@ -137,7 +137,6 @@ blockquote {
 	font-family: "Georgia", serif;
 	font-size: 1em;
 	font-weight: 500;
-	color: #333;
 }
 
 blockquote.quote {
@@ -146,7 +145,6 @@ blockquote.quote {
 	font-family: "Georgia", serif;
 	font-size: 1em;
 	font-weight: 500;
-	color: #333;
 	quotes: "\201C""\201D""\2018""\2019";
 }
 
