@@ -126,9 +126,9 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	}
 
 	private resize = () => {
-		const {innerWidth, innerHeight} = window;
-		this.width = innerWidth;
-		this.height = innerHeight;
+		const {innerWidth, innerHeight, devicePixelRatio} = window;
+		this.width = innerWidth * devicePixelRatio;
+		this.height = innerHeight * devicePixelRatio;
 		if (this.canvas) {
 			this.canvas.width = this.width;
 			this.canvas.height = this.height;

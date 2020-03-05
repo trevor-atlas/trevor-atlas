@@ -35,7 +35,7 @@ const icons = sites.map((site) =>
 		href={site.url}
 		rel="noopener"
 		aria-hidden="true"
-		style={{ paddingRight: '1em' }}
+		className="pa3 dib"
 	>
 		<FontAwesomeIcon
 			icon={site.icon}
@@ -105,10 +105,10 @@ class Layout extends React.PureComponent<{ location: Location<any>, title: strin
 				>
 					<Container>
 						<div className="row between-md center-xs">
-							<div className="col-12-xs col-6-md">
-								<small>© {`2014 - ${new Date().getFullYear()}`} Trevor Atlas</small>
+							<div className="col-12-xs col-6-md ph2 ">
+								<p className="pa3 dib">© {`2014 - ${new Date().getFullYear()}`} Trevor Atlas</p>
 							</div>
-							<div className="col-12-xs col-6-md">
+							<div className="col-12-xs col-6-md ph2">
 								{icons}
 							</div>
 						</div>

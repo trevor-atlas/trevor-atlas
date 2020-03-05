@@ -18,22 +18,20 @@ class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
 		const entries = posts.map(({ node }: any) => {
 			const title = node.frontmatter.title || node.fields.slug
 			return (
-				<div key={node.fields.slug} style={{ marginBottom: '3em' }}>
-					<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-						<h3 className="bp3-heading">
-							<Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+				<div key={node.fields.slug} className="mb5">
+					<h4 className="muted">{node.frontmatter.date}</h4>
+						<h2 className="bp3-heading">
 								{title}
-							</Link>
-						</h3>
-						<small>{node.frontmatter.date}</small>
-					</div>
+						</h2>
 					<p
 						className="bp3-running-text bp3-text-large"
 						dangerouslySetInnerHTML={{
 							__html: node.frontmatter.description || node.excerpt,
 						}}
 					/>
-					<hr/>
+			<Link style={{ boxShadow: `none` }} className="underline" to={node.fields.slug}>
+				Read article
+			</Link>
 				</div>
 			)
 		})
@@ -45,7 +43,12 @@ class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
 				)}
 				<Layout location={this.props.location} title={siteTitle}>
 					<SEO title="All posts" />
-					<Container>{entries}</Container>
+					<Container>
+						<div className="pv5">
+							<h1>Blog</h1>
+						</div>
+						{entries}
+					</Container>
 				</Layout>
 			</>
 		)

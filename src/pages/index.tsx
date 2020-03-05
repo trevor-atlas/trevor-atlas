@@ -46,7 +46,9 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 				)}
 				<Layout location={this.props.location} title={siteTitle}>
 					<SEO title="Home Page"/>
-					<Bio/>
+					<div className="pt5 pb6">
+						<Bio/>
+					</div>
 
 					<Section
 						background={Colors.primary.get()}
@@ -54,12 +56,12 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 					>
 						<Container>
 							<div className="column center-md paxlg">
-								<h2 className="bp3-heading tac pblg" style={{ color: 'white' }}>Projects</h2>
+								<h2 className="tc mb5" style={{ color: 'white' }}>Projects</h2>
 								{projects.map(project => {
 									return (
-										<div className="row center-xs mbxlg">
+										<div className="row center-xs mb4">
 											<div className="col-xs-12">
-												<h3 className="bp3-heading" style={{ color: 'white' }}>{project.title}</h3>
+												<h3 className="" style={{ color: 'white' }}>{project.title}</h3>
 												<p className="bp3-running-text bp3-text-large" style={{ }}>{project.description}</p>
 												<Button
 													icon="code"
@@ -75,12 +77,12 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 							</div>
 							<hr/>
 							<div className="column center-md paxlg">
-								<h2 className="bp3-heading tac pblg" style={{ color: 'white' }}>Experiments</h2>
+								<h2 className="tac mb5" style={{ color: 'white' }}>Experiments</h2>
 								{experiments.map(exp => {
 									return (
 										<div className="row center-xs mbxlg">
 											<div className="col-xs-12">
-												<h3 className="bp3-heading" style={{ color: 'white' }}>{exp.title}</h3>
+												<h3 className="" style={{ color: 'white' }}>{exp.title}</h3>
 												<p className="bp3-running-text bp3-text-large" style={{ }}>{exp.description}</p>
 												<Button
 													icon="code"
@@ -99,18 +101,21 @@ class BlogIndex extends React.Component<{ location: Location, data: any }> {
 
 					<Section background={''}>
 						<Container>
-							<div className="column center-md ">
-								<h2 className="bp3-heading tac">Latest Posts</h2>
-								<div className="row center-xs mbxlg">
-									<div className="col-xs-12 col-md-6">
+							<div className="column center-md pv4">
+								<h2 className="tc mb4">Latest Posts</h2>
+								<div className="row center-xs">
+									<div className="col-xs-12 col-md-8">
 										{data.allMarkdownRemark.edges
 											.map((node: any) => node.node)
 											.slice(0, 5)
 											.map((node: any) => (
-													<Link to={node.fields.slug} className="mblg db">
-														<h4  className="bp3-heading">{node.frontmatter.title}</h4>
-														<small>{node.frontmatter.date}</small>
+												<div className="mb4">
+													<h4 className="mb0">{node.frontmatter.title}</h4>
+													<small className="dib mb2">{node.frontmatter.date}</small>
+													<Link to={node.fields.slug} className="underline db">
+														Read article
 													</Link>
+												</div>
 												),
 											)}
 									</div>

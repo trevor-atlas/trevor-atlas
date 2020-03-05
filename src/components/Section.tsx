@@ -64,7 +64,7 @@ function setLightPercentage(col: any, p: number) {
     const BR = ((255 - B) / curr_total_dark);
 
     // calculate how much darkness there should be in the new color
-    const new_total_dark = ((255 - 255 * (p / 100)) * 3);
+    const new_total_dark = ((255 - 255 * (p / 100)) * 7);
 
     // make the new channels contain the same % of available dark as the old ones did
     const NR = 255 - Math.round(RR * new_total_dark);
