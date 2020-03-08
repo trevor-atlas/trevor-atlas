@@ -1,13 +1,11 @@
 declare const __PATH_PREFIX__: string;
 import React from 'react'
-import { Link, graphql } from "gatsby"
+import { Link, graphql } from 'gatsby'
 import { Location } from 'history';
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from '../components/layout'
+import SEO from '../components/seo'
 import { AnimatedHeader } from '../components/AnimatedHeader';
 import { Container } from '../components/Container';
-// import { rhythm } from "../utils/typography"
 
 class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
 	render() {

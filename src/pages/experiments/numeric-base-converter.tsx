@@ -1,25 +1,17 @@
 declare const __PATH_PREFIX__: string;
 import { Button, ButtonGroup, Intent, NumericInput } from '@blueprintjs/core'
-import React, { useEffect, useState } from 'react'
-import { Link, graphql } from 'gatsby'
+import React, { useState } from 'react'
+import { graphql } from 'gatsby'
 import { Location } from 'history';
 import Layout from '../../components/layout'
-import SEO from "../../components/seo"
-import { AnimatedHeader } from '../../components/AnimatedHeader';
+import SEO from '../../components/seo'
 import { Container } from '../../components/Container';
 
 const NumericBaseConverter: React.FunctionComponent<{data: any; location: Location}> = (props) =>{
-		const { data, location } = props;
+		const { data } = props;
 		const siteTitle = data.site.siteMetadata.title;
-		const rootPath = `${__PATH_PREFIX__}/`
 		const [count, setCount] = useState(0);
 		const copyToClipboard = (base: number) => () => navigator.clipboard.writeText(count.toString(base))
-
-		// Similar to componentDidMount and componentDidUpdate:
-		// 	useEffect(() => {
-				// Update the document title using the browser API
-				// document.title = `You clicked ${count} times`;
-			// });
 
 		const values: {label: string; base: number}[] = [
 			{ label: '2 (Binary)', base: 2 },
@@ -36,7 +28,7 @@ const NumericBaseConverter: React.FunctionComponent<{data: any; location: Locati
 				<Layout location={props.location} title={siteTitle}>
 					<SEO title="Experiments: Binary Counter" />
 					<Container >
-						<div style={{ padding: '5em' }}>
+						<div className="mv6">
 							<table className="bp3-html-table bp3-html-table-bordered" style={{ fontFamily: 'monospace', paddingBottom: '2em' }}>
 								<thead>
 								<tr>

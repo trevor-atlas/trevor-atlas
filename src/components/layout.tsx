@@ -1,19 +1,17 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import { Location } from 'history'
-import { Container } from './Container'
-import { Colors } from '../utils/colors'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-	faStackOverflow,
-	faGithub,
-	faTwitter,
-	faLinkedin,
-	faReddit,
 	faDribbble,
+	faGithub,
+	faLinkedin,
+	faStackOverflow,
+	faTwitter,
 	IconDefinition,
 } from '@fortawesome/free-brands-svg-icons'
 import { faFilePdf, faPaperPlane } from '@fortawesome/pro-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'gatsby'
+import React from 'react'
+import { Colors } from '../utils/colors'
+import { Container } from './Container'
 
 const sites: { url: string, icon: IconDefinition, title: string }[] = [
 	{ url: 'https://github.com/trevor-atlas', icon: faGithub, title: 'Github' },
@@ -44,79 +42,76 @@ const icons = sites.map((site) =>
 	</a>,
 )
 
-class Layout extends React.PureComponent<{ location: Location<any>, title: string }> {
+const Layout: React.FunctionComponent<{ title: string }> = (props) => {
+	const { title, children } = props
 
-	render() {
-		const { location, title, children } = this.props
-		const rootPath = `${__PATH_PREFIX__}/`
-
-		return (
-			<>
-				<nav className="middle-xs" style={{
-					padding: '1em',
-					display: 'flex',
-					background: Colors.primary.get(),
-					color: 'white',
-					marginBottom: '2em',
-				}}
-				>
-					<div className="container">
-						<div className="row start-xs">
-							<h4 className="white mbn">
+	return (
+		<>
+			<nav className="middle-xs" style={{
+				padding: '1em',
+				display: 'flex',
+				background: Colors.primary.get(),
+				color: 'white',
+				marginBottom: '2em',
+			}}
+			>
+				<div className="container">
+					<div className="row start-xs">
+						<h4 className="white mbn">
+							<Link
+								style={{
+									boxShadow: `none`,
+									textDecoration: `none`,
+									color: `inherit`,
+								}}
+								to={`/`}
+							>
+								{title}
+							</Link>
+						</h4>
+						<ul style={{
+							listStyle: 'none',
+							display: 'inline-block',
+							padding: 0,
+							margin: `0 2em`,
+						}}>
+							<li style={{ display: 'inline-block', marginRight: '1em' }}>
 								<Link
 									style={{
 										boxShadow: `none`,
 										textDecoration: `none`,
-										color: `inherit`,
 									}}
-									to={`/`}
+									to={`/blog`}
 								>
-									{title}
+									Blog
 								</Link>
-							</h4>
-							<ul style={{
-								listStyle: 'none',
-								display: 'inline-block',
-								padding: 0,
-								margin: `0 2em`,
-							}}>
-								<li style={{ display: 'inline-block', marginRight: '1em'}}>
-									<Link
-										style={{
-											boxShadow: `none`,
-											textDecoration: `none`,
-										}}
-										to={`/blog`}
-									>
-										Blog
-									</Link>
-								</li>
-							</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<main>{children}</main>
+			<footer
+				style={{
+					padding: '1em 0',
+					background: Colors.primary.get(),
+					color: 'white',
+				}}
+			>
+				<Container>
+					<div className="row between-md center-xs">
+						<div className="col-12-xs col-6-md ph2 ">
+							<p className="pa3 dib">© {`2014 - ${new Date().getFullYear()}`} Trevor
+								Atlas</p>
+						</div>
+						<div className="col-12-xs col-6-md ph2">
+							{icons}
 						</div>
 					</div>
-				</nav>
-				<main>{children}</main>
-				<footer
-					style={{
-						padding: '1em 0',
-						background: Colors.primary.get(),
-						color: 'white',
-					}}
-				>
-					<Container>
-						<div className="row between-md center-xs">
-							<div className="col-12-xs col-6-md ph2 ">
-								<p className="pa3 dib">© {`2014 - ${new Date().getFullYear()}`} Trevor Atlas</p>
-							</div>
-							<div className="col-12-xs col-6-md ph2">
-								{icons}
-							</div>
-						</div>
-					</Container>
-				</footer>
-			</>
-		)
-	}
+				</Container>
+			</footer>
+		</>
+	)
 }
 
 export default Layout

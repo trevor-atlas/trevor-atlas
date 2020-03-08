@@ -1,75 +1,74 @@
+import { graphql, Link } from 'gatsby'
 import React from 'react'
-import { Link, graphql } from 'gatsby'
-import { inspect } from 'util'
-
 import Bio from '../components/bio'
+import { Container } from '../components/Container'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { Container } from '../components/Container'
-import { Colors } from '../utils/colors'
 
-class BlogPostTemplate extends React.Component {
-	render() {
-		const post = this.props.data.markdownRemark
-		const siteTitle = this.props.data.site.siteMetadata.title
-		const { previous, next } = this.props.pageContext
+const BlogPostTemplate: React.FunctionComponent<{ location: Location, data: any, pageContext: any }> = (props) => {
+	const {
+		location,
+		pageContext: { previous, next },
+		data: {
+			markdownRemark: post , site: { siteMetadata: { title } }
+		}
+	} = props
 
-		return (
-			<div className="post-body">
-
-				<Layout location={this.props.location} title={siteTitle}>
-					<SEO
-						title={post.frontmatter.title}
-						description={post.frontmatter.description || post.excerpt}
-					/>
-					<Container>
-						<div className="mt6 mb6">
-							<h1>{post.frontmatter.title}</h1>
-							<p
-								style={{
-									fontSize: '.8em',
-									display: `block`,
-								}}
-								className="muted"
-							>
-								{post.frontmatter.date}
-							</p>
-						</div>
-						<div
-							className="bp3-running-text bp3-text-large"
-							dangerouslySetInnerHTML={{ __html: post.html }}/>
-						<hr />
-						<Bio/>
-
-						<ul
+	return (
+		<div className="">
+			<Layout location={location} title={title}>
+				<SEO
+					title={post.frontmatter.title}
+					description={post.frontmatter.description || post.excerpt}
+				/>
+				<Container>
+					<div className="mt6 mb6">
+						<h1>{post.frontmatter.title}</h1>
+						<p
 							style={{
-								display: `flex`,
-								flexWrap: `wrap`,
-								justifyContent: `space-between`,
-								listStyle: `none`,
-								padding: 0,
+								fontSize: '.8em',
+								display: `block`,
 							}}
+							className="muted"
 						>
-							<li>
-								{previous && (
-									<Link to={previous.fields.slug} rel="prev">
-										← {previous.frontmatter.title}
-									</Link>
-								)}
-							</li>
-							<li>
-								{next && (
-									<Link to={next.fields.slug} rel="next">
-										{next.frontmatter.title} →
-									</Link>
-								)}
-							</li>
-						</ul>
-					</Container>
-				</Layout>
-			</div>
-		)
-	}
+							{post.frontmatter.date}
+						</p>
+					</div>
+					<div
+						className="post-body bp3-running-text bp3-text-large"
+						dangerouslySetInnerHTML={{ __html: post.html }}
+					/>
+					<hr className="mt5 mb4"/>
+					<Bio/>
+
+					<ul
+						style={{
+							display: `flex`,
+							flexWrap: `wrap`,
+							justifyContent: `space-between`,
+							listStyle: `none`,
+							padding: 0,
+						}}
+					>
+						<li>
+							{previous && (
+								<Link className="underline" to={previous.fields.slug} rel="prev">
+									← {previous.frontmatter.title}
+								</Link>
+							)}
+						</li>
+						<li>
+							{next && (
+								<Link className="underline" to={next.fields.slug} rel="next">
+									{next.frontmatter.title} →
+								</Link>
+							)}
+						</li>
+					</ul>
+				</Container>
+			</Layout>
+		</div>
+	)
 }
 
 export default BlogPostTemplate
