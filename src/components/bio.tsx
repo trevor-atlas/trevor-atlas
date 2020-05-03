@@ -45,6 +45,8 @@ class Bio extends React.PureComponent {
 											alt={author}
 											style={{
 												marginBottom: 0,
+												backgroundColor: '#ee966a',
+												borderRadius: '50%'
 											}}
 											imgStyle={{
 												borderRadius: `50%`,
