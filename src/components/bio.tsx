@@ -71,7 +71,7 @@ class Bio extends React.PureComponent {
 }
 const bioQuery = graphql`
   query BioQuery {
-    avatar: file(absolutePath: { regex: "/assets/profile.jpg/" }) {
+    avatar: file(absolutePath: { regex: "/assets/portrait2020.png/" }) {
       childImageSharp {
         fixed(width: 200, height: 200) {
           ...GatsbyImageSharpFixed
