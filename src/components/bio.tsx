@@ -32,7 +32,7 @@ class Bio extends React.PureComponent {
 			<StaticQuery
 				query={bioQuery}
 				render={data => {
-					const { author, social, description } = data.site.siteMetadata
+					const { author } = data.site.siteMetadata
 					return (
 						<Section
 							background={''}
@@ -55,8 +55,8 @@ class Bio extends React.PureComponent {
 									</div>
 									<div className="col-xs-12 col-sm-8 col-md-9">
 										<h2 className="bp3-heading">👋 Hello,</h2>
-										<p className="bp3-running-text bp3-text-large">My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC</p>
-										<p className="bp3-running-text bp3-text-large">For {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services and powerful mobile applications.</p>
+										<p className="bp3-running-text bp3-text-large">My name is Trevor Atlas – I'm a Software Developer and Designer based in Washington, DC.</p>
+										<p className="bp3-running-text bp3-text-large">For {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services, and powerful mobile applications.</p>
 
 										<p className="bp3-running-text bp3-text-large">When I'm not building user interfaces in {link('React', 'https://reactjs.org/')}, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
 											I've also been working on mobile applications with {link('React Native', 'https://facebook.github.io/react-native/')} and {link('Expo', 'https://expo.io/')}.

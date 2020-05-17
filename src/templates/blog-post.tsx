@@ -5,9 +5,8 @@ import { Container } from '../components/Container'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-const BlogPostTemplate: React.FunctionComponent<{ location: Location, data: any, pageContext: any }> = (props) => {
+const BlogPostTemplate: React.FunctionComponent<{ data: any, pageContext: any }> = (props) => {
 	const {
-		location,
 		pageContext: { previous, next },
 		data: {
 			markdownRemark: post , site: { siteMetadata: { title } }
@@ -16,7 +15,7 @@ const BlogPostTemplate: React.FunctionComponent<{ location: Location, data: any,
 
 	return (
 		<div className="">
-			<Layout location={location} title={title}>
+			<Layout title={title}>
 				<SEO
 					title={post.frontmatter.title}
 					description={post.frontmatter.description || post.excerpt}
