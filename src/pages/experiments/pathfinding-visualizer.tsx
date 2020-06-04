@@ -1,5 +1,4 @@
 declare const __PATH_PREFIX__: string;
-import { Button, ButtonGroup, Intent, NumericInput } from '@blueprintjs/core'
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import { Location } from 'history';
@@ -21,13 +20,15 @@ interface Props {
 const PathfindingVisualizer: React.FunctionComponent<Props> = (props) =>{
 		const { data } = props;
 		const siteTitle = data.site.siteMetadata.title;
-		const [count, setCount] = useState(0);
 
 		return (
 			<>
 				<Layout title={siteTitle}>
 					<SEO title="Experiments: Binary Counter" />
-					<Grid />
+					<div className="v6">
+
+						<Grid />
+					</div>
 				</Layout>
 			</>
 		)
