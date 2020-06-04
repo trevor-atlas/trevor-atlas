@@ -1,11 +1,12 @@
 declare const __PATH_PREFIX__: string;
-import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { graphql } from 'gatsby';
 import { Location } from 'history';
-import Layout from '../../components/layout'
-import SEO from '../../components/seo'
-import { Container } from '../../components/Container';
-import {Grid} from '../../components/pathfinder/Grid';
+import React from 'react';
+import Layout from '../../components/layout';
+import { Grid } from '../../components/pathfinder/Grid';
+import SEO from '../../components/seo';
+import {Cell} from '../../components/pathfinder/Cell';
+import {Container} from '../../components/Container';
 
 interface Props {
 	data: {
@@ -25,8 +26,24 @@ const PathfindingVisualizer: React.FunctionComponent<Props> = (props) =>{
 			<>
 				<Layout title={siteTitle}>
 					<SEO title="Experiments: Binary Counter" />
-					<div className="v6">
-
+					<div className="mv6">
+						<Container>
+							<div className="legend">
+								<h4>Legend</h4>
+								<ul style={{listStyle: 'none'}}>
+									<li>
+										<span><Cell isStart/><span> Start</span></span>
+									</li>
+									<li>
+										<span><Cell isEnd/><span> End</span></span>
+									</li>
+									<li>
+										<span><Cell isWall/><span> Wall</span></span>
+									</li>
+									<li>Click and drag on a grid cell to add a wall</li>
+								</ul>
+							</div>
+						</Container>
 						<Grid />
 					</div>
 				</Layout>

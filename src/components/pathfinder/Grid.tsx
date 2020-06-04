@@ -4,6 +4,7 @@ import { Node, dijkstra, getNodesInShortestPathOrder, constants } from '../../ut
 import { Button, ButtonGroup, Intent, Slider } from '@blueprintjs/core'
 
 import './Pathfinder.css';
+import { sleep } from '../../utils/helpers';
 
 interface Props {
 
@@ -16,6 +17,7 @@ interface State {
     height: number;
     running: boolean;
     ran: boolean;
+    animationSpeed: number;
 }
 
 export class Grid extends React.Component<Props, State> {
@@ -28,7 +30,8 @@ export class Grid extends React.Component<Props, State> {
             width: 50,
             height: 20,
             running: false,
-            ran: false
+            ran: false,
+            animationSpeed: 10
         };
     }
 
@@ -68,21 +71,16 @@ export class Grid extends React.Component<Props, State> {
     }
 
     async animateDijkstra(visitedNodesInOrder: Node[], nodesInShortestPathOrder: Node[]) {
-        return new Promise((res) => {
             for (let i = 0; i < visitedNodesInOrder.length; i++) {
-                setTimeout(() => {
+                await sleep(this.state.animationSpeed - Math.log(i), () => {
                     const node = visitedNodesInOrder[i];
                     if (node.isStart || node.isEnd) return;
                     const domNode = document.getElementById(`cell-${node.row}-${node.col}`);
                     if (domNode) domNode.className = 'cell cell-visited';
-                }, 10 * i);
+                })
             }
 
-            setTimeout(() => {
-                this.animateShortestPath(nodesInShortestPathOrder);
-                res();
-            }, 10 * visitedNodesInOrder.length);
-        })
+            this.animateShortestPath(nodesInShortestPathOrder);
     }
 
     animateShortestPath(nodesInShortestPathOrder: Node[]) {

@@ -2,7 +2,7 @@
   width: 25px;
   height: 25px;
   outline: 1px solid rgba(0, 0, 0, .3);
-  background: rgb(175, 216, 248);
+  background: rgb(98, 122, 141);
   margin: 0;
   padding: 0;
   display: inline-block;
@@ -13,11 +13,11 @@
 }
 
 .cell-finish {
-  background-color: red;
+  background-color: rgb(253, 90, 90);
 }
 
 .cell-start {
-  background-color: green;
+  background-color: rgb(17, 223, 17);
 }
 
 .cell-visited {
