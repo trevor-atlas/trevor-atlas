@@ -39,8 +39,6 @@ export class Grid extends React.Component<Props, State> {
             windowHeight: Infinity,
             windowWidth: Infinity 
         };
-        window.addEventListener('resize', this.updateWindowDimensions);
-        this.updateWindowDimensions
     }
     
     componentWillUnmount() {
@@ -52,6 +50,8 @@ export class Grid extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
         this.init();
     }
 
