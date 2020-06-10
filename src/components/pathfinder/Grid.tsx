@@ -5,6 +5,8 @@ import { Button, ButtonGroup, Intent, Slider } from '@blueprintjs/core'
 
 import './Pathfinder.css';
 import { sleep } from '../../utils/helpers';
+import { Container } from '../Container';
+import { setClass } from '../../utils/dom';
 
 interface Props {
 
@@ -18,6 +20,8 @@ interface State {
     running: boolean;
     ran: boolean;
     animationSpeed: number;
+    windowWidth: number;
+    windowHeight: number;
 }
 
 export class Grid extends React.Component<Props, State> {
@@ -31,8 +35,19 @@ export class Grid extends React.Component<Props, State> {
             height: 20,
             running: false,
             ran: false,
-            animationSpeed: 10
+            animationSpeed: 10,
+            windowHeight: window.innerHeight,
+            windowWidth: window.innerWidth
         };
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+    
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions = () => {
+        this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
     }
 
     componentDidMount() {
@@ -75,22 +90,20 @@ export class Grid extends React.Component<Props, State> {
                 await sleep(this.state.animationSpeed - Math.log(i), () => {
                     const node = visitedNodesInOrder[i];
                     if (node.isStart || node.isEnd) return;
-                    const domNode = document.getElementById(`cell-${node.row}-${node.col}`);
-                    if (domNode) domNode.className = 'cell cell-visited';
-                })
+                    setClass(`#cell-${node.row}-${node.col}`, 'cell cell-visited');
+                });
             }
 
-            this.animateShortestPath(nodesInShortestPathOrder);
+            await this.animateShortestPath(nodesInShortestPathOrder);
     }
 
-    animateShortestPath(nodesInShortestPathOrder: Node[]) {
+    async animateShortestPath(nodesInShortestPathOrder: Node[]) {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-            setTimeout(() => {
+            await sleep(this.state.animationSpeed * Math.log(i), () => {
                 const node = nodesInShortestPathOrder[i];
                 if (node.isStart || node.isEnd) return;
-                const domNode = document.getElementById(`cell-${node.row}-${node.col}`);
-                if (domNode) domNode.className = 'cell cell-shortest-path';
-            }, 50 * i);
+                setClass(`#cell-${node.row}-${node.col}`, 'cell cell-shortest-path');
+            });
         }
     }
 
@@ -108,7 +121,13 @@ export class Grid extends React.Component<Props, State> {
     }
 
     render() {
-        const { grid, width, height, timestamp, running, ran } = this.state;
+        const { windowWidth, grid, width, height, timestamp, running, ran } = this.state;
+        if (windowWidth < 1024) return (
+            <Container>
+                <p>Screen is not large enough to render the pathfinder! :(</p>
+            </Container>
+
+        );
         return (
             <div className="grid" >
             <ButtonGroup>
