@@ -1,6 +1,6 @@
 .cell {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   outline: 1px solid rgba(0, 0, 0, .3);
   background: rgb(98, 122, 141);
   margin: 0;

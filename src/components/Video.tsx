@@ -17,7 +17,7 @@ export const Video: React.FunctionComponent<Props> = (props) => {
 			display: 'block',
 			marginLeft: 'auto',
 			marginRight: 'auto',
-		}} autoPlay loop muted playsinline>
+		}} autoPlay loop muted playsInline>
 			{props.video
 				? (<source src={props.video.src} type={props.video.src} /> )
 				: <p>Your browser doesn't support this embedded video.</p>
