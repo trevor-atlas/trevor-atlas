@@ -36,10 +36,11 @@ export class Grid extends React.Component<Props, State> {
             running: false,
             ran: false,
             animationSpeed: 10,
-            windowHeight: window.innerHeight,
-            windowWidth: window.innerWidth
+            windowHeight: Infinity,
+            windowWidth: Infinity 
         };
         window.addEventListener('resize', this.updateWindowDimensions);
+        this.updateWindowDimensions
     }
     
     componentWillUnmount() {
