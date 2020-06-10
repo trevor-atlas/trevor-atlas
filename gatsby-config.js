@@ -106,12 +106,12 @@ module.exports = {
 		{
 			resolve: `gatsby-plugin-manifest`,
 			options: {
-				name: `Trevor Atlas – Software Engineering`,
+				name: `Trevor Atlas – Software Engineer`,
 				short_name: `Trevor Atlas – SWE`,
 				start_url: `/`,
 				background_color: `#202B33`,
 				theme_color: `#48AFF0`,
-				display: `minimal-ui`,
+				display: `standalone`,
 				icon: `content/assets/favicon.png`,
 			},
 		},
