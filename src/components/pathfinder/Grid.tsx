@@ -86,20 +86,20 @@ export class Grid extends React.Component<Props, State> {
     }
 
     async animateDijkstra(visitedNodesInOrder: Node[], nodesInShortestPathOrder: Node[]) {
-            for (let i = 0; i < visitedNodesInOrder.length; i++) {
-                await sleep(this.state.animationSpeed - Math.log(i), () => {
-                    const node = visitedNodesInOrder[i];
-                    if (node.isStart || node.isEnd) return;
-                    setClass(`#cell-${node.row}-${node.col}`, 'cell cell-visited');
-                });
-            }
+        for (let i = 0; i < visitedNodesInOrder.length; i++) {
+            await sleep(this.state.animationSpeed - Math.log(i), () => {
+                const node = visitedNodesInOrder[i];
+                if (node.isStart || node.isEnd) return;
+                setClass(`#cell-${node.row}-${node.col}`, 'cell cell-visited');
+            });
+        }
 
-            await this.animateShortestPath(nodesInShortestPathOrder);
+        await this.animateShortestPath(nodesInShortestPathOrder);
     }
 
     async animateShortestPath(nodesInShortestPathOrder: Node[]) {
         for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-            await sleep(this.state.animationSpeed * Math.log(i), () => {
+            await sleep(this.state.animationSpeed - Math.log(i), () => {
                 const node = nodesInShortestPathOrder[i];
                 if (node.isStart || node.isEnd) return;
                 setClass(`#cell-${node.row}-${node.col}`, 'cell cell-shortest-path');

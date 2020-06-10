@@ -25,7 +25,7 @@ const PathfindingVisualizer: React.FunctionComponent<Props> = (props) =>{
 		return (
 			<>
 				<Layout title={siteTitle}>
-					<SEO title="Experiments: Binary Counter" />
+					<SEO title="Experiments: Pathfinding Visualizer" />
 					<div className="mv6">
 						<Container>
 							<div className="legend">
