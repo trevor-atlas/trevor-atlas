@@ -12,10 +12,13 @@ export interface Point {
 	originX: number;
 	originY: number;
 	active: number;
-	closest?: Point[]
+	closest?: Point[];
 }
 
-export class AnimatedHeader extends React.PureComponent<{animating: boolean, color?: string}> {
+export class AnimatedHeader extends React.PureComponent<{
+	animating: boolean;
+	color?: string;
+}> {
 	private width!: number;
 	private height!: number;
 	private canvas!: HTMLCanvasElement;
@@ -28,7 +31,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	}
 
 	componentDidMount() {
-		const {devicePixelRatio, innerWidth, innerHeight} = window;
+		const { devicePixelRatio, innerWidth, innerHeight } = window;
 
 		// sorry this is so large...
 		this.width = innerWidth * devicePixelRatio;
@@ -38,14 +41,16 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 			y: this.height / 2
 		};
 
-		this.canvas = (this.refs.canvas as HTMLCanvasElement);
+		this.canvas = this.refs.canvas as HTMLCanvasElement;
 		if (!this.canvas) {
-			console.log('something went wrong initializing the canvas animation, bailing out.');
+			console.log(
+				'something went wrong initializing the canvas animation, bailing out.'
+			);
 			return;
 		}
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
-		this.ctx = (this.canvas.getContext('2d') as CanvasRenderingContext2D);
+		this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
 		this.initPoints();
 
@@ -54,7 +59,7 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 			const closest = [];
 			const p1 = this.points[i];
 			for (let j = 0; j < this.points.length; j++) {
-				const p2 = this.points[j]
+				const p2 = this.points[j];
 				if (!(p1 == p2)) {
 					let placed = false;
 					for (let k = 0; k < 5; k++) {
@@ -68,7 +73,10 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 
 					for (let k = 0; k < 5; k++) {
 						if (!placed) {
-							if (this.getDistance(p1, p2) < this.getDistance(p1, closest[k])) {
+							if (
+								this.getDistance(p1, p2) <
+								this.getDistance(p1, closest[k])
+							) {
 								closest[k] = p2;
 								placed = true;
 							}
@@ -88,20 +96,22 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 		const spacing = 10 * window.devicePixelRatio;
 		for (let x = 0; x < this.width; x = x + this.width / spacing) {
 			for (let y = 0; y < this.height; y = y + this.height / spacing) {
-				const px = x + Math.round(Math.random() * this.width / spacing);
-				const py = y + Math.round(Math.random() * this.height / spacing);
+				const px =
+					x + Math.round((Math.random() * this.width) / spacing);
+				const py =
+					y + Math.round((Math.random() * this.height) / spacing);
 				const p: Point = {
 					x: px,
 					y: py,
 					originX: px,
 					originY: py,
-					active: .3,
+					active: 0.3,
 					closest: []
 				};
 				this.points.push(p);
 			}
 		}
-	}
+	};
 
 	private addListeners() {
 		if (!('ontouchstart' in window)) {
@@ -123,18 +133,17 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 		}
 		this.target.x = posx;
 		this.target.y = posy;
-	}
+	};
 
 	private resize = () => {
-		const {innerWidth, innerHeight, devicePixelRatio} = window;
+		const { innerWidth, innerHeight, devicePixelRatio } = window;
 		this.width = innerWidth * devicePixelRatio;
 		this.height = innerHeight * devicePixelRatio;
 		if (this.canvas) {
 			this.canvas.width = this.width;
 			this.canvas.height = this.height;
-
 		}
-	}
+	};
 
 	private initAnimation = () => {
 		this.animate();
@@ -142,9 +151,9 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 			setTimeout(
 				() => this.shiftPoint(this.points[i]),
 				this.randomInt(0, 1000)
-			)
+			);
 		}
-	}
+	};
 
 	private animate = () => {
 		if (this.props.animating) {
@@ -155,30 +164,33 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 
 				const distance = this.getDistance(this.target, point);
 				const windowSize = (this.width * this.height) / 3;
-				const lineOpacity = this.lerp(0, 1, (windowSize / ( distance * 1.5)) * .005);
+				const lineOpacity = this.lerp(
+					0,
+					1,
+					(windowSize / (distance * 1.5)) * 0.005
+				);
 				point.active = lineOpacity;
 				this.drawLines(this.points[i]);
 			}
 		}
 		requestAnimationFrame(this.animate);
-	}
+	};
 
 	private clamp = (a: number, b: number, c: number) =>
 		Math.max(b, Math.min(c, a));
 
 	private lerp = (start: number, end: number, amt: number) =>
-		this.clamp((1-amt) * start + amt * end, start, end);
+		this.clamp((1 - amt) * start + amt * end, start, end);
 
-	private onCompleteShiftPoint = (p: Point) => () => this.shiftPoint(p)
+	private onCompleteShiftPoint = (p: Point) => () => this.shiftPoint(p);
 
 	private shiftPoint(p: Point) {
-		TweenLite.to(p, this.randomInt(10, 20),
-			{
-				x: Math.round(p.originX - this.randomInt(20, 200)),
-				y: Math.round(p.originY - this.randomInt(20, 200)),
-				ease: Power1.easeInOut,
-				onComplete: this.onCompleteShiftPoint(p)
-			});
+		TweenLite.to(p, this.randomInt(10, 20), {
+			x: Math.round(p.originX - this.randomInt(20, 200)),
+			y: Math.round(p.originY - this.randomInt(20, 200)),
+			ease: Power1.easeInOut,
+			onComplete: this.onCompleteShiftPoint(p)
+		});
 	}
 
 	private drawLines(p: Point) {
@@ -197,25 +209,29 @@ export class AnimatedHeader extends React.PureComponent<{animating: boolean, col
 	private getDistance = (p1: Point | Target, p2: Point | Target) =>
 		Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
 
-	private randomInt = (min: number, max: number) => 
-		Math.floor(Math.random() * (max-min+1)+min);
-	
+	private randomInt = (min: number, max: number) =>
+		Math.floor(Math.random() * (max - min + 1) + min);
+
 	public render() {
-		return <>
-			<canvas style={{
-				backfaceVisibility: 'hidden',
-				perspective: 1000,
-				transform: "translate3d(0,0,0), translateZ(0)",
-				position: 'fixed',
-				top: 0,
-				left: 0,
-				right: 0,
-				backgroundSize: 'cover',
-				backgroundPosition: 'center center',
-				pointerEvents: 'none',
-				zIndex: -5
-			}} ref="canvas" />
-		</>
+		return (
+			<>
+				<canvas
+					style={{
+						backfaceVisibility: 'hidden',
+						perspective: 1000,
+						transform: 'translate3d(0,0,0), translateZ(0)',
+						position: 'fixed',
+						top: 0,
+						left: 0,
+						right: 0,
+						backgroundSize: 'cover',
+						backgroundPosition: 'center center',
+						pointerEvents: 'none',
+						zIndex: -5
+					}}
+					ref='canvas'
+				/>
+			</>
+		);
 	}
 }
-

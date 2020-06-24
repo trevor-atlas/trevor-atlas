@@ -1,76 +1,79 @@
-declare const __PATH_PREFIX__: string;
-import React from 'react'
-import { Link, graphql } from 'gatsby'
+import React from 'react';
+import { Link, graphql } from 'gatsby';
 import { Location } from 'history';
-import SEO from '../components/seo'
+import SEO from '../components/Seo';
 import { AnimatedHeader } from '../components/AnimatedHeader';
 import { Container } from '../components/Container';
 
-class BlogIndex extends React.PureComponent<{data: any; location: Location}> {
+class BlogIndex extends React.PureComponent<{ data: any; location: Location }> {
 	render() {
-		const { data, location } = this.props;
+		const { data } = this.props;
 		const posts = data.allMarkdownRemark.edges;
-		const rootPath = `${__PATH_PREFIX__}/`
 		const entries = posts.map(({ node }: any) => {
-			const title = node.frontmatter.title || node.fields.slug
+			const title = node.frontmatter.title || node.fields.slug;
 			return (
-				<div key={node.fields.slug} className="mb5">
-					<h4 className="muted">{node.frontmatter.date}</h4>
-						<h2 className="bp3-heading">
-								{title}
-						</h2>
+				<div key={node.fields.slug} className='mb5'>
+					<h4 className='muted'>{node.frontmatter.date}</h4>
+					<h2 className='bp3-heading'>{title}</h2>
 					<p
-						className="bp3-running-text bp3-text-large"
+						className='bp3-running-text bp3-text-large'
 						dangerouslySetInnerHTML={{
-							__html: node.frontmatter.description || node.excerpt,
+							__html: node.frontmatter.description || node.excerpt
 						}}
 					/>
-			<Link style={{ boxShadow: `none` }} className="underline" to={node.fields.slug}>
-				Read article
-			</Link>
+					<small className='muted db mb2'>
+						{node.fields.readingTime.text}
+					</small>
+					<Link
+						style={{ boxShadow: `none` }}
+						className='underline'
+						to={node.fields.slug}
+					>
+						Read article
+					</Link>
 				</div>
-			)
-		})
+			);
+		});
 
 		return (
 			<>
-				{(location.pathname === rootPath) && (
-					<AnimatedHeader animating />
-				)}
-					<SEO title="All posts" />
-					<Container>
-						<div className="pv5">
-							<h1>Blog</h1>
-						</div>
-						{entries}
-					</Container>
+				<SEO title='All posts' />
+				<Container>
+					<div className='pv5'>
+						<h1>Blog</h1>
+					</div>
+					{entries}
+				</Container>
 			</>
-		)
+		);
 	}
 }
 
-export default BlogIndex
+export default BlogIndex;
 
 export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-          }
-        }
-      }
-    }
-  }
-`
+	query {
+		site {
+			siteMetadata {
+				title
+			}
+		}
+		allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+			edges {
+				node {
+					excerpt(pruneLength: 200)
+					fields {
+						slug
+						readingTime {
+							text
+						}
+					}
+					frontmatter {
+						date(formatString: "MMMM DD, YYYY")
+						title
+					}
+				}
+			}
+		}
+	}
+`;

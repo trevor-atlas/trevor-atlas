@@ -6,8 +6,8 @@ module.exports = {
 		description: '',
 		social: {
 			twitter: `trevoratlas`,
-			github: `https://github.com/trevor-atlas`,
-		},
+			github: `https://github.com/trevor-atlas`
+		}
 	},
 	plugins: [
 		`gatsby-plugin-typescript`,
@@ -15,31 +15,32 @@ module.exports = {
 			resolve: `gatsby-source-filesystem`,
 			options: {
 				path: `${__dirname}/content/blog`,
-				name: `blog`,
-			},
+				name: `blog`
+			}
 		},
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
 				path: `${__dirname}/content/assets`,
-				name: `assets`,
-			},
+				name: `assets`
+			}
 		},
 		{
 			resolve: `gatsby-transformer-remark`,
 			options: {
 				plugins: [
+					'gatsby-remark-reading-time',
 					{
 						resolve: `gatsby-remark-images`,
 						options: {
-							maxWidth: 800,
-						},
+							maxWidth: 800
+						}
 					},
 					{
 						resolve: `gatsby-remark-responsive-iframe`,
 						options: {
-							wrapperStyle: `margin-bottom: 1.0725rem`,
-						},
+							wrapperStyle: `margin-bottom: 1.0725rem`
+						}
 					},
 					{
 						resolve: `gatsby-remark-prismjs`,
@@ -84,21 +85,21 @@ module.exports = {
 									language: 'superscript',
 									extend: 'javascript',
 									definition: {
-										superscript_types: /(SuperType)/,
+										superscript_types: /(SuperType)/
 									},
 									insertBefore: {
 										function: {
-											superscript_keywords: /(superif|superelse)/,
-										},
-									},
-								},
-							],
-						},
+											superscript_keywords: /(superif|superelse)/
+										}
+									}
+								}
+							]
+						}
 					},
 					`gatsby-remark-copy-linked-files`,
-					`gatsby-remark-smartypants`,
-				],
-			},
+					`gatsby-remark-smartypants`
+				]
+			}
 		},
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
@@ -112,10 +113,10 @@ module.exports = {
 				background_color: `#202B33`,
 				theme_color: `#48AFF0`,
 				display: `standalone`,
-				icon: `content/assets/favicon.png`,
-			},
+				icon: `content/assets/favicon.png`
+			}
 		},
 		`gatsby-plugin-offline`,
-		`gatsby-plugin-react-helmet`,
-	],
-}
+		`gatsby-plugin-react-helmet`
+	]
+};

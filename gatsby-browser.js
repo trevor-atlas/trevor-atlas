@@ -5,7 +5,7 @@ import './src/grid.css';
 import './src/global.css';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
-import { Layout } from './src/components/layout';
+import { Layout } from './src/components/Layout';
 
 export const wrapPageElement = ({ element, props }) => {
 	return <Layout {...props}>{element}</Layout>;

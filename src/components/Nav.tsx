@@ -9,48 +9,57 @@ interface Props {
 
 export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 	return (
-		<nav className="middle-xs" style={{
-			position: 'relative',
-			zIndex: 100,
-			padding: '1em',
-			display: 'flex',
-			background: Colors.primary.get(),
-			color: 'white',
-			marginBottom: '2em',
-		}}
+		<nav
+			className='middle-xs'
+			style={{
+				position: 'relative',
+				zIndex: 100,
+				padding: '1em',
+				display: 'flex',
+				background: Colors.primary.get(),
+				color: 'white',
+				marginBottom: '2em'
+			}}
 		>
-			<div className="container">
-				<div className="row start-xs">
-					<h4 className="white mbn">
+			<div className='container'>
+				<div className='row start-xs'>
+					<h4 className='white mbn'>
 						<Link
 							style={{
 								boxShadow: `none`,
 								textDecoration: `none`,
-								color: `inherit`,
+								color: `inherit`
 							}}
 							to={`/`}
 						>
 							{title}
 						</Link>
 					</h4>
-					<ul style={{
-						listStyle: 'none',
-						display: 'inline-block',
-						padding: 0,
-						margin: `0 2em`,
-					}}>
+					<ul
+						style={{
+							listStyle: 'none',
+							display: 'inline-block',
+							padding: 0,
+							margin: `0 2em`
+						}}
+					>
 						{links.map((l) => {
 							return (
-								<li style={{ display: 'inline-block', marginRight: '1em' }}>
+								<li
+									style={{
+										display: 'inline-block',
+										marginRight: '1em'
+									}}
+								>
 									<Link
 										style={{
 											boxShadow: `none`,
-											textDecoration: `none`,
+											textDecoration: `none`
 										}}
 										to={l.url}
 									>
 										{l.label}
-								</Link>
+									</Link>
 								</li>
 							);
 						})}
@@ -59,12 +68,9 @@ export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 			</div>
 		</nav>
 	);
-}
+};
 
 Nav.defaultProps = {
 	title: 'Trevor Atlas',
-	links: [
-		{ label: 'Blog', url: '/blog' },
-	]
-
-}
+	links: [{ label: 'Blog', url: '/blog' }]
+};

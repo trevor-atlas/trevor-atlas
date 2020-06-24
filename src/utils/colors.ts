@@ -1,7 +1,7 @@
 interface RGBColor {
 	r: number;
 	g: number;
-	b: number
+	b: number;
 }
 
 class Color {
@@ -12,37 +12,41 @@ class Color {
 	}
 
 	public get() {
-		return this.color
+		return this.color;
 	}
 
 	public getRGBAString(alpha: number = 1) {
 		if (!this.rgb) return '';
 		const { r, g, b } = this.rgb;
-		return `rgba(${r}, ${g}, ${b}, ${alpha})`
+		return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 	}
 
 	public getRGBString() {
 		if (!this.rgb) return '';
 		const { r, g, b } = this.rgb;
-		return `rgb(${r}, ${g}, ${b})`
+		return `rgb(${r}, ${g}, ${b})`;
 	}
 
 	public getRGB(): RGBColor | null {
 		return this.rgb;
 	}
 
-	public rgbToHex({r, g, b}: RGBColor) {
-		return `#` + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+	public rgbToHex({ r, g, b }: RGBColor) {
+		return (
+			`#` + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+		);
 	}
 
 	public hexToRgb(hex: string): RGBColor | null {
 		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-		return result ? {
-		  r: parseInt(result[1], 16),
-		  g: parseInt(result[2], 16),
-		  b: parseInt(result[3], 16)
-		} : null;
-	  }
+		return result
+			? {
+					r: parseInt(result[1], 16),
+					g: parseInt(result[2], 16),
+					b: parseInt(result[3], 16)
+			  }
+			: null;
+	}
 }
 
 export class Colors {
