@@ -15,7 +15,7 @@ const getCareerLength = () => {
 
 	const years = duration.get('years');
 	const months = duration.get('months');
-	if (months > 8) {
+	if (months >= 8) {
 		return `nearly ${years + 1} years`
 	}
 	if (months > 5) {
@@ -24,7 +24,7 @@ const getCareerLength = () => {
 	return `${years} years`
 }
  
-const link = (text: string, url: string) => <a href={url} target="_blank">{text}</a>
+const link = (text: string, url: string) => <a href={url} target="_blank" rel="noopener">{text}</a>
 
 class Bio extends React.PureComponent {
 	render() {
@@ -54,8 +54,8 @@ class Bio extends React.PureComponent {
 										/>
 									</div>
 									<div className="col-xs-12 col-sm-8 col-md-9">
-										<h2 className="bp3-heading">👋 Hello,</h2>
-										<p className="bp3-running-text bp3-text-large">My name is Trevor Atlas – I'm a Software Developer and Designer based in Virginia.</p>
+										<h1 className="bp1-heading"><span className="wave">👋</span> Hello,</h1>
+										<h3 className="bp3-heading">My name is Trevor Atlas – I'm a Software Developer and Designer based in Virginia.</h3>
 										<p className="bp3-running-text bp3-text-large">For {getCareerLength()}, I've worked at agencies and startups building functional and intuitive interfaces, flexible and robust services, and powerful mobile applications.</p>
 
 										<p className="bp3-running-text bp3-text-large">When I'm not building user interfaces in {link('React', 'https://reactjs.org/')}, most of my day-to-day work involves microservices in {link('AWS', 'https://aws.amazon.com')} using {link('Terraform', 'https://www.terraform.io/')} to scaffold infrastructure, {link('Typescript', 'https://www.typescriptlang.org/')} and {link('Go', 'https://golang.org/')} for application logic and {link('Postgres', 'https://www.postgresql.org/')}/{link('Redis', 'https://redis.io/')} as a data store.
@@ -71,6 +71,7 @@ class Bio extends React.PureComponent {
 		)
 	}
 }
+
 const bioQuery = graphql`
   query BioQuery {
     avatar: file(absolutePath: { regex: "/assets/portrait2020.png/" }) {

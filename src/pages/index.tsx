@@ -9,7 +9,7 @@ import projects from '../../content/projects.json'
 import { AnimatedHeader } from '../components/AnimatedHeader'
 import Bio from '../components/bio'
 import { Container } from '../components/Container'
-import Layout from '../components/layout'
+import {Layout} from '../components/layout'
 import { Section } from '../components/Section'
 import SEO from '../components/seo'
 import { Colors } from '../utils/colors'
@@ -50,7 +50,6 @@ export default function (props: { location: Location, data: any }) {
 			{(location.pathname === rootPath) && (
 				color && <AnimatedHeader animating color={`${color.r},${color.g},${color.b}`}/>
 			)}
-			<Layout location={props.location} title={siteTitle}>
 				<SEO title="Home Page"/>
 				<div className="pt5 pb6">
 					<Bio/>
@@ -117,7 +116,6 @@ export default function (props: { location: Location, data: any }) {
 						</div>
 					</Container>
 				</Section>
-			</Layout>
 		</>
 	)
 }

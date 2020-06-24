@@ -3,13 +3,10 @@ import { Button, ButtonGroup, Intent, NumericInput } from '@blueprintjs/core'
 import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import { Location } from 'history';
-import Layout from '../../components/layout'
 import SEO from '../../components/seo'
 import { Container } from '../../components/Container';
 
-const NumericBaseConverter: React.FunctionComponent<{data: any; location: Location}> = (props) =>{
-		const { data } = props;
-		const siteTitle = data.site.siteMetadata.title;
+const NumericBaseConverter: React.FunctionComponent<void> = (props) =>{
 		const [count, setCount] = useState(0);
 		const copyToClipboard = (base: number) => () => navigator.clipboard.writeText(count.toString(base))
 
@@ -25,7 +22,6 @@ const NumericBaseConverter: React.FunctionComponent<{data: any; location: Locati
 
 		return (
 			<>
-				<Layout location={props.location} title={siteTitle}>
 					<SEO title="Experiments: Binary Counter" />
 					<Container >
 						<div className="mv6">
@@ -84,19 +80,8 @@ const NumericBaseConverter: React.FunctionComponent<{data: any; location: Locati
 							</ButtonGroup>
 						</div>
 					</Container>
-				</Layout>
 			</>
 		)
 }
 
 export default NumericBaseConverter;
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

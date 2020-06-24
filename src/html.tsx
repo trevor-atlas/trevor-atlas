@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby';
 
 interface Props {
 	htmlAttributes: object,
@@ -8,6 +9,7 @@ interface Props {
 	body: string,
 	postBodyComponents: any[],
 }
+
 const HTML: React.FunctionComponent<Props> = (props) => {
 	return (
 		<html {...props.htmlAttributes}>

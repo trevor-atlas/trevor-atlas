@@ -472,3 +472,21 @@ img { max-width: 100%; }
 .post-body section {
 	margin-bottom: 5em;
 }
+
+.wave {
+	will-change: transform;
+	display: inline-block;
+	font-size: 2rem;
+	animation: wave 1s infinite both alternate;
+	transform-origin: bottom right;
+}
+
+@keyframes wave {
+	0% {
+		transform: rotate(-12deg);
+	}
+
+	100% {
+		transform: rotate(12deg);
+	}
+}
