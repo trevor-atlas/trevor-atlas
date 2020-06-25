@@ -28,11 +28,9 @@ const variants = {
 export const Layout: React.FunctionComponent<{
 	location: Location;
 	data: any;
-}> = (props) => {
-	const { children } = props;
-
+}> = ({ children, location }) => {
 	return (
-		<>
+		<div key={`page-${location.pathname}`}>
 			<Nav />
 			<AnimatePresence>
 				<motion.main
@@ -42,10 +40,10 @@ export const Layout: React.FunctionComponent<{
 					animate='enter'
 					exit='exit'
 				>
-					<main>{children}</main>
+					{children}
 				</motion.main>
 			</AnimatePresence>
 			<Footer />
-		</>
+		</div>
 	);
 };

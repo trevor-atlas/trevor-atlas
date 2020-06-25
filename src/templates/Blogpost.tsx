@@ -41,7 +41,7 @@ const Blogpost: React.FunctionComponent<{ data: any; pageContext: any }> = (
 					dangerouslySetInnerHTML={{ __html: post.html }}
 				/>
 				<hr className='mt5 mb4' />
-				<Bio />
+				<Bio key={`bio-${window.location.pathname}`} />
 
 				<ul
 					style={{

@@ -26,6 +26,9 @@ export const pageQuery = graphql`
 					excerpt
 					fields {
 						slug
+						readingTime {
+							text
+						}
 					}
 					frontmatter {
 						date(formatString: "MMMM DD, YYYY")
@@ -51,57 +54,25 @@ export default function(props: { location: Location; data: any }) {
 			)}
 			<SEO title='Home Page' />
 			<div className='pt5 pb6'>
-				<Bio />
+				<Bio key={`bio-${window.location.pathname}`} />
 			</div>
 
 			<Section background={Colors.primary.get()} type='triangles'>
 				<Container>
 					<div className='column center-md paxlg'>
-						<h2 className='tc mb5' style={{ color: 'white' }}>
-							Projects
-						</h2>
-						<Projects projects={projects} />
+						<Projects
+							key={`projects-${window.location.pathname}`}
+							title='Projects'
+							projects={projects}
+						/>
 					</div>
 					<hr />
 					<div className='column center-md paxlg'>
-						<h2 className='tac mb5' style={{ color: 'white' }}>
-							Experiments
-						</h2>
-						{experiments.map(
-							(exp: {
-								title: string;
-								url: string;
-								description: string;
-							}) => {
-								return (
-									<div className='row center-xs mbxlg'>
-										<div className='col-xs-12'>
-											<h3
-												className=''
-												style={{ color: 'white' }}
-											>
-												{exp.title}
-											</h3>
-											<p
-												className='bp3-running-text bp3-text-large'
-												style={{}}
-											>
-												{exp.description}
-											</p>
-											<Button
-												icon='code'
-												text='View'
-												type='button'
-												intent={Intent.PRIMARY}
-												onClick={() =>
-													navigate(exp.url)
-												}
-											/>
-										</div>
-									</div>
-								);
-							}
-						)}
+						<Projects
+							key={`experiments-${window.location.pathname}`}
+							title='Experiments'
+							projects={experiments}
+						/>
 					</div>
 				</Container>
 			</Section>
@@ -120,9 +91,17 @@ export default function(props: { location: Location; data: any }) {
 											<h4 className='mb0'>
 												{node.frontmatter.title}
 											</h4>
-											<small className='dib mb2'>
-												{node.frontmatter.date}
-											</small>
+											<div className='row between-xs mb2 mh0'>
+												<small>
+													{node.frontmatter.date}
+												</small>
+												<small className='muted'>
+													{
+														node.fields.readingTime
+															.text
+													}
+												</small>
+											</div>
 											<Link
 												to={node.fields.slug}
 												className='underline db'

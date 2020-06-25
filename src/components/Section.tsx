@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 
 export const Section: React.FunctionComponent<{
-	background: string;
+	background?: string;
 	style?: CSSProperties;
 	type?: 'triangles';
 }> = (props) => {
@@ -52,6 +52,10 @@ export const Section: React.FunctionComponent<{
 				)}
 		</>
 	);
+};
+
+Section.defaultProps = {
+	background: ''
 };
 
 const triangleDivider = (
