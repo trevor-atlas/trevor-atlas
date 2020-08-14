@@ -49,13 +49,16 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "@babylonjs/core": "^4.1.0",
     "@types/axios": "^0.14.0",
     "@types/d3": "^5.7.2",
     "@types/gsap": "^1.20.2",
     "@types/luxon": "^1.24.0",
     "@types/node": "^12.12.43",
     "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8"
+    "@types/react-dom": "^16.9.8",
+    "gatsby-transformer-json": "^2.4.5",
+    "src": "^1.1.2"
   },
   "scripts": {
     "build": "npx gatsby build",

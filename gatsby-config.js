@@ -1,48 +1,56 @@
 module.exports = {
 	siteMetadata: {
-		title: `Trevor Atlas`,
-		author: `Trevor Atlas`,
-		siteUrl: `https://trevoratlas.com`,
+		title: 'Trevor Atlas',
+		author: 'Trevor Atlas',
+		siteUrl: 'https://trevoratlas.com',
 		description: '',
 		social: {
-			twitter: `trevoratlas`,
-			github: `https://github.com/trevor-atlas`,
+			twitter: 'trevoratlas',
+			github: 'https://github.com/trevor-atlas',
 		},
 	},
 	plugins: [
-		`gatsby-plugin-typescript`,
+		'gatsby-plugin-typescript',
 		{
-			resolve: `gatsby-source-filesystem`,
+			resolve: 'gatsby-source-filesystem',
 			options: {
 				path: `${__dirname}/content/blog`,
-				name: `blog`,
+				name: 'blog',
 			},
 		},
 		{
-			resolve: `gatsby-source-filesystem`,
+			resolve: 'gatsby-source-filesystem',
 			options: {
 				path: `${__dirname}/content/assets`,
-				name: `assets`,
+				name: 'assets',
 			},
 		},
+		// 'gatsby-transformer-json',
+		// {
+		// 	resolve: 'gatsby-source-filesystem',
+		// 	options: {
+		// 		name: 'data',
+		// 		path: `${__dirname}/src/data/`
+		// 	}
+		// },
 		{
-			resolve: `gatsby-transformer-remark`,
+			resolve: 'gatsby-transformer-remark',
 			options: {
 				plugins: [
 					{
-						resolve: `gatsby-remark-images`,
+						resolve: 'gatsby-remark-images',
 						options: {
 							maxWidth: 800,
 						},
 					},
 					{
-						resolve: `gatsby-remark-responsive-iframe`,
+						resolve: 'gatsby-remark-responsive-iframe',
 						options: {
-							wrapperStyle: `margin-bottom: 1.0725rem`,
+							wrapperStyle: 'margin-bottom: 1.0725rem',
 						},
 					},
 					{
-						resolve: `gatsby-remark-prismjs`,
+						resolve: 'gatsby-remark-prismjs',
 						options: {
 							// Class prefix for <pre> tags containing syntax highlighting;
 							// defaults to 'language-' (eg <pre class="language-js">).
@@ -95,27 +103,27 @@ module.exports = {
 							],
 						},
 					},
-					`gatsby-remark-copy-linked-files`,
-					`gatsby-remark-smartypants`,
+					'gatsby-remark-copy-linked-files',
+					'gatsby-remark-smartypants',
 				],
 			},
 		},
-		`gatsby-transformer-sharp`,
-		`gatsby-plugin-sharp`,
-		`gatsby-plugin-feed`,
+		'gatsby-transformer-sharp',
+		'gatsby-plugin-sharp',
+		'gatsby-plugin-feed',
 		{
-			resolve: `gatsby-plugin-manifest`,
+			resolve: 'gatsby-plugin-manifest',
 			options: {
-				name: `Trevor Atlas – Software Engineer`,
-				short_name: `Trevor Atlas – SWE`,
-				start_url: `/`,
-				background_color: `#202B33`,
-				theme_color: `#48AFF0`,
-				display: `standalone`,
-				icon: `content/assets/favicon.png`,
+				name: 'Trevor Atlas – Software Engineer',
+				short_name: 'Trevor Atlas – SWE',
+				start_url: '/',
+				background_color: '#202B33',
+				theme_color: '#48AFF0',
+				display: 'standalone',
+				icon: 'content/assets/favicon.png',
 			},
 		},
-		`gatsby-plugin-offline`,
-		`gatsby-plugin-react-helmet`,
+		'gatsby-plugin-offline',
+		'gatsby-plugin-react-helmet',
 	],
 }
