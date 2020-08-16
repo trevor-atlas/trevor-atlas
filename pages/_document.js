@@ -4,12 +4,7 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html lang="en">
-				<Head>
-					<link
-						rel="stylesheet"
-						href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark.min.css"
-					/>
-				</Head>
+				<Head> </Head>
 				<body>
 					<Main />
 					<NextScript />

@@ -1,21 +1,5 @@
 @import "./vars";
 
-@font-face {
-	font-family: 'Oswald';
-	src: url('/fonts/Oswald-Regular.ttf');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Quattrocento';
-	src: url('/fonts/Quattrocento-Regular.ttf');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
 .invert-fonts {
 	* {
 		color: $primary-bg;
