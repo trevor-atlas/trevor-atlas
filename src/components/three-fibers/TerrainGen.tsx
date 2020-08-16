@@ -1,9 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useFrame, useUpdate } from 'react-three-fiber';
 import { PerlinNoise } from 'src/components/three-fibers/perlin';
 import { Color } from 'three';
 
-export const TerrainGen: FC<{ noise?: PerlinNoise }> = ({ noise }) => {
+export const TerrainGen: FC = () => {
+	const noise = useRef(new PerlinNoise(Math.random()));
 	const mesh: any = useUpdate(({ geometry }) => {
 		const pos = geometry.getAttribute('position');
 		const pa = pos.array;
@@ -13,15 +14,15 @@ export const TerrainGen: FC<{ noise?: PerlinNoise }> = ({ noise }) => {
 			for (let i = 0; i < wVerts; i++) {
 				const ex = 1.1;
 				pa[3 * (j * wVerts + i) + 2] =
-					(noise.simplex2(i / 100, j / 100) +
-						noise.simplex2((i + 200) / 50, j / 50) *
+					(noise.current.simplex2(i / 100, j / 100) +
+						noise.current.simplex2((i + 200) / 50, j / 50) *
 							Math.pow(ex, 1) +
-						noise.simplex2((i + 400) / 25, j / 25) *
+						noise.current.simplex2((i + 400) / 25, j / 25) *
 							Math.pow(ex, 2) +
-						noise.simplex2((i + 600) / 12.5, j / 12.5) *
+						noise.current.simplex2((i + 600) / 12.5, j / 12.5) *
 							Math.pow(ex, 3) +
 						+(
-							noise.simplex2((i + 800) / 6.25, j / 6.25) *
+							noise.current.simplex2((i + 800) / 6.25, j / 6.25) *
 							Math.pow(ex, 4)
 						)) /
 					2;
@@ -57,12 +58,3 @@ export const TerrainGen: FC<{ noise?: PerlinNoise }> = ({ noise }) => {
 		</mesh>
 	);
 };
-
-export async function getStaticProps({ params }) {
-	const noise = new PerlinNoise(Math.random());
-	return {
-		props: {
-			noise
-		}
-	};
-}
