@@ -1,5 +1,5 @@
-import React from 'react';
-import './Cell.css';
+import React, { FC } from 'react';
+import styles from './cell.module.scss';
 
 interface Props {
 	col: number;
@@ -7,35 +7,43 @@ interface Props {
 	isEnd: boolean;
 	isStart: boolean;
 	isWall: boolean;
+	isShortest: boolean;
+	isVisited: boolean;
 	onMouseDown: () => void;
 	onMouseEnter: () => void;
 	onMouseUp: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-export const Cell: React.FunctionComponent<Props> = (props) => {
+export const Cell: FC<Props> = (props) => {
 	const {
 		col,
 		row,
 		isStart,
 		isEnd,
 		isWall,
+		isShortest,
+		isVisited,
 		onMouseDown,
 		onMouseEnter,
 		onMouseUp
 	} = props;
 
-	const extraClassName = isEnd
-		? 'cell-finish'
+	const extraClassName = isShortest
+		? styles.shortest
+		: isEnd
+		? styles.finish
 		: isStart
-		? 'cell-start'
+		? styles.start
 		: isWall
-		? 'cell-wall'
+		? styles.wall
+		: isVisited
+		? styles.visited
 		: '';
 
 	return (
 		<div
 			id={`cell-${row}-${col}`}
-			className={`cell ${extraClassName}`}
+			className={`${styles.cell} ${extraClassName}`}
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 			onMouseUp={onMouseUp}

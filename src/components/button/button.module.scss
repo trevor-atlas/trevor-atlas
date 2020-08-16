@@ -1,0 +1,19 @@
+.button {
+	appearance: none;
+	vertical-align: middle;
+	text-decoration: none;
+	border: medium none;
+	outline: currentcolor none medium;
+	cursor: pointer;
+	color: white;
+	background-color: white;
+	background: linear-gradient(rgb(7, 136, 222), rgb(17, 106, 184));
+	box-shadow: rgba(67, 90, 111, 0.3) 0px 0px 0px 1px inset, rgba(67, 90, 111, 0.06) 0px -1px 1px 0px inset;
+	padding: 0 16px;
+	border-radius: 3px;
+
+	&.disabled {
+		background: rgb(125, 125, 125);
+		color: #AAA;
+	}
+}

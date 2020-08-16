@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Footer } from './Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Nav } from './Nav';
@@ -25,25 +25,20 @@ const variants = {
 	}
 };
 
-export const Layout: React.FunctionComponent<{
-	location: Location;
-	data: any;
-}> = ({ children, location }) => {
-	return (
-		<div key={`page-${location.pathname}`}>
-			<Nav />
-			<AnimatePresence>
-				<motion.main
-					key={location.pathname}
-					variants={variants}
-					initial='initial'
-					animate='enter'
-					exit='exit'
-				>
-					{children}
-				</motion.main>
-			</AnimatePresence>
-			<Footer />
-		</div>
-	);
-};
+export const Layout: FC<void> = ({ children }) => (
+	<div key='page'>
+		<Nav />
+		<AnimatePresence>
+			<motion.main
+				key='foobar'
+				variants={variants}
+				initial='initial'
+				animate='enter'
+				exit='exit'
+			>
+				{children}
+			</motion.main>
+		</AnimatePresence>
+		<Footer />
+	</div>
+);

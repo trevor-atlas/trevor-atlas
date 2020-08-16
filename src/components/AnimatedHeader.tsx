@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { TweenLite, Power1 } from 'gsap';
 
 export interface Target {
@@ -15,7 +15,7 @@ export interface Point {
 	closest?: Point[];
 }
 
-export class AnimatedHeader extends React.PureComponent<{
+export class AnimatedHeader extends PureComponent<{
 	animating: boolean;
 	color?: string;
 }> {

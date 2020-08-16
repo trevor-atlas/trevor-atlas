@@ -1,6 +1,6 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
-import { Button, Intent } from '@blueprintjs/core';
+import React, { useState, useRef, useEffect, FC } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const onProjectClick = ({ url }: { url: string }) => (
 	event: React.MouseEvent
@@ -71,14 +71,15 @@ const titleVariants = {
 	}
 };
 
-export const Projects: React.FunctionComponent<Props> = ({
-	title,
-	projects
-}) => {
+export const Projects: FC<Props> = ({ title, projects }) => {
 	const [visible, setVisibility] = useState(false);
 	const ourRef = useRef(null);
-	useLayoutEffect(() => {
-		const topPosition = ourRef.current.getBoundingClientRect().bottom;
+	useEffect(() => {
+		const topPosition =
+			(ourRef &&
+				ourRef.current &&
+				ourRef.current.getBoundingClientRect().bottom) ||
+			0;
 		const onScroll = () => {
 			const scrollPosition = window.scrollY + window.innerHeight * 0.85;
 			if (topPosition < scrollPosition) {
@@ -94,37 +95,33 @@ export const Projects: React.FunctionComponent<Props> = ({
 	return (
 		<motion.div
 			ref={ourRef}
-			initial='start'
+			initial="start"
 			animate={visible ? 'end' : 'start'}
 			variants={parentVariant}
 		>
 			<motion.h2
-				initial='start'
+				initial="start"
 				animate={visible ? 'end' : 'start'}
 				variants={titleVariants}
-				className='tac mb5'
+				className="text-center mb-12"
 				style={{ color: 'white' }}
 			>
 				{title}
 			</motion.h2>
-			{projects.map((project) => {
+			{projects.map((project, i) => {
 				return (
 					<motion.div
+						key={i}
 						variants={variants}
-						className='row center-xs mb4'
+						className="row center-xs mb-12"
 					>
-						<div className='col-xs-12'>
-							<h3 style={{ color: 'white' }}>{project.title}</h3>
-							<p className='bp3-running-text bp3-text-large'>
-								{project.description}
-							</p>
-							<Button
-								icon='code'
-								text='Learn More'
-								type='button'
-								intent={Intent.PRIMARY}
-								onClick={onProjectClick(project)}
-							/>
+						<div className="col-xs-12">
+							<h3 className="white mt-0">{project.title}</h3>
+							<p className="">{project.description}</p>
+
+							<Link href={project.url}>
+								<a className="underline">Learn More</a>
+							</Link>
 						</div>
 					</motion.div>
 				);

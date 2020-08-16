@@ -1,18 +1,12 @@
-import { Duration } from 'luxon';
+export const sleep = (n: number): Promise<void> =>
+	new Promise((res) => setTimeout(res, n));
 
-export const sleep = (n: number, cb: () => void): Promise<void> =>
-	new Promise((res) => setTimeout(res, n)).then(cb);
-
-export const getCareerLength = () => {
+export const getCareerLength = (): string => {
 	const start = new Date('03/14/2014');
 	const now = new Date();
-	const duration = Duration.fromObject({
-		years: now.getFullYear() - start.getFullYear(),
-		months: now.getMonth() - start.getMonth() || 0
-	});
+	const years = now.getFullYear() - start.getFullYear();
+	const months = now.getMonth() - start.getMonth() || 0;
 
-	const years = duration.get('years');
-	const months = duration.get('months');
 	if (months >= 8) {
 		return `nearly ${years + 1} years`;
 	}

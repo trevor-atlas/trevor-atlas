@@ -1,11 +1,12 @@
 // run Dijkstra's algorithm against a given grid, start and end.
 // returns nodes in the order they were visited and ensures that each node points to the previous node.
 // This allows us to compute the shortest path by backtracking to the start.
+import styles from 'src/components/pathfinder/cell.module.scss';
+
 export const dijkstra = (grid: Node[][], start: Node, end: Node): Node[] => {
 	const visitedInOrder = [];
 	start.distance = 0;
 	const unvisited = getAllNodes(grid);
-	console.log(unvisited);
 
 	while (!!unvisited.length) {
 		sortNodesByDistance(unvisited);
@@ -96,16 +97,38 @@ export enum constants {
 }
 
 export class Node {
+	public isStart: boolean;
+	public isEnd: boolean;
+	public isWall: boolean;
+	public distance: number;
+	public previous: Node | null;
+	public isVisited: boolean;
+	public isVisuallyVisited: boolean;
+	public isShortest: boolean;
+
 	constructor(public col: number, public row: number) {
-		this.isStart =
-			row === constants.START_NODE_ROW &&
-			col === constants.START_NODE_COL;
-		this.isEnd =
-			row === constants.END_NODE_ROW && col === constants.END_NODE_COL;
+		this.isStart = false;
+		this.isEnd = false;
 		this.distance = Infinity;
 		this.isVisited = false;
 		this.isWall = false;
 		this.previous = null;
+		this.isShortest = false;
+		this.isVisuallyVisited = false;
+	}
+
+	get color() {
+		return this.isShortest
+			? '#3ac2ff'
+			: this.isEnd
+			? 'rgb(253, 90, 90)'
+			: this.isStart
+			? 'rgb(17, 223, 17)'
+			: this.isWall
+			? 'rgb(20, 33, 61)'
+			: this.isVisuallyVisited
+			? 'rgba(1, 83, 160, 0.75)'
+			: 'rgb(98, 122, 141)';
 	}
 
 	static from(node: Node): Node {
@@ -118,11 +141,4 @@ export class Node {
 		n.previous = node.previous;
 		return n;
 	}
-
-	public isStart: boolean;
-	public isEnd: boolean;
-	public isWall: boolean;
-	public distance: number;
-	public previous: Node | null;
-	public isVisited: boolean;
 }

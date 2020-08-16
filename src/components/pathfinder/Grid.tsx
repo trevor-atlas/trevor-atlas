@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'src/components/button/Button';
 import { Cell } from './Cell';
 import {
 	Node,
@@ -6,9 +7,8 @@ import {
 	getNodesInShortestPathOrder,
 	constants
 } from '../../utils/dijkstra';
-import { Button, ButtonGroup, Intent, Slider } from '@blueprintjs/core';
 
-import './Pathfinder.css';
+import styles from './pathfinder.module.scss';
 import { sleep } from '../../utils/helpers';
 import { Container } from '../Container';
 import { setClass } from '../../utils/dom';
@@ -104,39 +104,58 @@ export class Grid extends React.Component<Props, State> {
 		this.setState({ mouseIsPressed: false });
 	};
 
-	async animateDijkstra(
+	animateDijkstra = async (
 		visitedNodesInOrder: Node[],
 		nodesInShortestPathOrder: Node[]
-	) {
-		for (let i = 0; i < visitedNodesInOrder.length; i++) {
-			await sleep(this.state.animationSpeed - Math.log(i), () => {
-				const node = visitedNodesInOrder[i];
-				if (node.isStart || node.isEnd) return;
-				setClass(`#cell-${node.row}-${node.col}`, 'cell cell-visited');
-			});
+	) => {
+		await this.animateVisitedNodes(visitedNodesInOrder, 0);
+		await this.animateShortestPath(nodesInShortestPathOrder, 0);
+	};
+
+	animateVisitedNodes = async (visitedNodes: Node[], index: number) => {
+		if (index < visitedNodes.length) {
+			const node = visitedNodes[index];
+			if (node.isStart || node.isEnd)
+				return this.animateVisitedNodes(visitedNodes, index + 1);
+			const copy = this.state.grid.map((e) => [...e]);
+			copy[node.row][node.col].isVisuallyVisited =
+				copy[node.row][node.col].isVisited;
+			return this.setState({ grid: copy, ...{} }, () =>
+				this.animateVisitedNodes(visitedNodes, index + 1)
+			);
 		}
+	};
 
-		await this.animateShortestPath(nodesInShortestPathOrder);
-	}
-
-	async animateShortestPath(nodesInShortestPathOrder: Node[]) {
-		for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-			await sleep(this.state.animationSpeed - Math.log(i), () => {
-				const node = nodesInShortestPathOrder[i];
-				if (node.isStart || node.isEnd) return;
-				setClass(
-					`#cell-${node.row}-${node.col}`,
-					'cell cell-shortest-path'
+	animateShortestPath = async (
+		nodesInShortestPathOrder: Node[],
+		index: number
+	) => {
+		if (index < nodesInShortestPathOrder.length) {
+			await sleep(this.state.animationSpeed - Math.log(index));
+			const node = nodesInShortestPathOrder[index];
+			if (node.isStart || node.isEnd)
+				return this.animateShortestPath(
+					nodesInShortestPathOrder,
+					index + 1
 				);
-			});
+			const copy = this.state.grid.map((e) => [...e]);
+			copy[node.row][node.col].isShortest = true;
+			return this.setState(
+				{ grid: copy, ...{} },
+				async () =>
+					await this.animateShortestPath(
+						nodesInShortestPathOrder,
+						index + 1
+					)
+			);
 		}
-	}
+	};
 
 	visualizeDijkstra = async () => {
 		this.setState({ ran: true });
 		this.handleMouseUp();
 		this.setState({ running: true });
-		const { grid } = this.state;
+		const grid = this.state.grid.map((e) => [...e]);
 		const startNode =
 			grid[constants.START_NODE_ROW][constants.START_NODE_COL];
 		const finishNode = grid[constants.END_NODE_ROW][constants.END_NODE_COL];
@@ -170,21 +189,18 @@ export class Grid extends React.Component<Props, State> {
 				</Container>
 			);
 		return (
-			<div className='grid'>
-				<ButtonGroup>
-					<Button
-						disabled={running || ran}
-						text="Dijkstra's Algorithm"
-						onClick={this.visualizeDijkstra}
-					/>
-					<Button
-						disabled={running}
-						text='reset'
-						icon='refresh'
-						onClick={this.init}
-					/>
-				</ButtonGroup>
-				<div className='gid-inner' onMouseLeave={this.handleMouseUp}>
+			<div className={styles.grid}>
+				<Button
+					disabled={running || ran}
+					onClick={this.visualizeDijkstra}
+					text="Dijkstra's Algorithm"
+				/>
+				<Button
+					disabled={running || ran}
+					onClick={this.init}
+					text="Reset"
+				/>
+				<div onMouseLeave={this.handleMouseUp}>
 					{grid.map((row, rowIdx) => (
 						<div
 							onClick={() => void 0}
@@ -198,7 +214,9 @@ export class Grid extends React.Component<Props, State> {
 									col,
 									isEnd,
 									isStart,
-									isWall
+									isWall,
+									isShortest,
+									isVisuallyVisited
 								} = node;
 								return (
 									<Cell
@@ -207,6 +225,8 @@ export class Grid extends React.Component<Props, State> {
 										isEnd={isEnd}
 										isStart={isStart}
 										isWall={isWall}
+										isShortest={isShortest}
+										isVisited={isVisuallyVisited}
 										onMouseDown={this.handleMouseDown(
 											row,
 											col

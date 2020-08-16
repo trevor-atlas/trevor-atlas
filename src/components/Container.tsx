@@ -7,4 +7,4 @@ interface Props {
 export const Container: React.FunctionComponent<Props> = ({
 	className,
 	children
-}) => <div className={`container ${className}`}>{children}</div>;
+}) => <div className={`container mx-auto px-8 ${className}`}>{children}</div>;

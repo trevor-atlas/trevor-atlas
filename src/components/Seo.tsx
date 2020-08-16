@@ -1,88 +1,46 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
+import React, { FC } from 'react';
+import Head from 'next/head';
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
-
-function SEO({ description, lang, meta, title }) {
-	const { site } = useStaticQuery(
-		graphql`
-			query {
-				site {
-					siteMetadata {
-						title
-						description
-						author
-					}
-				}
-			}
-		`
-	);
-
-	const metaDescription = description || site.siteMetadata.description;
-
-	return (
-		<Helmet
-			htmlAttributes={{
-				lang
-			}}
-			title={title}
-			titleTemplate={`%s | ${site.siteMetadata.title}`}
-			meta={[
-				{
-					name: `description`,
-					content: metaDescription
-				},
-				{
-					property: `og:title`,
-					content: title
-				},
-				{
-					property: `og:description`,
-					content: metaDescription
-				},
-				{
-					property: `og:type`,
-					content: `website`
-				},
-				{
-					name: `twitter:card`,
-					content: `summary`
-				},
-				{
-					name: `twitter:creator`,
-					content: site.siteMetadata.author
-				},
-				{
-					name: `twitter:title`,
-					content: title
-				},
-				{
-					name: `twitter:description`,
-					content: metaDescription
-				}
-			].concat(meta)}
-		/>
-	);
+interface ISEOProps {
+	title: string;
+	ogTitle: string;
+	ogDescription: string;
+	ogUrl: string;
+	ogImage: string;
 }
 
-SEO.defaultProps = {
-	lang: `en`,
-	meta: [],
-	description: ``
+const SEO: FC<ISEOProps> = ({
+	title,
+	ogTitle,
+	ogDescription,
+	ogImage,
+	ogUrl
+}) => {
+	return (
+		<Head>
+			<title>{title} | Trevor Atlas</title>
+			<meta
+				name='viewport'
+				content='initial-scale=1.0, width=device-width'
+			/>
+			<meta property='og:title' content={ogTitle} key='title' />
+			<meta property='og:type' content='website' />
+			<meta property='og:url' content={ogUrl} />
+			<meta
+				property='og:description'
+				content={ogDescription}
+				key='ogDescription'
+			/>
+			<meta property='og:image' content={ogImage} key='ogImage' />
+		</Head>
+	);
 };
 
-SEO.propTypes = {
-	description: PropTypes.string,
-	lang: PropTypes.string,
-	meta: PropTypes.arrayOf(PropTypes.object),
-	title: PropTypes.string.isRequired
+SEO.defaultProps = {
+	title: 'Trevor Atlas',
+	ogDescription: 'a nice page on next and vercel',
+	ogUrl: 'https://trevoratlas.com',
+	ogImage: 'http://fillmurray.com/300/300'
 };
 
 export default SEO;

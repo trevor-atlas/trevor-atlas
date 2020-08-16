@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
 import { Colors } from '../utils/colors';
-import { Link } from 'gatsby';
 
 interface Props {
 	title?: string;
@@ -10,29 +10,21 @@ interface Props {
 export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 	return (
 		<nav
-			className='middle-xs'
+			className="middle-xs "
 			style={{
 				position: 'relative',
 				zIndex: 100,
-				padding: '1em',
 				display: 'flex',
 				background: Colors.primary.get(),
 				color: 'white',
 				marginBottom: '2em'
 			}}
 		>
-			<div className='container'>
-				<div className='row start-xs'>
-					<h4 className='white mbn'>
-						<Link
-							style={{
-								boxShadow: `none`,
-								textDecoration: `none`,
-								color: `inherit`
-							}}
-							to={`/`}
-						>
-							{title}
+			<div className="container mx-auto px-8">
+				<div className="row start-xs py-4">
+					<h4 className="white inline-block my-0">
+						<Link href="/">
+							<a>{title}</a>
 						</Link>
 					</h4>
 					<ul
@@ -40,25 +32,20 @@ export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 							listStyle: 'none',
 							display: 'inline-block',
 							padding: 0,
-							margin: `0 2em`
+							margin: '0 2em'
 						}}
 					>
-						{links.map((l) => {
+						{links.map((l, i) => {
 							return (
 								<li
+									key={i}
 									style={{
 										display: 'inline-block',
 										marginRight: '1em'
 									}}
 								>
-									<Link
-										style={{
-											boxShadow: `none`,
-											textDecoration: `none`
-										}}
-										to={l.url}
-									>
-										{l.label}
+									<Link href={l.url}>
+										<a>{l.label}</a>
 									</Link>
 								</li>
 							);

@@ -13,7 +13,12 @@ import { faFilePdf, faPaperPlane } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Props {
-	sites?: { url: string; icon: IconDefinition; title: string }[];
+	sites?: {
+		url: string;
+		icon: IconDefinition;
+		title: string;
+		color: string;
+	}[];
 }
 
 export const Footer: React.FunctionComponent<Props> = ({ sites }) => {
@@ -26,25 +31,27 @@ export const Footer: React.FunctionComponent<Props> = ({ sites }) => {
 			}}
 		>
 			<Container>
-				<div className='row between-md center-xs'>
-					<div className='col-12-xs col-6-md ph2 '>
-						<p className='pa3 dib'>
+				<div className="flex flex-col md:flex-row md:justify-between items-center content-center">
+					<div className="flex">
+						<p className="p-3 inline-block mb-0">
 							© {`2014 - ${new Date().getFullYear()}`} Trevor
 							Atlas
 						</p>
 					</div>
-					<div className='col-12-xs col-6-md ph2'>
-						{sites.map((site) => (
+					<div className="flex">
+						{sites.map((site, i) => (
 							<a
-								target='_blank'
+								key={i}
+								target="_blank"
 								href={site.url}
-								rel='noopener'
-								aria-hidden='true'
-								className='pa3 dib'
+								rel="noopener noreferrer"
+								aria-hidden="true"
+								className="p-2 inline-block"
 							>
 								<FontAwesomeIcon
 									icon={site.icon}
 									title={site.title}
+									color={site.color}
 								/>
 							</a>
 						))}
@@ -60,33 +67,44 @@ Footer.defaultProps = {
 		{
 			url: 'https://github.com/trevor-atlas',
 			icon: faGithub,
-			title: 'Github'
+			title: 'Github',
+			color: 'white'
 		},
 		{
 			url: 'https://twitter.com/trevoratlas',
 			icon: faTwitter,
-			title: 'Twitter'
+			title: 'Twitter',
+			color: '#1da1f2'
 		},
 		{
 			url: 'https://www.linkedin.com/in/trevoristall/',
 			icon: faLinkedin,
-			title: 'Linkedin'
+			title: 'Linkedin',
+			color: '#2867b2'
 		},
 		{
 			url: 'https://dribbble.com/trevoratlas',
 			icon: faDribbble,
-			title: 'Dribbble'
+			title: 'Dribbble',
+			color: '#ea4c89'
 		},
 		{
 			url: 'https://stackoverflow.com/users/5770188/trevor-atlas',
 			icon: faStackOverflow,
-			title: 'Stack Overflow'
+			title: 'Stack Overflow',
+			color: '#FF9900'
 		},
 		{
 			url: 'https://app.standardresume.co/r/TrevorAllen',
 			icon: faFilePdf,
-			title: 'Resume'
+			title: 'Resume',
+			color: 'rgb(242, 7, 4)'
 		},
-		{ url: 'mailto:me@trevoratlas.com', icon: faPaperPlane, title: 'Email' }
+		{
+			url: 'mailto:me@trevoratlas.com',
+			icon: faPaperPlane,
+			title: 'Email',
+			color: Colors.links.get()
+		}
 	]
 };
