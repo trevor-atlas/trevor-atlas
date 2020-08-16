@@ -29,17 +29,17 @@ export const Section: React.FunctionComponent<{
 						}}
 						fill={props.background}
 						stroke={props.background}
-						transform='scale(1,-1)'
-						id='bigTriangleColor'
-						xmlns='http://www.w3.org/2000/svg'
-						version='1.1'
-						width='100%'
-						height='100'
-						viewBox='0 0 100 102'
-						preserveAspectRatio='none'
+						transform="scale(1,-1)"
+						id="bigTriangleColor"
+						xmlns="https://www.w3.org/2000/svg"
+						version="1.1"
+						width="100%"
+						height="100"
+						viewBox="0 0 100 102"
+						preserveAspectRatio="none"
 					>
-						<path d='M0 0 L50 0 L0 100 Z'></path>
-						<path d='M100 0 L50 0 L100 100 Z'></path>
+						<path d="M0 0 L50 0 L0 100 Z"></path>
+						<path d="M100 0 L50 0 L100 100 Z"></path>
 					</svg>
 				)}
 				{props.children}
@@ -64,23 +64,23 @@ const triangleDivider = (
 	style?: CSSProperties
 ) => (
 	<svg
-		xmlns='http://www.w3.org/2000/svg'
-		version='1.1'
-		width='100%'
-		height='100'
-		viewBox='0 0 100 100'
-		preserveAspectRatio='none'
+		xmlns="https://www.w3.org/2000/svg"
+		version="1.1"
+		width="100%"
+		height="100"
+		viewBox="0 0 100 100"
+		preserveAspectRatio="none"
 		style={style}
 	>
 		<path
 			fill={lightColor}
 			stroke={lightColor}
-			d='M0 0 L50 100 L100 0 Z'
+			d="M0 0 L50 100 L100 0 Z"
 		></path>
 		<path
 			fill={darkColor}
 			stroke={darkColor}
-			d='M50 100 L100 40 L100 0 Z'
+			d="M50 100 L100 40 L100 0 Z"
 		></path>
 	</svg>
 );

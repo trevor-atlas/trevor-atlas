@@ -40,7 +40,7 @@ SEO.defaultProps = {
 	title: 'Trevor Atlas',
 	ogDescription: 'a nice page on next and vercel',
 	ogUrl: 'https://trevoratlas.com',
-	ogImage: 'http://fillmurray.com/300/300'
+	ogImage: 'https://fillmurray.com/300/300'
 };
 
 export default SEO;
