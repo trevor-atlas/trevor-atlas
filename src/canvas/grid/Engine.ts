@@ -1,5 +1,4 @@
 import {
-	constants,
 	dijkstra,
 	getNodesInShortestPathOrder,
 	Node
@@ -12,18 +11,17 @@ interface IEngineOptions {
 }
 
 export class Engine {
-	private canvas: HTMLCanvasElement;
-	private ctx: CanvasRenderingContext2D;
+	private canvas: HTMLCanvasElement | null;
+	private ctx: CanvasRenderingContext2D | null;
 	private width: number;
 	private height: number;
-	private grid: Node[][];
-	private timer: number;
+	private grid!: Node[][];
 	private zoom = 1;
 	private drawing: boolean;
 	private scrollX = 0;
 	private scrollY = 0;
-	private mouseBeginOrigin: { x: number; y: number };
-	private activeMouseButton: number;
+	private mouseBeginOrigin!: { x: number; y: number };
+	private activeMouseButton!: number;
 	private pixelRatio: number;
 
 	constructor(
@@ -35,7 +33,13 @@ export class Engine {
 		}
 	) {
 		this.canvas = document.querySelector('#renderingContext');
+		if (!this.canvas) {
+			throw new Error('could not start canvas!');
+		}
 		this.ctx = this.canvas.getContext('2d');
+		if (!this.ctx) {
+			throw new Error('could not start canvas rendering context!');
+		}
 		this.pixelRatio = window.devicePixelRatio;
 
 		this.drawing = false;
@@ -65,6 +69,8 @@ export class Engine {
 			if (this.options.enableScroll) {
 				switch (this.activeMouseButton) {
 					case 2:
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-ignore
 						this.canvas.style = 'cursor: grabbing';
 				}
 			}
@@ -135,6 +141,8 @@ export class Engine {
 		this.canvas.onmouseup = () => {
 			this.drawing = false;
 			this.mouseBeginOrigin = null;
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			this.canvas.style = '';
 			this.activeMouseButton = null;
 		};

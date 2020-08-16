@@ -1,42 +1,30 @@
-import * as THREE from 'three';
+// @ts-ignore
+import { Math, SphereBufferGeometry, MeshBasicMaterial, Color } from 'three';
 import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
-import { Text } from './Text';
-
-function Jumbo() {
-	const ref = useRef();
-	useFrame(
-		({ clock }) =>
-			(ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z =
-				Math.sin(clock.getElapsedTime()) * 0.2)
-	);
-	return (
-		<group ref={ref}>
-			<Text hAlign="center" position={[-5.5, 18, 2]} children="TREVOR" />
-			<Text hAlign="center" position={[5.5, 18, 0]} children="ATLAS" />
-			<Text hAlign="center" position={[0, 15, -2]} children="BLOG" />
-		</group>
-	);
-}
 
 function Stars() {
 	const group = useRef();
 	let theta = 0;
 	useFrame(() => {
 		// Some things maybe shouldn't be declarative, we're in the render-loop here with full access to the instance
-		const r = 5 * Math.sin(THREE.Math.degToRad((theta += 0.1))) * 0.1;
-		const s = Math.sin(THREE.Math.degToRad(theta * 1.2));
+		const r = 5 * Math.sin(Math.degToRad((theta += 0.1))) * 0.1;
+		const s = Math.sin(Math.degToRad(theta * 1.2));
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		group.current.rotation.set(r, r, r);
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-ignore
 		group.current.scale.set(s, s, s);
 	});
 	const [geo, mat, vertices, coords] = useMemo(() => {
-		const geo = new THREE.SphereBufferGeometry(1, 3, 3);
-		const mat = new THREE.MeshBasicMaterial({
-			color: new THREE.Color('#171913')
+		const geo = new SphereBufferGeometry(1, 3, 3);
+		const mat = new MeshBasicMaterial({
+			color: new Color('#171913')
 		});
 		const coords = Array(1000)
 			.fill(0)
-			.map((i) => [
+			.map(() => [
 				Math.random() * 800 - 400,
 				Math.random() * 800 - 400,
 				Math.random() * 800 - 400
@@ -65,23 +53,24 @@ export function BlogHeader() {
 		<Canvas
 			id="main"
 			style={{
-				'margin': 0,
-				'padding': 0,
-				'overflow': 'hidden',
-				'zIndex': 100,
-				'-webkit-touch-callout': 'none',
-				'-webkit-user-select': 'none',
-				'-khtml-user-select': 'none',
-				'-moz-user-select': 'none',
-				'-ms-user-select': 'none',
-				'width': '100vw',
-				'height': '100vh',
-				'position': 'fixed',
-				'left': 0,
-				'right': 0,
-				'top': 0,
-				'bottom': 0,
-				'zIndex': -1
+				margin: 0,
+				padding: 0,
+				overflow: 'hidden',
+				WebkitTouchCallout: 'none',
+				WebkitUserSelect: 'none',
+				KhtmlUserSelect: 'none',
+				MozUserSelect: 'none',
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				MsUserSelect: 'none',
+				width: '100vw',
+				height: '100vh',
+				position: 'fixed',
+				left: 0,
+				right: 0,
+				top: 0,
+				bottom: 0,
+				zIndex: -1
 			}}
 			pixelRatio={pixelRatio}
 			camera={{ position: [0, 0, 35] }}

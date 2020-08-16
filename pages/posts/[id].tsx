@@ -14,29 +14,33 @@ export default function Post({
 }) {
 	return (
 		<Layout>
-			<SEO
-				title={title}
-				ogTitle={title}
-				ogImage={featuredImage}
-				ogDescription={excerpt}
-				ogUrl={`/posts/${id}`}
-			/>
-			<Container className={'post'}>
-				<div className="max-w-xl mx-auto ">
-					<div className="header mb-4">
-						<h1>{title}</h1>
-						<span className="muted">
-							<HumanDate date={date} />
-						</span>
-						<br />
-						<span className="muted">
-							{readTime.text} (~{readTime.words} words)
-						</span>
+			<>
+				<SEO
+					title={title}
+					ogTitle={title}
+					ogImage={featuredImage}
+					ogDescription={excerpt}
+					ogUrl={`/posts/${id}`}
+				/>
+				<Container className={'post'}>
+					<div className="max-w-xl mx-auto ">
+						<div className="header mb-4">
+							<h1>{title}</h1>
+							<span className="muted">
+								<HumanDate date={date} />
+							</span>
+							<br />
+							<span className="muted">
+								{readTime.text} (~{readTime.words} words)
+							</span>
+						</div>
+						<div
+							dangerouslySetInnerHTML={{ __html: contentHtml }}
+						/>
 					</div>
-					<div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-				</div>
-				<Bio />
-			</Container>
+					<Bio />
+				</Container>
+			</>
 		</Layout>
 	);
 }

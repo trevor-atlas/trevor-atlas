@@ -25,16 +25,16 @@ const variants = {
 	}
 };
 
-export const Layout: FC<void> = ({ children }) => (
-	<div key='page'>
+export const Layout: FC = ({ children }) => (
+	<div key="page">
 		<Nav />
 		<AnimatePresence>
 			<motion.main
-				key='foobar'
+				key="foobar"
 				variants={variants}
-				initial='initial'
-				animate='enter'
-				exit='exit'
+				initial="initial"
+				animate="enter"
+				exit="exit"
 			>
 				{children}
 			</motion.main>
