@@ -1,17 +1,7 @@
 {
-    "version": 2,
-	"name": "trevor-atlas",
-	"alias": [
-		"trevoratlas.com"
-	],
-    "builds": [
-        {
-            "src": "package.json",
-            "use": "@now/static-build",
-            "config": {
-                "distDir": "public"
-            }
-        },
-		{ "src": "content/", "use": "@now/static" }
-	]
+  "version": 2,
+  "name": "trevor-atlas",
+  "alias": [
+    "trevoratlas.com"
+  ]
 }
