@@ -24,7 +24,7 @@ You can use the website to generate badges: https://shields.io/
 &nbsp;
 
 <!-- Any image aligned to the right. Beware the width -->
-<img width="55%" align="right" alt="Github" src="https://raw.githubusercontent.com/onimur/.github/master/.resources/git-header.svg" />
+<img width="55%" align="right" alt="Github" src="https://raw.githubusercontent.com/trevor-atlas/trevor-atlas/master/public/images/1533406601529.jpg" />
 
 - 💻 I’m currently working on [Phantom Workshop](https://github.com/trevor-atlas/phantom-workshop) (browser syncronization and debugging tools)
 - 🌱 I’m currently learning Haskell and Functional Programming
