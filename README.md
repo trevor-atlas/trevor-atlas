@@ -14,9 +14,9 @@
 You can use the website to generate badges: https://shields.io/
 -->
 
-[![Github](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/trevor-atlas)  
-[![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/trevor-atlas/)  
-[![Instagram](https://img.shields.io/badge/-Instagram-c13584?style=flat-square&labelColor=c13584&logo=instagram&logoColor=white)](https://www.instagram.com/trevor-atlas/)  
+[![Github](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/trevor-atlas)
+[![Linkedin](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/trevor-atlas/)
+[![Instagram](https://img.shields.io/badge/-Instagram-c13584?style=flat-square&labelColor=c13584&logo=instagram&logoColor=white)](https://www.instagram.com/trevor-atlas/)
 [![Email](https://img.shields.io/badge/Email--168DE2?style=flat-square&logo=mail.ru&logoColor=168DE2)](mailto:me@trevoratlas.com)
 &nbsp;
 
