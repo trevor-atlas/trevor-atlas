@@ -24,7 +24,7 @@ You can use the website to generate badges: https://shields.io/
 &nbsp;
 
 <!-- Any image aligned to the right. Beware the width -->
-<img width="55%" align="right" alt="Github" src="https://raw.githubusercontent.com/trevor-atlas/trevor-atlas/master/public/images/1533406601529.jpg" />
+<img width="35%" align="right" alt="Github" src="https://raw.githubusercontent.com/trevor-atlas/trevor-atlas/master/public/images/1533406601529.jpg" />
 
 - 💻 I’m currently working on [Phantom Workshop](https://github.com/trevor-atlas/phantom-workshop) (browser syncronization and debugging tools)
 - 🌱 I’m currently learning Haskell and Functional Programming
@@ -34,5 +34,5 @@ You can use the website to generate badges: https://shields.io/
 You can use this api: https://github.com/anuraghazra/github-readme-stats
 -->
 
-<img width="55%" align="right" alt="Trevor's github stats" src="https://github-readme-stats.vercel.app/api?username=trevor-atlas&show_icons=true&hide_border=true?count_private=true" />
+<img width="55%" align="left" alt="Trevor's github stats" src="https://github-readme-stats.vercel.app/api?username=trevor-atlas&show_icons=true&hide_border=true?count_private=true" />
 
