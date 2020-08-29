@@ -31,5 +31,5 @@ You can use the website to generate badges: https://shields.io/
 You can use this api: https://github.com/anuraghazra/github-readme-stats
 -->
 
-    <img width="55%" align="right" alt="Trevor's github stats" src="https://github-readme-stats.vercel.app/api?username=trevor-atlas&show_icons=true&hide_border=true?count_private=true" />
+<img width="55%" align="right" alt="Trevor's github stats" src="https://github-readme-stats.vercel.app/api?username=trevor-atlas&show_icons=true&hide_border=true?count_private=true" />
 
