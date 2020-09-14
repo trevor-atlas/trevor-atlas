@@ -24,7 +24,7 @@ export function Pathfinder() {
 	}, []);
 
 	return (
-		<div className=" my-32">
+		<div className="my-32">
 			<h1>Pathfinding Visualizer</h1>
 			<p>Click and drag on a grid cell to add a wall</p>
 			<div className="mb-8">

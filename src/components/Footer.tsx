@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
+import {
+	ISpotifyCurrentlyPlaying,
+	NowPlaying
+} from 'src/components/spotify/NowPlaying';
+import { fetcher } from 'src/utils/helpers';
 import { Colors } from '../utils/colors';
 import { Container } from './Container';
 import {
@@ -11,6 +16,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faFilePdf, faPaperPlane } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useSWR, { responseInterface } from 'swr';
 
 interface Props {
 	sites?: {
@@ -21,23 +27,28 @@ interface Props {
 	}[];
 }
 
-export const Footer: React.FunctionComponent<Props> = ({ sites }) => {
+export interface ISong {
+	artist: string;
+	songUrl: string;
+	title: string;
+}
+
+export const Footer: FC<Props> = React.memo(({ sites }) => {
+	const {
+		data: playing
+	}: responseInterface<ISpotifyCurrentlyPlaying, Error> = useSWR(
+		'/api/spotify-current',
+		fetcher,
+		{
+			refreshInterval: 5 * 1000 * 60
+		}
+	);
+
 	return (
-		<footer
-			style={{
-				padding: '1em 0',
-				background: Colors.primary.get(),
-				color: 'white'
-			}}
-		>
+		<footer className="py-8">
 			<Container>
-				<div className="flex flex-col md:flex-row md:justify-between items-center content-center">
-					<div className="flex">
-						<p className="p-3 inline-block mb-0">
-							© {`2014 - ${new Date().getFullYear()}`} Trevor
-							Atlas
-						</p>
-					</div>
+				<NowPlaying {...playing} />
+				<div className="flex flex-col  md:justify-between items-center content-center">
 					<div className="flex">
 						{sites.map((site, i) => (
 							<a
@@ -56,11 +67,17 @@ export const Footer: React.FunctionComponent<Props> = ({ sites }) => {
 							</a>
 						))}
 					</div>
+					<div className="flex">
+						<small className="p-3 inline-block mb-0 muted">
+							© {`2014 - ${new Date().getFullYear()}`} Trevor
+							Atlas
+						</small>
+					</div>
 				</div>
 			</Container>
 		</footer>
 	);
-};
+});
 
 Footer.defaultProps = {
 	sites: [

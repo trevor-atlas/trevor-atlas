@@ -5,61 +5,20 @@ date: '2019-08-14'
 
 If you've been using npm and Node for any amount of time, it's likely you've grown tired of typing out `install` or `--save-dev` every time you want to add a package. This article will cover some quality of life tips and tricks to make using npm a breeze!
 
-Command
-
-Shortcut
-
-`install`
-
-`i`
-
-`test`
-
-`t`
-
-Flag
-
-Shortcut
-
-`--save-dev`
-
-`-D`
-
-`--save`
-
-`-S`
-
-`--save-exact`
-
-`-E`
-
-`--global`
-
-`-g`
-
-`--version`
-
-`-v`
-
-`--help`
-
-`-h`
-
-`--silent, --loglevel silent`
-
-`-s`
-
-`--quiet, --loglevel warn`
-
-`-q`
-
-`--loglevel info`
-
-`-d`
-
-`--verbose, --loglevel verbose`
-
-`-dd`
+| Command/flag | Shortcut |
+| --- | ----------- |
+| `install` | `i` |
+| `test` | `t` |
+| `--save-dev` | `-D` |
+| `--save` | `-s` |
+| `--save-exact` | `-E` |
+| `--global` | `-g` |
+| `--version` | `-v` |
+| `--help` | `-h` |
+| `--silent, --loglevel silent` | `-s` |
+| `--quiet, --loglevel warn` | `-q` |
+| `--loglevel info` | `-d` |
+| `--verbose --loglevel verbose` | `-dd` |
 
 ## Install multiple npm packages at once
 

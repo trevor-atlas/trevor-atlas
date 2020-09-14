@@ -1,12 +1,14 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import React, { FC } from 'react';
-import { Footer } from 'src/components/Footer';
-import { Nav } from 'src/components/Nav';
 import { HumanDate } from 'src/components/HumanDate';
 import { getSortedPostsData, IPost } from 'lib/posts';
 import { Container } from 'src/components/Container';
 import SEO from 'src/components/Seo';
-import Terrain from 'src/components/three-fibers/Terrain';
+
+const Terrain = dynamic(() => import('src/components/three-fibers/Terrain'), {
+	ssr: false
+});
 
 export async function getStaticProps() {
 	// Get external data from the file system, API, DB, etc.
@@ -45,7 +47,6 @@ const Blog: FC<{ posts: IPost[] }> = ({ posts }) => {
 
 	return (
 		<>
-			<Nav />
 			<SEO
 				title="All Posts"
 				ogTitle="Blog | Trevor Atlas"
@@ -60,7 +61,6 @@ const Blog: FC<{ posts: IPost[] }> = ({ posts }) => {
 					{entries}
 				</div>
 			</Container>
-			<Footer />
 		</>
 	);
 };

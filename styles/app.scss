@@ -2,8 +2,15 @@
 @import "./typography";
 @import "./animations";
 
+#__next {
+	width: 100%;
+	min-height: 100%;
+	position: relative;
+}
 :root,
 body {
+	width: 100%;
+	min-height: 100%;
 	background: $primary-bg;
 	background: linear-gradient(
 		to bottom,

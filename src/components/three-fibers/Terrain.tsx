@@ -1,27 +1,45 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { TerrainGen } from 'src/components/three-fibers/TerrainGen';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { softShadows } from 'drei';
 
-const FakeSphere = () => (
-	<mesh position={[8, 1, 2]}>
-		<sphereBufferGeometry attach="geometry" args={[0.5, 150, 50]} />
-		<meshBasicMaterial attach="material" color={0xd6d7ff} />
-	</mesh>
-);
+softShadows();
+
+const FakeSphere = () => {
+	const ref = useRef();
+	useFrame(() => {
+		if (ref.current) {
+			ref.current.rotation.y += 0.005;
+			ref.current.rotation.x += 0.005;
+		}
+	});
+	return (
+		<mesh ref={ref} castShadow position={[5, 0, 8]}>
+			<icosahedronBufferGeometry attach="geometry" args={[1]} />
+			<meshStandardMaterial
+				attach="material"
+				color="#001122"
+				metalness={0.1}
+				flatShading
+			/>
+		</mesh>
+	);
+};
 
 export const Lights = () => {
 	return (
 		<group>
 			<FakeSphere />
-			<ambientLight position={[8, 2, 2]} intensity={0.5} />
+			<ambientLight position={[0, 2, 0]} intensity={0.5} />
 
-			<directionalLight
-				intensity={0.3}
-				position={[8, 2, 2]}
-				color={0xffffff}
+			<pointLight
+				castShadow
+				shadow-mapSize-width={10024}
+				shadow-mapSize-height={10024}
+				intensity={1}
+				position={[8, 4, 8]}
+				color={0x0fff77}
 			/>
-
-			<pointLight intensity={1} position={[8, 2, 3]} color={0xffcc77} />
 		</group>
 	);
 };
@@ -29,6 +47,7 @@ export const Lights = () => {
 export default function Terrain() {
 	return (
 		<Canvas
+			shadowMap
 			style={{
 				margin: 0,
 				padding: 0,

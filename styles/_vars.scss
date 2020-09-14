@@ -18,9 +18,17 @@
 	@media (min-width: 1920px) { @content; }
 }
 
-$primary-text: #f5f8fa;
-$secondary-text: #e1e8ed;
-$primary-bg: #202b33;
-$secondary-bg: #30404d;
-$links-hover: #5b30be;
-$links: #3d99ff;
+$cultured: #eef0f2ff;
+$russian-green: #6b8f71ff;
+$raisin-black: #171923ff;
+$medium-slate-blue: #8a4fffff;
+$blue-jeans: #00a6fbff;
+
+$primary-text: $cultured;
+$secondary-text: darken($cultured, .2);
+$primary-bg: $raisin-black;
+$secondary-bg: $raisin-black;
+$links-hover: $medium-slate-blue;
+$links: $blue-jeans;
+
+$cubic-transition:cubic-bezier(.47,1.07,.46,.93);

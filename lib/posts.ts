@@ -10,6 +10,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 
 export interface IPost {
 	id: string;
+	draft: boolean;
 	content: string; // '<h1>Hello world!</h1>',
 	date: number;
 	title: string;
@@ -48,13 +49,12 @@ export function getSortedPostsData(): IPost[] {
 			content: matterResult.content,
 			contentText: getRawText(matterResult.content),
 			...matterResult.data
-		};
+		} as Partial<IPost>;
 	});
 
 	return allPostsData
+		.filter((p) => !p.draft)
 		.sort((a, b) => {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
 			if (a.date < b.date) {
 				return 1;
 			} else {

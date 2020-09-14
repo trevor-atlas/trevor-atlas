@@ -15,3 +15,5 @@ export const getCareerLength = (): string => {
 	}
 	return `${years} years`;
 };
+
+export const fetcher = (url) => fetch(url).then((res) => res.json());

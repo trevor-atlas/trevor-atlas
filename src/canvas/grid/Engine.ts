@@ -43,8 +43,8 @@ export class Engine {
 		this.pixelRatio = window.devicePixelRatio;
 
 		this.drawing = false;
-		this.width = this.columns * this.cellSize * this.pixelRatio;
-		this.height = this.rows * this.cellSize * this.pixelRatio;
+		this.width = this.columns * this.cellSize;
+		this.height = this.rows * this.cellSize;
 		this.canvas.width = this.width;
 		this.canvas.height = this.height;
 

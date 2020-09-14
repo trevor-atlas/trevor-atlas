@@ -10,4 +10,4 @@ image-sm: https://unsplash.it/500/300?image=1003
 
 This week’s work playlist is brought to us by Jonathan Shariat
 
-<iframe allowtransparency="true" frameborder="0" height="380" src="https://embed.spotify.com/?uri=spotify:user:jshariat:playlist:3Qc4iY6n352nayiSMnDfBQ" width="300" style="margin:0 auto;"></iframe>
+<iframe allowtransparency="true" frameborder="0" height="380" src="https://embed.spotify-current.ts.com/?uri=spotify-current.ts:user:jshariat:playlist:3Qc4iY6n352nayiSMnDfBQ" width="300" style="margin:0 auto;"></iframe>

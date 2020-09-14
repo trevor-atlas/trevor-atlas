@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { Colors } from '../utils/colors';
+import styles from './nav.module.scss';
 
 interface Props {
 	title?: string;
@@ -9,24 +9,19 @@ interface Props {
 
 export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 	return (
-		<nav
-			className="middle-xs "
-			style={{
-				position: 'relative',
-				zIndex: 100,
-				display: 'flex',
-				background: Colors.primary.get(),
-				color: 'white',
-				marginBottom: '2em'
-			}}
-		>
+		<nav className={`${styles.nav} middle-xs`} style={{}}>
 			<div className="container mx-auto px-8">
 				<div className="row start-xs py-4">
-					<h4 className="white inline-block my-0">
-						<Link href="/">
-							<a>{title}</a>
-						</Link>
-					</h4>
+					<Link href="/">
+						<a>
+							<img
+								className="inline-block my-0"
+								width="40"
+								src="/favicon.png"
+								alt="logo"
+							/>
+						</a>
+					</Link>
 					<ul
 						style={{
 							listStyle: 'none',
@@ -37,13 +32,7 @@ export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 					>
 						{links.map((l, i) => {
 							return (
-								<li
-									key={i}
-									style={{
-										display: 'inline-block',
-										marginRight: '1em'
-									}}
-								>
+								<li key={i} className={styles.link}>
 									<Link href={l.url}>
 										<a>{l.label}</a>
 									</Link>
@@ -59,5 +48,9 @@ export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 
 Nav.defaultProps = {
 	title: 'Trevor Atlas',
-	links: [{ label: 'Blog', url: '/blog' }]
+	links: [
+		{ label: 'about', url: '/about' },
+		{ label: 'blog', url: '/blog' },
+		{ label: 'experiments', url: '/experiments' }
+	]
 };

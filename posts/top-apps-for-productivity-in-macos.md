@@ -28,16 +28,16 @@ There are workflows for converting common units like miles and kilometers, openi
 
 <section>
 
-## [2\. Spectacle](https://www.spectacleapp.com/)
+## [2\. Rectangle](https://rectangleapp.com/)
 
 **Price:** free  
-Spectacle is an open source app from [github user Eric Czarny](https://github.com/eczarny?tab=repositories&type=source)
+Rectangle is an open source app from [github user rxhanson](https://github.com/rxhanson)
 
-Spectacle does one thing really well – it organizes your windows with keyboard shortcuts. That's it! here's what that looks like
+Rectangle does one thing really well – it organizes your windows with keyboard shortcuts. That's it! here's what that looks like
 
 ![spectacle example](/assets/2019/09/spectacle.gif)
 
-Spectacle can even move apps across different monitors!
+Rectangle can even move apps across different monitors!
 
 I've remapped it to use the vim movement keys (h j k l) for super intuitive resizing and movement.
 

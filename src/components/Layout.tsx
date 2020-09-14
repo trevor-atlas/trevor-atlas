@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Footer } from './Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Nav } from './Nav';
+import { Nav } from 'src/components/nav/Nav';
 
 const duration = 0.3;
 const variants = {
@@ -27,7 +27,6 @@ const variants = {
 
 export const Layout: FC = ({ children }) => (
 	<div key="page">
-		<Nav />
 		<AnimatePresence>
 			<motion.main
 				key="foobar"
@@ -39,6 +38,5 @@ export const Layout: FC = ({ children }) => (
 				{children}
 			</motion.main>
 		</AnimatePresence>
-		<Footer />
 	</div>
 );

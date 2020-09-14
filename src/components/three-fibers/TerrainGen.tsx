@@ -41,7 +41,7 @@ export const TerrainGen: FC = () => {
 	});
 
 	return (
-		<mesh ref={mesh}>
+		<mesh ref={mesh} receiveShadow>
 			<planeBufferGeometry
 				attach="geometry"
 				args={[100, 100, 275, 275]}
