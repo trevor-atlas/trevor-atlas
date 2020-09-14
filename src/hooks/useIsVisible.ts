@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
-export const useIsVisible = (): [boolean, MutableRefObject<HTMLElement>] => {
+export const useIsVisible = (): [boolean, MutableRefObject<any>] => {
 	const [visible, setVisibility] = useState(false);
 	const trigger: MutableRefObject<HTMLElement> = useRef(null);
 	useEffect(() => {

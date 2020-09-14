@@ -3,13 +3,16 @@ import { TerrainGen } from 'src/components/three-fibers/TerrainGen';
 import { Canvas, useFrame } from 'react-three-fiber';
 import { softShadows } from 'drei';
 
+// @ts-ignore
 softShadows();
 
 const FakeSphere = () => {
 	const ref = useRef();
 	useFrame(() => {
 		if (ref.current) {
+			// @ts-ignore
 			ref.current.rotation.y += 0.005;
+			// @ts-ignore
 			ref.current.rotation.x += 0.005;
 		}
 	});

@@ -1,15 +1,9 @@
-import React, { FC, Ref, useEffect, useRef, useState } from 'react';
+import React, { FC } from 'react';
 import { useIsVisible } from 'src/hooks/useIsVisible';
 import { Colors } from 'src/utils/colors';
 import { getCareerLength } from '../utils/helpers';
 import { Container } from './Container';
 import { Section } from 'src/components/section/Section';
-
-const link = (text: string, url: string) => (
-	<a href={url} target="_blank" rel="noopener">
-		{text}
-	</a>
-);
 
 interface Props {}
 const delay = (n: number) => ({ animationDelay: `.${n}s` });

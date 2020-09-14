@@ -43,7 +43,8 @@ const ParticleGroup: FC<IParticleGroup> = ({ count }) => {
 		// Makes the light follow the mouse
 		// Run through the randomized data to calculate some movement
 		particles.forEach((particle, i) => {
-			let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
+			let { t } = particle;
+			const { factor, speed, xFactor, yFactor, zFactor } = particle;
 			// There is no sense or reason to any of this, just messing around with trigonometric functions
 			t = particle.t += speed / 2;
 			const a = Math.cos(t) + Math.sin(t) / 10;
@@ -70,8 +71,10 @@ const ParticleGroup: FC<IParticleGroup> = ({ count }) => {
 			dummy.rotation.set(s * 5, s * 5, s * 5);
 			dummy.updateMatrix();
 			// And apply the matrix to the instanced item
+			// @ts-ignore
 			mesh.current.setMatrixAt(i, dummy.matrix);
 		});
+		// @ts-ignore
 		mesh.current.instanceMatrix.needsUpdate = true;
 	});
 	return (

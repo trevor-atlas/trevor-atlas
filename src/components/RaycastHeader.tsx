@@ -62,6 +62,7 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
 		scene.current.add(modularGroup.current);
 		scene.current.add(sceneGroup.current);
 
+		// @ts-ignore
 		renderer.current.domElement.style = `
 			background: rgba(25, 25, 25, .8);
 			backface-visibility: hidden;
@@ -186,6 +187,7 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
 			requestAnimationFrame(animate);
 			for (let i = 0; i < particleGroup.current.children.length; i++) {
 				const particle = particleGroup.current.children[i];
+				// @ts-ignore
 				const rot = particle.speed / 10;
 				particle.rotation.x += rot;
 				particle.rotation.y += rot;
@@ -193,7 +195,7 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
 			}
 
 			for (let i = 0; i < modularGroup.current.children.length; i++) {
-				const cube = modularGroup.current.children[i];
+				const cube = modularGroup.current.children[i] as PolyCube;
 				cube.rotation.x += 0.008;
 				cube.rotation.y += 0.005;
 				cube.rotation.z += 0.003;
