@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { HumanDate } from 'src/components/HumanDate';
 import { RaycastHeader } from 'src/components/RaycastHeader';
 import experiments from '../content/experiments.json';
 import projects from '../content/projects.json';
