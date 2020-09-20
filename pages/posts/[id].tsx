@@ -23,7 +23,7 @@ export default function Post({
 					ogUrl={`/posts/${id}`}
 				/>
 				<Container className="post ">
-					<div className="max-w-xxl mx-auto mt-32">
+					<div className="max-w-xl mx-auto mt-32">
 						<div className="header mb-4">
 							<h1>{title}</h1>
 							<span className="muted">

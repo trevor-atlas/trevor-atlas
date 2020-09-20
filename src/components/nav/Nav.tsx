@@ -1,45 +1,43 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './nav.module.scss';
 
-interface Props {
-	title?: string;
+interface INav {
 	links?: { label: string; url: string }[];
 }
 
-export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
+export const Nav: FC<INav> = ({ links }) => {
 	return (
-		<nav className={`${styles.nav} middle-xs`} style={{}}>
-			<div className="container mx-auto px-8">
-				<div className="row start-xs py-4">
-					<Link href="/">
-						<a>
-							<img
-								className="inline-block my-0"
-								width="40"
-								src="/favicon.png"
-								alt="logo"
-							/>
-						</a>
-					</Link>
-					<ul
-						style={{
-							listStyle: 'none',
-							display: 'inline-block',
-							padding: 0,
-							margin: '0 2em'
-						}}
+		<nav className={`${styles.nav} middle-xs`}>
+			<div className={styles.navContent}>
+				<div className="container mx-auto px-8">
+					<div
+						className={`flex flex-col md:flex-row justify-center items-center py-4`}
 					>
+						<Link href="/">
+							<a>
+								<img
+									className="inline-block mb-4 md:mb-0 md:mr-4"
+									width="50"
+									src="/logo.png"
+									style={{ borderRadius: 5 }}
+									alt="logo"
+								/>
+							</a>
+						</Link>
 						{links.map((l, i) => {
 							return (
-								<li key={i} className={styles.link}>
+								<div
+									key={i}
+									className={`${styles.link} mb-2 md:mb-0 md:mr-2`}
+								>
 									<Link href={l.url}>
 										<a>{l.label}</a>
 									</Link>
-								</li>
+								</div>
 							);
 						})}
-					</ul>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -47,7 +45,6 @@ export const Nav: React.FunctionComponent<Props> = ({ title, links }) => {
 };
 
 Nav.defaultProps = {
-	title: 'Trevor Atlas',
 	links: [
 		{ label: 'about', url: '/about' },
 		{ label: 'blog', url: '/blog' },

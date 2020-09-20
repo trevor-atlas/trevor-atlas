@@ -53,7 +53,7 @@ Sensible Side Buttons is an open source app from [github user](https://github.co
 
 If you use an external mouse with 'back' and 'forward' buttons, this app makes those buttons work as you would expect in MacOS
 
-![the best mouse ever made by man](/assets/2019/09/mx50.jpg)
+<img src="/assets/2019/09/sensible-side-buttons.png" width="250"/>
 
 To ensure SensibleSideButtons opens whenever you start your computer:
 

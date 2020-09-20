@@ -14,18 +14,17 @@ export const TerrainGen: FC = () => {
 			for (let i = 0; i < wVerts; i++) {
 				const ex = 1.1;
 				pa[3 * (j * wVerts + i) + 2] =
-					(noise.current.simplex2(i / 100, j / 100) +
-						noise.current.simplex2((i + 200) / 50, j / 50) *
-							Math.pow(ex, 1) +
-						noise.current.simplex2((i + 400) / 25, j / 25) *
-							Math.pow(ex, 2) +
-						noise.current.simplex2((i + 600) / 12.5, j / 12.5) *
-							Math.pow(ex, 3) +
-						+(
-							noise.current.simplex2((i + 800) / 6.25, j / 6.25) *
-							Math.pow(ex, 4)
-						)) /
-					2;
+					noise.current.simplex2(i / 100, j / 100) +
+					noise.current.simplex2((i + 200) / 50, j / 50) *
+						Math.pow(ex, 1) +
+					noise.current.simplex2((i + 400) / 25, j / 25) *
+						Math.pow(ex, 2) +
+					noise.current.simplex2((i + 600) / 12.5, j / 12.5) *
+						Math.pow(ex, 3) +
+					+(
+						noise.current.simplex2((i + 800) / 6.25, j / 6.25) *
+						Math.pow(ex, 4)
+					);
 			}
 		}
 

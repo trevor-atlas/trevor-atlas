@@ -121,7 +121,7 @@ Footer.defaultProps = {
 			url: 'mailto:me@trevoratlas.com',
 			icon: faPaperPlane,
 			title: 'Email',
-			color: Colors.links.get()
+			color: Colors.palette.ocean
 		}
 	]
 };

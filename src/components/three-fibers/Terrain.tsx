@@ -2,26 +2,29 @@ import React, { Suspense, useRef } from 'react';
 import { TerrainGen } from 'src/components/three-fibers/TerrainGen';
 import { Canvas, useFrame } from 'react-three-fiber';
 import { softShadows } from 'drei';
+import { Mesh } from 'three';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 softShadows();
 
+const increase = Math.PI / 500;
+let counter = 0;
 const FakeSphere = () => {
-	const ref = useRef();
+	const ref = useRef<Mesh>();
 	useFrame(() => {
-		if (ref.current) {
-			// @ts-ignore
-			ref.current.rotation.y += 0.005;
-			// @ts-ignore
-			ref.current.rotation.x += 0.005;
-		}
+		ref.current.rotation.y -= 0.005;
+		ref.current.rotation.x += 0.005;
+		ref.current.position.y = Math.sin(counter) * 5;
+		ref.current.position.x = Math.cos(counter) * 5;
+		counter += increase;
 	});
 	return (
-		<mesh ref={ref} castShadow position={[5, 0, 8]}>
-			<icosahedronBufferGeometry attach="geometry" args={[1]} />
+		<mesh ref={ref} castShadow position={[9, 3, 10]}>
+			<icosahedronBufferGeometry attach="geometry" args={[1.5]} />
 			<meshStandardMaterial
 				attach="material"
-				color="#001122"
+				color="#142848"
 				metalness={0.1}
 				flatShading
 			/>
@@ -40,7 +43,7 @@ export const Lights = () => {
 				shadow-mapSize-width={10024}
 				shadow-mapSize-height={10024}
 				intensity={1}
-				position={[8, 4, 8]}
+				position={[8, 8, 9]}
 				color={0x0fff77}
 			/>
 		</group>

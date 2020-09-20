@@ -9,7 +9,7 @@ export default function MyApp({ Component, pageProps }: any) {
 	return (
 		<>
 			<Nav />
-			<Component {...pageProps} />;
+			<Component {...pageProps} />
 			<Footer />
 		</>
 	);

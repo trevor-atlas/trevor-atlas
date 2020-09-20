@@ -5,10 +5,10 @@ import { getCareerLength } from '../utils/helpers';
 import { Container } from './Container';
 import { Section } from 'src/components/section/Section';
 
-interface Props {}
+interface IProps {}
 const delay = (n: number) => ({ animationDelay: `.${n}s` });
 
-const Bio: FC<Props> = () => {
+const Bio: FC<IProps> = () => {
 	const [visible, trigger] = useIsVisible();
 	return (
 		<Section>
@@ -28,7 +28,8 @@ const Bio: FC<Props> = () => {
 											height: 250,
 											width: 250,
 											marginBottom: 0,
-											backgroundColor: Colors.links.get(),
+											backgroundColor:
+												Colors.palette.ocean,
 											borderRadius: '50%'
 										}}
 									/>

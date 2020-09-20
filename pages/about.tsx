@@ -1,25 +1,30 @@
-import React from 'react';
+import { GetStaticProps } from 'next';
+import React, { FC } from 'react';
 import { Container } from 'src/components/Container';
-import { Footer, ISong } from 'src/components/Footer';
-import { Nav } from 'src/components/nav/Nav';
+import { ISong } from 'src/components/Footer';
 import SEO from 'src/components/Seo';
-import { fetcher } from 'src/utils/helpers';
 import styles from '../styles/about.module.scss';
 
-import useSWR, { responseInterface } from 'swr';
+export const getStaticProps: GetStaticProps = async (context) => {
+	const data = await fetch(`https://trevoratlas.com/api/spotify-top`);
+	const json = await data.json();
+	return {
+		props: {
+			top: json
+		}
+	};
+};
 
-const About = () => {
-	const {
-		data: top
-	}: responseInterface<Record<string, ISong[]>, Error> = useSWR(
-		'/api/spotify-top',
-		fetcher
-	);
+interface IAbout {
+	top: Record<string, ISong[]>;
+}
+
+const About: FC<IAbout> = ({ top }) => {
 	return (
 		<>
 			<SEO title="Home Page" />
 			<Container>
-				<div className="mx-auto max-w-xl mt-32">
+				<div className="mx-auto max-w-xl pt-32">
 					<h1>About me</h1>
 					<p>
 						I am a Software developer, systems administrator, and

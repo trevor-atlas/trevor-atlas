@@ -2,22 +2,26 @@
 @import "./typography";
 @import "./animations";
 
+html, :root {
+	background: $raisin-black;
+	background-image: $primary-gradient;
+}
 #__next {
 	width: 100%;
 	min-height: 100%;
 	position: relative;
+	margin-top: 0;
+	@include md {
+		margin-top: 4.5rem;
+	}
 }
+
 :root,
 body {
 	width: 100%;
 	min-height: 100%;
-	background: $primary-bg;
-	background: linear-gradient(
-		to bottom,
-		$primary-bg,
-		$secondary-bg
-	);
-	color: $primary-text;
+	background-image: $primary-gradient;
+	color: rgba($primary-text, .8);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	position: relative;
@@ -33,28 +37,27 @@ body {
 		font-size: 18px;
 	}
 
-	@include lg {
-		font-size: 22px;
-	}
-
 	* {
 		z-index: 1;
 	}
 
 	&::-webkit-scrollbar {
-		width: 0.5rem;
+		width: .5rem;
 	}
 
 	&::-webkit-scrollbar-track {
-		background: var(--primary-bg);
+		background: darken($primary-bg, 1);
 
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background: var(--secondary-bg);
+		background: $deep_blue;
 	}
 }
 
+body {
+
+}
 
 .post {
 	section {
