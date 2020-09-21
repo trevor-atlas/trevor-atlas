@@ -31,5 +31,6 @@ export const removeStaleServiceWorkers = () => {
 				}
 			});
 		localStorage.setItem(key, 'true');
+		location.reload();
 	}
 };
