@@ -17,3 +17,19 @@ export const getCareerLength = (): string => {
 };
 
 export const fetcher = (url) => fetch(url).then((res) => res.json());
+
+export const removeStaleServiceWorkers = () => {
+	const key = 'atlas_cleared_serviceworkers';
+	const hasRun = localStorage.getItem(key);
+	if (typeof hasRun !== 'string' || hasRun === '') {
+		console.log('clearing stale service workers');
+		navigator.serviceWorker
+			.getRegistrations()
+			.then(async (registrations) => {
+				for (const registration of registrations) {
+					await registration.unregister();
+				}
+			});
+		localStorage.setItem(key, 'true');
+	}
+};
