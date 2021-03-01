@@ -30,7 +30,7 @@
 		"remove-markdown": "^0.3.0",
 		"styled-components": "^5.1.1",
 		"swr": "^0.3.2",
-		"three": "^0.119.1"
+		"three": "^0.125.0"
 	},
 	"devDependencies": {
 		"@fortawesome/free-brands-svg-icons": "^5.14.0",
