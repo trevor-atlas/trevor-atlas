@@ -1,30 +1,42 @@
-import React, { Suspense, useRef } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import { TerrainGen } from 'src/components/three-fibers/TerrainGen';
 import { Canvas, useFrame } from 'react-three-fiber';
-import { softShadows } from 'drei';
+import { softShadows } from '@react-three/drei';
 import { Mesh } from 'three';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 softShadows();
 
-const increase = Math.PI / 500;
+const increase = Math.PI / 1500;
 let counter = 0;
 const FakeSphere = () => {
 	const ref = useRef<Mesh>();
+	const [hovered, setHover] = useState(false);
+	const [active, setActive] = useState(false);
 	useFrame(() => {
 		ref.current.rotation.y -= 0.005;
 		ref.current.rotation.x += 0.005;
-		ref.current.position.y = Math.sin(counter) * 5;
-		ref.current.position.x = Math.cos(counter) * 5;
+		ref.current.position.x = Math.cos(counter) * 8;
+		ref.current.position.y = Math.sin(counter) * 2 + 4;
+		ref.current.position.z = Math.sin(counter) * 3 + 8;
 		counter += increase;
 	});
+
 	return (
-		<mesh ref={ref} castShadow position={[9, 3, 10]}>
+		<mesh
+			ref={ref}
+			castShadow
+			position={[0, 1, -10]}
+			scale={active ? 1.5 : 1}
+			onClick={(e) => setActive(!active)}
+			onPointerOver={(e) => setHover(true)}
+			onPointerOut={(e) => setHover(false)}
+		>
 			<icosahedronBufferGeometry attach="geometry" args={[1.5]} />
 			<meshStandardMaterial
 				attach="material"
-				color="#142848"
+				color={hovered ? 'orange' : '#142848'}
 				metalness={0.1}
 				flatShading
 			/>
@@ -51,9 +63,18 @@ export const Lights = () => {
 };
 
 export default function Terrain() {
+	const scrollTop =
+		window.pageYOffset !== undefined
+			? window.pageYOffset
+			: (document.documentElement || document.body).scrollTop;
+	const ref = useRef();
+	useFrame(() => {
+		ref.current.
+	})
 	return (
 		<Canvas
 			shadowMap
+			ref={ref}
 			style={{
 				margin: 0,
 				padding: 0,

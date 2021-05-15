@@ -12,7 +12,7 @@ const Terrain = dynamic(() => import('src/components/three-fibers/Terrain'), {
 
 export async function getStaticProps() {
 	// Get external data from the file system, API, DB, etc.
-	const data = getSortedPostsData();
+	const data = await getSortedPostsData();
 
 	// The value of the `props` key will be
 	//  passed to the `Home` component

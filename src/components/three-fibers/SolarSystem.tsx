@@ -1,18 +1,16 @@
 import React, { FC, Suspense, useState } from 'react';
-import { Stars } from 'drei';
+import { Stars } from '@react-three/drei';
 import { Canvas } from 'react-three-fiber';
 import { Earth } from 'src/components/three-fibers/Earth';
 import { Planet } from 'src/components/three-fibers/Planet';
 import { Sun } from 'src/components/three-fibers/Sun';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const SolarSystem: FC = () => {
 	const [showLabels, setShowLabels] = useState(false);
 	const toggleLabels = () => setShowLabels(!showLabels);
 
 	return (
-		<div className="relative">
+		<>
 			<Canvas
 				shadowMap
 				pixelRatio={window.devicePixelRatio}
@@ -30,7 +28,6 @@ export const SolarSystem: FC = () => {
 					// @ts-ignore
 					MsUserSelect: 'none',
 					width: '100%',
-					minHeight: 800,
 					height: '60vh',
 					bottom: 0,
 					zIndex: -1
@@ -43,9 +40,9 @@ export const SolarSystem: FC = () => {
 				}}
 			>
 				<Suspense fallback={null}>
-					<ambientLight intensity={0.5} color={0xffffff} />
+					<ambientLight intensity={0.1} color={0xffffff} />
 					<pointLight
-						intensity={1.2}
+						intensity={2.2}
 						position={[0, 0, 0]}
 						color={0xffffff}
 						castShadow
@@ -60,7 +57,7 @@ export const SolarSystem: FC = () => {
 					<Stars
 						radius={100} // Radius of the inner sphere (default=100)
 						depth={50} // Depth of area where stars should fit (default=50)
-						count={1000} // Amount of stars (default=5000)
+						count={500} // Amount of stars (default=5000)
 						factor={8} // Size factor (default=4)
 						saturation={0.5} // Saturation 0-1 (default=0)
 						fade // Faded dots (default=false)
@@ -163,6 +160,6 @@ export const SolarSystem: FC = () => {
 					{showLabels ? 'hide' : 'show'} labels
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };

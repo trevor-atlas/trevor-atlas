@@ -8,6 +8,7 @@ import Bio from '../src/components/Bio';
 import { Container } from '../src/components/Container';
 import SEO from '../src/components/Seo';
 import { getSortedPostsData, IPost } from '../lib/posts';
+import styles from 'src/components/three-fibers/solar-system.module.scss';
 
 const SolarSystem = dynamic(
 	() =>
@@ -20,7 +21,7 @@ const SolarSystem = dynamic(
 );
 
 export async function getStaticProps() {
-	const data = getSortedPostsData();
+	const data = await getSortedPostsData();
 
 	return {
 		props: {
@@ -40,7 +41,9 @@ interface IHomeProps {
 const Home: FC<IHomeProps> = ({ posts }) => {
 	return (
 		<>
-			<SolarSystem />
+			<div className={styles.solar_system}>
+				<SolarSystem />
+			</div>
 			<SEO title="Home Page" />
 			<Bio key="bio" />
 			<Container>

@@ -6,12 +6,28 @@ import { HumanDate } from '../../src/components/HumanDate';
 import { IPost } from '../../lib/posts';
 import { Layout } from '../../src/components/Layout';
 import { getAllPostIds, getPostData } from '../../lib/posts';
+import hydrate from 'next-mdx-remote/hydrate';
 
 export default function Post({
-	postData: { id, title, date, contentHtml, featuredImage, excerpt, readTime }
+	postData: {
+		id,
+		title,
+		content,
+		date,
+		contentHtml,
+		featuredImage,
+		excerpt,
+		readTime,
+		isMDX
+	}
 }: {
 	postData: IPost;
 }) {
+	const mdxcontent = isMDX
+		? hydrate(content as any, {
+				components: { Test: () => 'this is a test lol' }
+		  })
+		: null;
 	return (
 		<Layout>
 			<>
@@ -34,9 +50,15 @@ export default function Post({
 								{readTime.text} (~{readTime.words} words)
 							</span>
 						</div>
-						<div
-							dangerouslySetInnerHTML={{ __html: contentHtml }}
-						/>
+						{isMDX ? (
+							mdxcontent
+						) : (
+							<div
+								dangerouslySetInnerHTML={{
+									__html: contentHtml
+								}}
+							/>
+						)}
 					</div>
 					<Bio />
 				</Container>

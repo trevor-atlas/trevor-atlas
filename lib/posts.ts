@@ -1,12 +1,29 @@
 import fs from 'fs';
 import { IReadTime, readingTime } from './read-time';
 import path from 'path';
-import matter, { GrayMatterFile } from 'gray-matter';
+import matter from 'gray-matter';
 import remark from 'remark';
 import html from 'remark-html';
 import removeMd from 'remove-markdown';
 import highlight from 'remark-highlight.js';
-const postsDirectory = path.join(process.cwd(), 'posts');
+import renderToString from 'next-mdx-remote/render-to-string';
+
+const POSTS_DIRECTORY = path.join(process.cwd(), 'posts');
+
+export interface IRawPost extends Record<string, unknown> {
+	id: string;
+	draft: boolean;
+	content: string; // raw html
+	date: string;
+	title: string;
+	slug: string;
+	categories: string[];
+	featured_image?: string;
+	thumbnail?: string;
+	contentHtml: string;
+	contentText: string;
+	isMDX: boolean;
+}
 
 export interface IPost {
 	id: string;
@@ -16,43 +33,117 @@ export interface IPost {
 	title: string;
 	slug: string;
 	categories: string[];
-	featuredImage: string;
-	thumbnail: string;
+	featuredImage?: string;
+	thumbnail?: string;
 	contentHtml: string;
 	contentText: string;
 	excerpt: string;
 	readTime: IReadTime;
+	isMDX: boolean;
 }
 
-export const processPostContent = (post: any): IPost => {
-	post.date = new Date(post.date).getTime();
-	post.excerpt = getExcerpt(post.content);
-	post.contentText = getRawText(post.content);
-	post.readTime = readingTime(post.contentText);
-	if (post.featured_image) {
-		post.featuredImage = post.featured_image;
-	}
-	return post;
+const getFile = (filename: string): string => {
+	const fullPath = path.join(POSTS_DIRECTORY, filename);
+	return fs.readFileSync(fullPath, 'utf8');
 };
 
-export function getSortedPostsData(): IPost[] {
-	const fileNames = fs.readdirSync(postsDirectory);
-	const allPostsData = fileNames.map((fileName) => {
-		const id = fileName.replace(/\.md$/, '');
+export const processPostContent = ({
+	id,
+	title,
+	slug,
+	categories,
+	content,
+	contentHtml,
+	contentText,
+	date,
+	draft,
+	featured_image,
+	isMDX
+}: IRawPost): IPost => {
+	return {
+		id,
+		title,
+		slug: slug ? slug : id,
+		content,
+		contentHtml: contentHtml ? contentHtml : '',
+		categories: categories ? categories : [],
+		draft: draft ? draft : false,
+		date: new Date(date).getTime(),
+		excerpt: getExcerpt(contentText),
+		contentText,
+		readTime: readingTime(contentText),
+		featuredImage: featured_image ? featured_image : null,
+		isMDX
+	};
+};
 
-		const fullPath = path.join(postsDirectory, fileName);
-		const fileContents = fs.readFileSync(fullPath, 'utf8');
-		const matterResult = matter(fileContents);
+const processMDFile = async (filename: string): Promise<IRawPost> => {
+	const id = filename.replace(/\.(md)$/, '');
+	const fileContents = getFile(filename);
+	const { content, data } = matter(fileContents);
+	const processedContent = await remark()
+		.use(html)
+		.use(highlight)
+		.process(content);
+	const contentHtml = processedContent.toString();
 
-		return {
-			id,
-			content: matterResult.content,
-			contentText: getRawText(matterResult.content),
-			...matterResult.data
-		} as Partial<IPost>;
+	return {
+		id,
+		content,
+		contentHtml,
+		contentText: getRawText(content),
+		...data, // frontmatter content like date, draft etc
+		isMDX: false
+	} as IRawPost;
+};
+
+const processMD = async (filenames: string[]): Promise<IRawPost[]> => {
+	const result: IRawPost[] = [];
+	for (const filename of filenames) {
+		const processed = await processMDFile(filename);
+		result.push(processed);
+	}
+	return result;
+};
+
+const processMDXFile = async (filename: string): Promise<IRawPost> => {
+	const id = filename.replace(/\.(mdx)$/, '');
+	const fileContents = getFile(filename);
+	const { content, data } = matter(fileContents);
+
+	const mdxSource = await renderToString(content, {
+		components: { Test: () => 'this is a test' },
+		scope: data
 	});
 
-	return allPostsData
+	return ({
+		id,
+		content: mdxSource,
+		contentText: getRawText(content),
+		...data,
+		isMDX: true
+	} as unknown) as IRawPost;
+};
+
+const processMDX = async (filenames: string[]): Promise<IRawPost[]> => {
+	const result: IRawPost[] = [];
+	for (const filename of filenames) {
+		const processed = await processMDXFile(filename);
+		result.push(processed);
+	}
+	return result;
+};
+
+export const getSortedPostsData = async (): Promise<IPost[]> => {
+	const fileNames = fs.readdirSync(POSTS_DIRECTORY);
+	const MD = /\.md$/;
+	const MDX = /\.mdx$/;
+	const mdNames = fileNames.filter((name) => MD.test(name));
+	const mdxNames = fileNames.filter((name) => MDX.test(name));
+	const mdPosts: IRawPost[] = await processMD(mdNames);
+	const mdxPosts: IRawPost[] = await processMDX(mdxNames);
+
+	return [...mdPosts, ...mdxPosts]
 		.filter((p) => !p.draft)
 		.sort((a, b) => {
 			if (a.date < b.date) {
@@ -62,7 +153,7 @@ export function getSortedPostsData(): IPost[] {
 			}
 		})
 		.map(processPostContent);
-}
+};
 
 interface IPostID {
 	params: {
@@ -71,37 +162,26 @@ interface IPostID {
 }
 
 export function getAllPostIds(): IPostID[] {
-	const fileNames = fs.readdirSync(postsDirectory);
+	const fileNames = fs.readdirSync(POSTS_DIRECTORY);
 	return fileNames.map((fileName) => {
 		return {
 			params: {
-				id: fileName.replace(/\.md$/, '')
+				id: fileName.replace(/\.(md|mdx)$/, '')
 			}
 		};
 	});
 }
 
+export const getPostFromID = async (id: string): Promise<IRawPost> => {
+	if (!fs.existsSync(path.join(POSTS_DIRECTORY, `${id}.md`))) {
+		return processMDXFile(`${id}.mdx`);
+	}
+	return processMDFile(`${id}.md`);
+};
+
 export async function getPostData(id: string): Promise<IPost> {
-	const fullPath = path.join(postsDirectory, `${id}.md`);
-	const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-	// Use gray-matter to parse the post metadata section
-	const matterResult = matter(fileContents);
-
-	const processedContent = await remark()
-		.use(html)
-		.use(highlight)
-		.process(matterResult.content);
-	const contentHtml = processedContent.toString();
-
-	// Combine the data with the id
-	return processPostContent({
-		id,
-		contentHtml,
-		contentText: getRawText(matterResult.content),
-		content: matterResult.content,
-		...matterResult.data
-	});
+	const post = await getPostFromID(id);
+	return processPostContent(post);
 }
 
 function getRawText(markdown: string): string {

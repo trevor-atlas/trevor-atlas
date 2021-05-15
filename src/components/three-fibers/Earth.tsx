@@ -1,8 +1,8 @@
 import React, { FC, MutableRefObject, useRef, memo } from 'react';
 import { useFrame, useLoader } from 'react-three-fiber';
 import { Moon } from 'src/components/three-fibers/Moon';
-import { Geometry, Mesh, Vector3 } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { Color, DoubleSide, Mesh, Vector3 } from 'three';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 interface IEarth {
 	scale: number;
@@ -10,20 +10,12 @@ interface IEarth {
 	orbitSpeed: number;
 }
 const _Earth: FC<IEarth> = ({ scale, orbitSize, orbitSpeed }) => {
-	const ref: MutableRefObject<Mesh> = useRef();
-	const { nodes } = (useLoader(GLTFLoader, '/out.glb') as unknown) as {
-		nodes: {
-			'URF-Height_Lampd_0': {
-				geometry: Geometry;
-			};
-			'URF-Height_Lampd_Ice_0': {
-				geometry: Geometry;
-			};
-			'URF-Height_watr_0': {
-				geometry: Geometry;
-			};
-		};
-	};
+	const earth: MutableRefObject<Mesh> = useRef();
+	const clouds: MutableRefObject<Mesh> = useRef();
+	const earthMap = useLoader(TextureLoader, '/images/earthmap1k.jpeg');
+	const earthBump = useLoader(TextureLoader, '/images/earthbump1k.jpeg');
+	const earthSpec = useLoader(TextureLoader, '/images/water_4k.png');
+	const cloudMap = useLoader(TextureLoader, '/images/fair_clouds_4k.png');
 	const size: MutableRefObject<Vector3> = useRef(([
 		scale,
 		scale,
@@ -32,46 +24,51 @@ const _Earth: FC<IEarth> = ({ scale, orbitSize, orbitSpeed }) => {
 	const counter = useRef(0);
 
 	useFrame(() => {
-		ref.current.position.y = Math.cos(counter.current);
-		ref.current.position.z = Math.cos(counter.current) * orbitSize;
-		ref.current.position.x = Math.sin(counter.current) * orbitSize;
-		ref.current.rotation.y += 0.05;
+		earth.current.position.y = Math.cos(counter.current);
+		earth.current.position.z = Math.cos(counter.current) * orbitSize;
+		earth.current.position.x = Math.sin(counter.current) * orbitSize;
+		earth.current.rotation.y += 0.02;
+
+		clouds.current.rotation.y += 0.001;
+		clouds.current.rotation.z += 0.001;
 		counter.current += Math.PI / orbitSpeed;
 	});
 	return (
-		<group ref={ref}>
+		<group ref={earth}>
 			<Moon />
 			<group>
 				<mesh
 					scale={size.current}
-					geometry={nodes['URF-Height_Lampd_0'].geometry}
 					position={[0, 0, 0]}
 					castShadow={true}
 					receiveShadow={true}
 				>
-					<meshStandardMaterial
-						attach="material"
-						color="lightgreen"
+					<sphereGeometry args={[1, 32, 32]} />
+					<meshPhongMaterial
+						bumpMap={earthBump}
+						bumpScale={5}
+						specularMap={earthSpec}
+						specular={new Color('grey')}
+						map={earthMap}
+						color="white"
 					/>
-				</mesh>
-				<mesh
-					scale={size.current}
-					geometry={nodes['URF-Height_Lampd_Ice_0'].geometry}
-					position={[0, 0, 0]}
-					castShadow={true}
-					receiveShadow={true}
-				>
-					<meshStandardMaterial attach="material" color="white" />
 				</mesh>
 
 				<mesh
+					ref={clouds}
 					scale={size.current}
-					geometry={nodes['URF-Height_watr_0'].geometry}
 					position={[0, 0, 0]}
 					castShadow={true}
 					receiveShadow={true}
 				>
-					<meshStandardMaterial attach="material" color="#3355ff" />
+					<sphereGeometry args={[1.01, 32, 32]} />
+					<meshPhongMaterial
+						side={DoubleSide}
+						transparent={true}
+						depthWrite={false}
+						opacity={0.8}
+						map={cloudMap}
+					/>
 				</mesh>
 			</group>
 		</group>
