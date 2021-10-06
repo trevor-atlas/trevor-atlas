@@ -6,7 +6,7 @@ import { HumanDate } from '../../src/components/HumanDate';
 import { IPost } from '../../lib/posts';
 import { Layout } from '../../src/components/Layout';
 import { getAllPostIds, getPostData } from '../../lib/posts';
-import hydrate from 'next-mdx-remote/hydrate';
+import { MDXRemote } from 'next-mdx-remote'
 
 export default function Post({
 	postData: {
@@ -24,9 +24,7 @@ export default function Post({
 	postData: IPost;
 }) {
 	const mdxcontent = isMDX
-		? hydrate(content as any, {
-				components: { Test: () => 'this is a test lol' }
-		  })
+		? <MDXRemote {...content} components={{ Test: () => 'this is a test lol' }} />
 		: null;
 	return (
 		<Layout>

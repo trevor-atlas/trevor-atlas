@@ -1,0 +1,22 @@
+.site_link {
+	font-size: 1.2rem;
+	&:hover {
+		transform-origin:center center;
+		animation: jello .3s linear;
+	}
+}
+
+@keyframes jello {
+	0% {
+		transform:scale(1.68, 1.44);
+	}
+	33% {
+		transform:scale(0.72, 0.72);
+	}
+	66% {
+		transform:scale(1.296, 1);
+	}
+	100% {
+		transform: none;
+	}
+}

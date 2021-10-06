@@ -21,3 +21,7 @@ export const fetcher = (url) => fetch(url).then((res) => res.json());
 export const clamp = (n: number, min: number, max: number) => {
 	return Math.min(max, Math.max(n, min));
 };
+
+export const isBrowser = typeof window !== 'undefined';
+
+export const noop = () => {};

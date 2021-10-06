@@ -2,8 +2,13 @@ import { IPost } from 'lib/posts';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import { Container } from 'src/components/Container';
-import { HumanDate } from 'src/components/HumanDate';
 import SEO from 'src/components/Seo';
+
+const experiments = [
+	{link: 'experiments/pathfinding-visualizer', title: 'Pathfinding Visualizer'},
+	{link: 'experiments/qr-code-api', title: 'QR code generator'},
+	{link: 'experiments/webgl-portal', title: 'WEBGL Portal'}
+]
 
 const Experiments: FC<{ posts: IPost[] }> = () => {
 	return (
@@ -19,9 +24,9 @@ const Experiments: FC<{ posts: IPost[] }> = () => {
 				<div className="max-w-xl mx-auto mt-32">
 					<h1 className="mb-16">Experiments</h1>
 					<div className="card">
-						<Link href={'experiments/pathfinding-visualizer'}>
-							<a>Pathfinding Visualizer</a>
-						</Link>
+						{experiments.map(e => <Link href={e.link}>
+							<a>{e.title}</a>
+						</Link>)}
 					</div>
 				</div>
 			</Container>

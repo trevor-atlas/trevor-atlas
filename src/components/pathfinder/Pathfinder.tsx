@@ -1,13 +1,11 @@
 import React, {
-	MutableRefObject,
-	Ref,
-	useEffect,
 	useRef,
 	useState
 } from 'react';
 import { Engine } from 'src/canvas/grid/Engine';
 import { Button } from 'src/components/button/Button';
 import { Cell } from 'src/components/pathfinder/Cell';
+import useIsomorphicLayoutEffect from 'src/hooks/useIsomorphicLayoutEffect';
 
 export function Pathfinder() {
 	const [ran, setRan] = useState(false);
@@ -15,11 +13,11 @@ export function Pathfinder() {
 	const [tooSmall, setTooSmall] = useState(true);
 	const engine: React.MutableRefObject<Engine> = useRef();
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		setTooSmall(window.innerWidth <= 1000);
 	}, []);
 
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		engine.current = new Engine(30, 50);
 	}, []);
 

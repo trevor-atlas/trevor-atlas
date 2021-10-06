@@ -1,6 +1,7 @@
 // @ts-ignore
-import { Math, SphereBufferGeometry, MeshBasicMaterial, Color } from 'three';
-import React, { Suspense, useEffect, useRef, useState, useMemo } from 'react';
+import useIsomorphicLayoutEffect from 'src/hooks/useIsomorphicLayoutEffect';
+import { MathUtils, SphereBufferGeometry, MeshBasicMaterial, Color } from 'three';
+import React, { Suspense, useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from 'react-three-fiber';
 
 function Stars() {
@@ -8,8 +9,8 @@ function Stars() {
 	let theta = 0;
 	useFrame(() => {
 		// Some things maybe shouldn't be declarative, we're in the render-loop here with full access to the instance
-		const r = 5 * Math.sin(Math.degToRad((theta += 0.1))) * 0.1;
-		const s = Math.sin(Math.degToRad(theta * 1.2));
+		const r = 5 * Math.sin(MathUtils.degToRad((theta += 0.1))) * 0.1;
+		const s = Math.sin(MathUtils.degToRad(theta * 1.2));
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		group.current.rotation.set(r, r, r);
@@ -46,7 +47,7 @@ function Stars() {
 }
 export function BlogHeader() {
 	const [pixelRatio, setPixelRatio] = useState(1);
-	useEffect(() => {
+	useIsomorphicLayoutEffect(() => {
 		setPixelRatio(window.devicePixelRatio);
 	}, []);
 	return (

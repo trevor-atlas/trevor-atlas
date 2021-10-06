@@ -6,7 +6,7 @@ import remark from 'remark';
 import html from 'remark-html';
 import removeMd from 'remove-markdown';
 import highlight from 'remark-highlight.js';
-import renderToString from 'next-mdx-remote/render-to-string';
+import { serialize } from 'next-mdx-remote/serialize'
 
 const POSTS_DIRECTORY = path.join(process.cwd(), 'posts');
 
@@ -111,7 +111,7 @@ const processMDXFile = async (filename: string): Promise<IRawPost> => {
 	const fileContents = getFile(filename);
 	const { content, data } = matter(fileContents);
 
-	const mdxSource = await renderToString(content, {
+	const mdxSource = await serialize(content, {
 		components: { Test: () => 'this is a test' },
 		scope: data
 	});

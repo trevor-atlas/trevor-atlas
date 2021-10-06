@@ -17,6 +17,7 @@ import {
 import { faFilePdf, faPaperPlane } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useSWR, { responseInterface } from 'swr';
+import styles from './footer.module.scss'
 
 interface Props {
 	sites?: {
@@ -57,7 +58,7 @@ export const Footer: FC<Props> = React.memo(({ sites }) => {
 								href={site.url}
 								rel="noopener noreferrer"
 								aria-hidden="true"
-								className="p-2 inline-block"
+								className={`${styles.site_link} p-3 inline-block`}
 							>
 								<FontAwesomeIcon
 									icon={site.icon}
@@ -94,7 +95,7 @@ Footer.defaultProps = {
 			color: '#1da1f2'
 		},
 		{
-			url: 'https://www.linkedin.com/in/trevoristall/',
+			url: 'https://www.linkedin.com/in/trevoratlas',
 			icon: faLinkedin,
 			title: 'Linkedin',
 			color: '#2867b2'

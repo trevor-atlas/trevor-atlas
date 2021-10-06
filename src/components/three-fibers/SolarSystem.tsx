@@ -4,6 +4,7 @@ import { Canvas } from 'react-three-fiber';
 import { Earth } from 'src/components/three-fibers/Earth';
 import { Planet } from 'src/components/three-fibers/Planet';
 import { Sun } from 'src/components/three-fibers/Sun';
+import { clamp } from 'src/utils/helpers';
 
 export const SolarSystem: FC = () => {
 	const [showLabels, setShowLabels] = useState(false);
@@ -13,7 +14,7 @@ export const SolarSystem: FC = () => {
 		<>
 			<Canvas
 				shadowMap
-				pixelRatio={window.devicePixelRatio}
+				pixelRatio={clamp(window.devicePixelRatio, 1, 2)}
 				style={{
 					margin: 0,
 					padding: 0,
@@ -22,8 +23,7 @@ export const SolarSystem: FC = () => {
 					WebkitUserSelect: 'none',
 					KhtmlUserSelect: 'none',
 					MozUserSelect: 'none',
-					background:
-						'linear-gradient(rgba(0,0,0,.9), rgba(0,0,0,.7), rgba(0,0,0,.0))',
+					background:'',
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-ignore
 					MsUserSelect: 'none',
@@ -141,7 +141,7 @@ export const SolarSystem: FC = () => {
 			</Canvas>
 			<div
 				className="max-w-lg mx-auto"
-				style={{ position: 'absolute', top: 10, left: '50%' }}
+				style={{ position: 'absolute', bottom: 10, left: '50%' }}
 			>
 				<div
 					style={{

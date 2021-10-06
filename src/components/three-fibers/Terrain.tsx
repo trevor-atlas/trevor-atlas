@@ -10,7 +10,7 @@ softShadows();
 
 const increase = Math.PI / 1500;
 let counter = 0;
-const FakeSphere = () => {
+const Sphere = () => {
 	const ref = useRef<Mesh>();
 	const [hovered, setHover] = useState(false);
 	const [active, setActive] = useState(false);
@@ -47,9 +47,8 @@ const FakeSphere = () => {
 export const Lights = () => {
 	return (
 		<group>
-			<FakeSphere />
+			<Sphere />
 			<ambientLight position={[0, 2, 0]} intensity={0.5} />
-
 			<pointLight
 				castShadow
 				shadow-mapSize-width={10024}
@@ -68,9 +67,6 @@ export default function Terrain() {
 			? window.pageYOffset
 			: (document.documentElement || document.body).scrollTop;
 	const ref = useRef();
-	useFrame(() => {
-		ref.current.
-	})
 	return (
 		<Canvas
 			shadowMap

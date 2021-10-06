@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, FC } from 'react';
+import React, { FC } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useIsVisible } from 'src/hooks/useIsVisible';

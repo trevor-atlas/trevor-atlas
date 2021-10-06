@@ -6,6 +6,11 @@ import { Nav } from 'src/components/nav/Nav';
 import SEO from 'src/components/Seo';
 import { Container } from 'src/components/Container';
 
+const wifiTemplate = `WIFI:T:WPA;S:your_network_name;P:your_network_password;;`;
+const emailTemplate = `mailto:email@domain.com`;
+const smsTemplate = `sms://+1234-567-8910`;
+
+
 const QRCode: FC<any> = (props) => {
 	const [input, setInput] = useState('');
 	const updateInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,8 +19,6 @@ const QRCode: FC<any> = (props) => {
 	};
 	const [image, setImage] = useState('/images/qr-wikipedia.png');
 	const [error, setError] = useState('');
-
-	const wifiTemplate = `WIFI:T:WPA;S:your_network_name;P:your_network_password;;`;
 
 	const submit = async () => {
 		try {
@@ -39,10 +42,6 @@ const QRCode: FC<any> = (props) => {
 			<SEO title="Experiments: Pathfinding Visualizer" />
 			<Container>
 				<div className="mx-auto mx-w-md flex flex-col items-center content-center">
-					<Button
-						text="Load Wifi Access template"
-						onClick={() => setInput(wifiTemplate)}
-					/>
 					<img
 						src={image}
 						style={{
@@ -52,28 +51,48 @@ const QRCode: FC<any> = (props) => {
 							height: 512,
 							display: 'block'
 						}}
-						alt=""
+						alt="qr code"
 					/>
 					<form
 						action=""
 						noValidate
 						onSubmit={(e) => e.preventDefault()}
+						style={{ display: 'flex', flexBasis: 'space-around'}}
 					>
-						<label htmlFor="input">QR code value</label>
-						<br />
-						<Input
-							style={{ width: 500 }}
-							name="input"
-							value={input}
-							onChange={updateInput}
-						/>
-						<br />
-						<Button text="Submit" onClick={submit} />
+						<ul style={{ paddingRight: '1rem' }}>
+							<li>
+								<Button
+									text="SMS template"
+									onClick={() => setInput(smsTemplate)}
+								/>
+							</li>
+							<li>
+								<Button
+									text="Email template"
+									onClick={() => setInput(emailTemplate)}
+								/>
+							</li>
+							<li>
+								<Button
+									text="Wifi template"
+									onClick={() => setInput(wifiTemplate)}
+								/>
+							</li>
+						</ul>
+						<div style={{display: 'flex', flexDirection: 'column'}}>
+							<label htmlFor="input">QR code value</label>
+							<Input
+								style={{minWidth: 350}}
+								name="input"
+								value={input}
+								onChange={updateInput}
+							/>
+							<Button text="Submit" onClick={submit} />
+						</div>
 					</form>
 					<h4>{error}</h4>
 				</div>
 			</Container>
-			<Footer />
 		</>
 	);
 };
