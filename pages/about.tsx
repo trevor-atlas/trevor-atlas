@@ -55,7 +55,7 @@ const About: FC<IAbout> = ({ top }) => {
 					</p>
 				</div>
 				<h4 className="text-center">Top songs of the past ~6 months</h4>
-				<ul className="text-center grid grid-cols-2 gap-8 mx-auto">
+				<ul className="text-center grid grid-cols-2 gap-4 mx-auto">
 					{top &&
 						Object.keys(top).map((e, i) => (
 							<div className="" key={`outer-${i}`}>
