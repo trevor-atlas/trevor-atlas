@@ -1,0 +1,47 @@
+@mixin sm {
+	@media (min-width: 640px) { @content; }
+}
+
+@mixin md {
+	@media (min-width: 768px) { @content; }
+}
+
+@mixin lg {
+	@media (min-width: 1024px) { @content; }
+}
+
+@mixin xl {
+	@media (min-width: 1280px) { @content; }
+}
+
+@mixin xxl {
+	@media (min-width: 1920px) { @content; }
+}
+
+
+$dark: #171923;
+$deep_blue: #142848;
+$cinnamon: #81332D;
+$pumpkin: #C55530;
+$light: #D8EBF4;
+$ocean: #00a6fb;
+$forest: #6b8f71;
+
+$cultured: $light;
+$russian-green: $forest;
+$raisin-black: $dark;
+$medium-slate-blue: #8a4fff;
+$blue-jeans: #00a6fb;
+
+$primary-text: $cultured;
+$secondary-text: darken($cultured, .2);
+
+$primary-bg: $raisin-black;
+$secondary-bg: $raisin-black;
+
+$links-hover: $medium-slate-blue;
+$links: $blue-jeans;
+
+$cubic-transition: cubic-bezier(.47,1.07,.46,.93);
+
+$primary-gradient: linear-gradient(90deg, $deep_blue 0%, $dark 100%);

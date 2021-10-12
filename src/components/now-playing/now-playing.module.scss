@@ -1,0 +1,51 @@
+@import "src/styles/vars.scss";
+
+.wrapper_link {
+	color: $cultured;
+}
+.container {
+	margin: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.player {
+	border: 1px solid rgba($cultured, .4);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	padding: .25rem 2rem .25rem .25rem;
+	background: darken($primary-bg, 3);
+	color: $cultured;
+	min-width: 300px;
+	max-width: 700px;
+
+	 img {
+		 display: block;
+		 height: 100px;
+		 border-radius: 8px;
+	 }
+
+	.player_metadata {
+		display: flex;
+		flex-direction: column;
+		margin-left: .75rem;
+		justify-content: center;
+
+		.artist {
+			font-weight: bold;
+		}
+
+		.track {
+			color: rgba($cultured, .6)
+		}
+	}
+	.spotify_logo {
+		position: absolute;
+		top: .25rem;
+		right: .25rem;
+	}
+}
+
+
