@@ -8,15 +8,15 @@ import { Container } from '../src/components/Container';
 import SEO from '../src/components/Seo';
 import { getSortedPostsData, IPost } from '../lib/posts';
 
-const SolarSystem = dynamic(
-  () =>
-    import('src/components/three-fibers/SolarSystem').then(
-      (mod) => mod.SolarSystem
-    ),
-  {
-    ssr: false
-  }
-);
+// const SolarSystem = dynamic(
+//   () =>
+//     import('src/components/three-fibers/SolarSystem').then(
+//       (mod) => mod.SolarSystem
+//     ),
+//   {
+//     ssr: false
+//   }
+// );
 
 export async function getStaticProps() {
   const data = await getSortedPostsData();
