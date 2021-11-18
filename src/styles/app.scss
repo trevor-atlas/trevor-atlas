@@ -2,10 +2,6 @@
 @import "src/styles/typography";
 @import "src/styles/animations";
 
-html, :root {
-	background: $raisin-black;
-	background-image: $primary-gradient;
-}
 #__next {
 	width: 100%;
 	min-height: 100%;
@@ -18,6 +14,8 @@ html, :root {
 
 :root,
 body {
+  background: $raisin-black;
+  background-image: $primary-gradient;
 	width: 100%;
 	min-height: 100%;
 	background-image: $primary-gradient;
@@ -53,10 +51,6 @@ body {
 	&::-webkit-scrollbar-thumb {
 		background: $deep_blue;
 	}
-}
-
-body {
-
 }
 
 .post {

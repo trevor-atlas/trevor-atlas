@@ -38,7 +38,7 @@ const QRCode: FC<any> = (props) => {
   return (
     <>
       <Nav />
-      <SEO title="Experiments: Pathfinding Visualizer" />
+      <SEO title="Experiments: QR code generator" />
       <Container>
         <div className="mx-auto mx-w-md flex flex-col items-center content-center">
           <img
@@ -90,6 +90,15 @@ const QRCode: FC<any> = (props) => {
             </div>
           </form>
           <h4>{error}</h4>
+          <p>
+            <a
+              target="_blank"
+              href="https://github.com/trevor-atlas/weekend"
+              rel="noreferrer"
+            >
+              Source code for the QR code endpoint
+            </a>
+          </p>
         </div>
       </Container>
     </>

@@ -11,7 +11,7 @@ export const fragmentShader = `
     #define E     .01 * C
     #define t2 iGlobalTime
     #define r2 iResolution.xy
-    //#define CENTERED true
+    #define PULSE true
 
     #define CAM_PATH 1
     #define FWD_SPEED -100.
@@ -57,40 +57,41 @@ export const fragmentShader = `
         gl_FragColor =  vec4(col, 1.0) ;
     }
 
-    float de_0(vec3 p) {
+    float advance(vec3 p) {
         float mind = cos(C);
         vec3 pr = p - cos(t * .5) *.135;
-
         rotate(pr.xy, (a));
-
-        pr.xy /= .5;
+        
+        // how big are the individual points
+        pr.xy /= 1.;
+        
         pr.xyz = fract(pr.xyz);
+        
+        // 'fuzziness' / 'smoothness'
         pr -= .5;
-
         mind = min(mind, (length(pr.xyz) - .432 - sin(iGlobalTime) * .1));
-
         return (mind);
     }
 
-    float de_1(vec3 p) {
+    float position_and_rot(vec3 p) {
         float mind = 0.0;
         vec3  pr = p*2.5;
         vec2  q;
 
         q = vec2(length(pr.yx) - 1., pr.z );
-        // #ifdef PULSE
-            // q.y = rot(q.xy, vec2(-1. + (sin(t*6.))-175., 0.)).x;
-        // #else
-            q.y = rot(q.xy, vec2(-1., 0.)).x;
-        // #endif
+        // pulsate
+        q.y = rot(q.xy, vec2(-1. + (sin(t*3.))-750., 0.)).x;
+        // do not pulsate
+        //q.y = rot(q.xy, vec2(-1., 0.)).x;
         mind = length(q) - 16.;
 
         return mind;
     }
 
     // add 2 distances to constraint the de_0 to a cylinder
-    float de_2(vec3 p) {
-        return (de_0(p) - de_1(p) / 4.);
+    float update_points(vec3 p) {
+        // tweaking division gives interesting results
+        return (advance(p) - position_and_rot(p) / 2.);
     }
 
     void nextPos(vec3 p, float t, vec2 rot) {
@@ -101,27 +102,11 @@ export const fragmentShader = `
     float scene(vec3 p) {
         float mind = 1e2;
         a = -(t*.5) + 1.5*cos( 1.8*(p.y*.015+p.x*.015+p.z *.15)  + t);
-        #ifdef CAM_PATH
-            vec2 rot = vec2(cos(a+1.57), sin(a+1.57));
-        #else
-            vec2 rot = vec2(cos(a*.5), sin(a*.5));
-        #endif
-        #ifndef CENTERED
-            #ifdef CAM_PATH
-                #if CAM_PATH == 0
-                    p.x += rot.x*2.+sin(t*8.);
-                    p.y += rot.y*2.+cos(t*8.);
-                #elif CAM_PATH == 1
+        vec2 rot = vec2(cos(a*.5), sin(a*.5));
                     p.x += rot.x*2.+sin(t*2.);
                     p.y += rot.y*2.+cos(t*2.);
-                #endif
-            #else
-                p.x += rot.x*4.;
-                p.y += rot.y*4.;
-            #endif
-        #endif
         // nextPos(p, t, rot);
-        mind = de_2(p)/2.;
+        mind = update_points(p)/2.;
         return mind;
     }
 

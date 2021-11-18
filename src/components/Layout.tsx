@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
-import { Footer } from 'src/components/footer/Footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Nav } from 'src/components/nav/Nav';
 
 const duration = 0.3;
 const variants = {

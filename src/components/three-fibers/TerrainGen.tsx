@@ -41,20 +41,20 @@ export const TerrainGen: FC = () => {
       0.005
     );
     if (mouse.current.x < center) {
-      mesh.current.rotation.z -= relativeMouseX;
-    } else {
       mesh.current.rotation.z += relativeMouseX;
+    } else {
+      mesh.current.rotation.z -= relativeMouseX;
     }
     mesh.current.rotation.x = 175;
   });
 
   return (
-    <mesh ref={mesh} receiveShadow onUpdate={onUpdate}>
+    <mesh ref={mesh} receiveShadow onUpdate={onUpdate} position={[0, -2, 0]}>
       <planeBufferGeometry attach="geometry" args={[100, 100, 275, 275]} />
       <meshPhongMaterial
         attach="material"
         color="#2b32be"
-        specular="#999999"
+        specular={0x999999}
         shininess={9}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
