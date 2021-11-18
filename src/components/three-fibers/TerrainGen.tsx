@@ -10,10 +10,10 @@ const makeNoise = (x: number, y: number) => {
   const ex = 1.1;
   return (
     noise2D(x / 200, y / 200) +
-    noise2D(x / 50, y / 50) * Math.pow(ex, 1) +
-    noise2D(x / 25, y / 25) * Math.pow(ex, 2) +
-    noise2D(x / 12.5, y / 12.5) * Math.pow(ex, 3) +
-    noise2D(x / 4, y / 4) * Math.pow(ex, 4)
+    noise2D(x / 50, y / 50) * ex ** 1 +
+    noise2D(x / 25, y / 25) * ex ** 2 +
+    noise2D(x / 12.5, y / 12.5) * ex ** 3 +
+    noise2D(x / 4, y / 4) * ex ** 4
   );
 };
 
@@ -41,10 +41,16 @@ export const TerrainGen: FC = () => {
       0.005
     );
     if (mouse.current.x < center) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       mesh.current.rotation.z += relativeMouseX;
     } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       mesh.current.rotation.z -= relativeMouseX;
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mesh.current.rotation.x = 175;
   });
 
@@ -54,6 +60,8 @@ export const TerrainGen: FC = () => {
       <meshPhongMaterial
         attach="material"
         color="#2b32be"
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         specular={0x999999}
         shininess={9}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

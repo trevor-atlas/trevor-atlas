@@ -1,4 +1,4 @@
-import { ISong } from 'src/components/footer/Footer';
+import { ISong } from 'src/components/now-playing/NowPlaying';
 import { getTopTracks } from '../../lib/spotify';
 
 export default async (_, res) => {

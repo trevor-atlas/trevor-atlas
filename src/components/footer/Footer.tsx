@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { FooterLink } from 'src/components/footer/FooterLink';
 import links from 'src/components/footer/sites';
 import {

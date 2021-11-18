@@ -1,4 +1,4 @@
-import { Wormhole } from 'pages/experiments/portal/Wormhole';
+import { Wormhole } from 'src/portal/Wormhole';
 import { Container } from 'src/components/Container';
 import SEO from 'src/components/Seo';
 

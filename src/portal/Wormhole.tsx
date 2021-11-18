@@ -18,8 +18,8 @@ import {
   Vector2,
   IUniform
 } from 'three';
-import { fragmentShader } from './fragment-shader';
-import { vertexShader } from './vertex-shader';
+import { fragmentShader } from 'src/portal/fragment-shader';
+import { vertexShader } from 'src/portal/vertex-shader';
 
 interface IPortalProps {}
 
@@ -46,17 +46,17 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
   const mesh = useRef(new Mesh(geometry.current, material.current));
   const clock = useRef(new Clock());
 
-  function animate() {
-    requestAnimationFrame(animate);
-    render();
-  }
-
   function render() {
     uniforms.current.iGlobalTime.value += clock.current.getDelta() * 0.1;
     if (uniforms.current.iGlobalTime.value >= 100.0) {
       uniforms.current.iGlobalTime.value = 0.0;
     }
     renderer.current.render(scene.current, camera.current);
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    render();
   }
 
   useEffect(() => {
@@ -76,7 +76,6 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
     uniforms.current.iResolution.value.y = window.innerHeight;
     renderer.current.setSize(window.innerWidth, window.innerHeight);
 
-    window.addEventListener('resize', onWindowResize, false);
     function onWindowResize() {
       camera.current.aspect = window.innerWidth / window.innerHeight;
       camera.current.updateProjectionMatrix();
@@ -84,6 +83,7 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
       uniforms.current.iResolution.value.x = window.innerWidth;
       uniforms.current.iResolution.value.y = window.innerHeight;
     }
+    window.addEventListener('resize', onWindowResize, false);
 
     animate();
     return () => {
