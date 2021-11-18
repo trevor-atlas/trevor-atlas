@@ -1,21 +1,20 @@
 import React, { FC, Suspense, useState } from 'react';
-import { Stars } from 'drei';
+import { Stars } from '@react-three/drei';
 import { Canvas } from 'react-three-fiber';
 import { Earth } from 'src/components/three-fibers/Earth';
 import { Planet } from 'src/components/three-fibers/Planet';
 import { Sun } from 'src/components/three-fibers/Sun';
+import { clamp } from 'src/utils/helpers';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const SolarSystem: FC = () => {
 	const [showLabels, setShowLabels] = useState(false);
 	const toggleLabels = () => setShowLabels(!showLabels);
 
 	return (
-		<div className="relative">
+		<>
 			<Canvas
 				shadowMap
-				pixelRatio={window.devicePixelRatio}
+				pixelRatio={clamp(window.devicePixelRatio, 1, 2)}
 				style={{
 					margin: 0,
 					padding: 0,
@@ -24,13 +23,11 @@ export const SolarSystem: FC = () => {
 					WebkitUserSelect: 'none',
 					KhtmlUserSelect: 'none',
 					MozUserSelect: 'none',
-					background:
-						'linear-gradient(rgba(0,0,0,.9), rgba(0,0,0,.7), rgba(0,0,0,.0))',
+					background:'',
 					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 					// @ts-ignore
 					MsUserSelect: 'none',
 					width: '100%',
-					minHeight: 800,
 					height: '60vh',
 					bottom: 0,
 					zIndex: -1
@@ -43,9 +40,9 @@ export const SolarSystem: FC = () => {
 				}}
 			>
 				<Suspense fallback={null}>
-					<ambientLight intensity={0.5} color={0xffffff} />
+					<ambientLight intensity={0.1} color={0xffffff} />
 					<pointLight
-						intensity={1.2}
+						intensity={2.2}
 						position={[0, 0, 0]}
 						color={0xffffff}
 						castShadow
@@ -60,7 +57,7 @@ export const SolarSystem: FC = () => {
 					<Stars
 						radius={100} // Radius of the inner sphere (default=100)
 						depth={50} // Depth of area where stars should fit (default=50)
-						count={1000} // Amount of stars (default=5000)
+						count={500} // Amount of stars (default=5000)
 						factor={8} // Size factor (default=4)
 						saturation={0.5} // Saturation 0-1 (default=0)
 						fade // Faded dots (default=false)
@@ -144,7 +141,7 @@ export const SolarSystem: FC = () => {
 			</Canvas>
 			<div
 				className="max-w-lg mx-auto"
-				style={{ position: 'absolute', top: 10, left: '50%' }}
+				style={{ position: 'absolute', bottom: 10, left: '50%' }}
 			>
 				<div
 					style={{
@@ -163,6 +160,6 @@ export const SolarSystem: FC = () => {
 					{showLabels ? 'hide' : 'show'} labels
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };

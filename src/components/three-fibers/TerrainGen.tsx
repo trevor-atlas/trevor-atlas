@@ -1,59 +1,73 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { useFrame, useUpdate } from 'react-three-fiber';
-import { PerlinNoise } from 'src/components/three-fibers/perlin';
-import { Color } from 'three';
+import { useFrame } from 'react-three-fiber';
+import useMouse from 'src/hooks/useMouse';
+import { clamp, getRelativeX } from 'src/utils/helpers';
+import { makeNoise2D } from 'open-simplex-noise';
+
+const noise2D = makeNoise2D(Date.now());
+
+const makeNoise = (x: number, y: number) => {
+  const ex = 1.1;
+  return (
+    noise2D(x / 200, y / 200) +
+    noise2D(x / 50, y / 50) * ex ** 1 +
+    noise2D(x / 25, y / 25) * ex ** 2 +
+    noise2D(x / 12.5, y / 12.5) * ex ** 3 +
+    noise2D(x / 4, y / 4) * ex ** 4
+  );
+};
+
+const onUpdate = ({ geometry }) => {
+  const pos = geometry.getAttribute('position');
+  const heightSegments = 275;
+  const widthSegments = 275;
+  for (let j = 0; j < heightSegments; j++) {
+    for (let i = 0; i < widthSegments; i++) {
+      pos.array[3 * (j * widthSegments + i) + 2] = makeNoise(i, j);
+    }
+  }
+};
 
 export const TerrainGen: FC = () => {
-	const noise = useRef(new PerlinNoise(Math.random()));
-	const mesh: any = useUpdate(({ geometry }) => {
-		const pos = geometry.getAttribute('position');
-		const pa = pos.array;
-		const hVerts = geometry.parameters.heightSegments + 1;
-		const wVerts = geometry.parameters.widthSegments + 1;
-		for (let j = 0; j < hVerts; j++) {
-			for (let i = 0; i < wVerts; i++) {
-				const ex = 1.1;
-				pa[3 * (j * wVerts + i) + 2] =
-					noise.current.simplex2(i / 100, j / 100) +
-					noise.current.simplex2((i + 200) / 50, j / 50) *
-						Math.pow(ex, 1) +
-					noise.current.simplex2((i + 400) / 25, j / 25) *
-						Math.pow(ex, 2) +
-					noise.current.simplex2((i + 600) / 12.5, j / 12.5) *
-						Math.pow(ex, 3) +
-					+(
-						noise.current.simplex2((i + 800) / 6.25, j / 6.25) *
-						Math.pow(ex, 4)
-					);
-			}
-		}
+  const mesh = useRef();
+  const mouse = useMouse();
+  const center = window.innerWidth / 2;
 
-		pos.needsUpdate = true;
-	}, []);
+  useFrame((time) => {
+    if (!mesh.current) return;
+    const relativeMouseX = clamp(
+      getRelativeX(mouse.current.x) * 0.00001,
+      0.00001,
+      0.005
+    );
+    if (mouse.current.x < center) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      mesh.current.rotation.z += relativeMouseX;
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      mesh.current.rotation.z -= relativeMouseX;
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mesh.current.rotation.x = 175;
+  });
 
-	useEffect(() => {
-		mesh.current.rotation.x = 175;
-	}, [mesh.current]);
-
-	useFrame(() => {
-		mesh.current.rotation.z += 0.001;
-	});
-
-	return (
-		<mesh ref={mesh} receiveShadow>
-			<planeBufferGeometry
-				attach="geometry"
-				args={[100, 100, 275, 275]}
-			/>
-			<meshPhongMaterial
-				attach="material"
-				color={'#2b32be'}
-				specular={new Color('#5b30be')}
-				shininess={9}
-				//eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				smoothShading
-			/>
-		</mesh>
-	);
+  return (
+    <mesh ref={mesh} receiveShadow onUpdate={onUpdate} position={[0, -2, 0]}>
+      <planeBufferGeometry attach="geometry" args={[100, 100, 275, 275]} />
+      <meshPhongMaterial
+        attach="material"
+        color="#2b32be"
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        specular={0x999999}
+        shininess={9}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        smoothShading
+      />
+    </mesh>
+  );
 };

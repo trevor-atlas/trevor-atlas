@@ -1,10 +1,11 @@
 import React, { FC, useRef } from 'react';
 import { useFrame } from 'react-three-fiber';
-import { Mesh } from 'three';
+import { Color, Mesh } from 'three';
 interface ISun {
 	scale?: number;
 }
-export const _Sun: FC<ISun> = ({ scale }) => {
+const color = new Color('#ff8d11');
+export const Sun: FC<ISun> = ({ scale = 3 }) => {
 	const ref = useRef<Mesh>();
 	useFrame(() => {
 		ref.current.rotation.y -= 0.005;
@@ -18,19 +19,12 @@ export const _Sun: FC<ISun> = ({ scale }) => {
 			castShadow={false}
 			receiveShadow={false}
 		>
-			<icosahedronBufferGeometry attach="geometry" args={[2, 1]} />
-			<meshStandardMaterial
-				attach="material"
-				color={'#fff546'}
-				emissive={0xf8d586 as any}
-				emissiveIntensity={1.2}
+			<sphereGeometry args={[1, 20, 20]} />
+			<meshPhongMaterial
+				color={color}
+				emissive={color}
+				emissiveIntensity={1}
 			/>
 		</mesh>
 	);
 };
-
-_Sun.defaultProps = {
-	scale: 1.5
-};
-
-export const Sun: FC<ISun> = React.memo(_Sun);
