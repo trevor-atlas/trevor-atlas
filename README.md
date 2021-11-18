@@ -24,8 +24,8 @@
 
 
 
-- 💻 I’m currently working on [Phantom Workshop](https://github.com/trevor-atlas/phantom-workshop) (browser syncronization and debugging tools)
-- 🌱 I’m currently learning Haskell and Functional Programming
+- 💻 I’m currently working on a flashcard app
+- 🌱 I’m currently learning Rust, systems programming and GLSL
 - 💬 Ask me about anything, I am happy to help!
 
 <!-- Your github readme stats

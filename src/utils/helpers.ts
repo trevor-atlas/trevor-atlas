@@ -27,10 +27,26 @@ export const getCareerLength = (): string => {
 };
 
 export const fetcher = (url) => fetch(url).then((res) => res.json());
-
 export const clamp = (n: number, min: number, max: number) =>
   Math.min(max, Math.max(n, min));
 
 export const isBrowser = typeof window !== 'undefined';
 
 export const noop = () => {};
+
+export const removeStaleServiceWorkers = () => {
+	const key = 'atlas_cleared_serviceworkers';
+	const hasRun = localStorage.getItem(key);
+	if (typeof hasRun !== 'string' || hasRun === '') {
+		console.log('clearing stale service workers');
+		navigator.serviceWorker
+			.getRegistrations()
+			.then(async (registrations) => {
+				for (const registration of registrations) {
+					await registration.unregister();
+				}
+			});
+		localStorage.setItem(key, 'true');
+		location.reload();
+	}
+};
