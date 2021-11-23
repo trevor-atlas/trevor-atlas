@@ -1,8 +1,9 @@
 import { ISong } from 'src/components/now-playing/NowPlaying';
 import { getTopTracks } from '../../lib/spotify';
 
+const ONE_DAY = '86400000';
 export default async (_, res) => {
-  res.setHeader('cache-control', 's-maxage=300');
+  res.setHeader('cache-control', `s-maxage=${ONE_DAY}`);
 
   try {
     const response = await getTopTracks();

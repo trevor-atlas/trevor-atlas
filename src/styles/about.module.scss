@@ -11,6 +11,22 @@
 	z-index: -1;
 }
 
+.intro_image {
+  display: block;
+  width: 300px!important;
+  height: 300px!important;
+  max-width: 300px!important;
+  max-height: 300px!important;
+  min-height: 300px!important;
+  min-width: 300px!important;
+  background-color: $forest;
+  border-radius: 50%;
+}
+
+.values_image {
+  border-radius: 6px;
+}
+
 @keyframes strokeanim {
 	0% {
 		stroke-dashoffset: 0;
