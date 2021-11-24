@@ -18,7 +18,8 @@ const SolarSystem = dynamic(
 );
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const data = await fetch(`https://trevoratlas.com/api/spotify-top`);
+  const { URL } = process.env;
+  const data = await fetch(`${URL}/api/spotify-top`);
   const json = await data.json();
   return {
     props: {
@@ -103,26 +104,51 @@ const About: FC<IAbout> = ({ top }) => (
       <div className="py-32">
         <SolarSystem />
       </div>
-      <h4 className="text-center">Top songs of the past ~6 months</h4>
-      <ul className="text-center grid grid-cols-2 gap-4 mx-auto">
-        {top &&
-          Object.keys(top).map((e, i) => (
-            <div key={e}>
-              <strong>{e}</strong>
-              {top[e].map((s) => (
-                <li key={s.songUrl}>
+
+      <div className="pb-32">
+        <h2>Some of my hobbies include...</h2>
+        <h4>Music &amp; Audio</h4>
+        <h4>Digital Art</h4>
+        <h4>Technology</h4>
+      </div>
+
+      <div className="pb-32">
+        <h2>Some of my hobbies include...</h2>
+      </div>
+      <ul className="mx-auto bg-gray-900 p-8 rounded-lg border-gray-800 border-solid border">
+      <h2 className="text-center mb-8">Top songs of the past ~6 months</h2>
+        {Object.keys(top).map((e, i) => (
+          <div key={e}>
+            {top[e].map((s) => {
+              return (
+                <li
+                  key={s.songUrl}
+                  className="hover:bg-blue-600 hover:text-blue-200 border-b border-gray-800"
+                >
                   <a
-                    className="cultured-60"
-                    href={s.songUrl}
+                    className="flex items-center p-4 "
                     target="_blank"
-                    rel="noreferrer nofollow noopener"
+                    href={s.songUrl}
+                    rel="noreferrer noopener nofollow"
                   >
-                    {s.title}
+                    <div className="mr-4">
+                      <Image
+                        alt={s.title}
+                        src={s.albumArt}
+                        width={48}
+                        height={48}
+                        quality={100}
+                      />
+                    </div>
+                    <div>
+                      <strong className="text-md text-white m-0">{e} - {s.title}</strong>
+                    </div>
                   </a>
                 </li>
-              ))}
-            </div>
-          ))}
+              );
+            })}
+          </div>
+        ))}
       </ul>
     </Container>
   </>

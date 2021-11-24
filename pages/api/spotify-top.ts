@@ -12,11 +12,13 @@ export default async (_, res) => {
     const result: Record<string, ISong[]> = {};
 
     for (const track of items) {
+      const image = track.album?.images?.pop();
       const artist = track.artists.map((_artist) => _artist.name).join(', ');
       const song = {
         artist,
         songUrl: track.external_urls.spotify,
-        title: track.name
+        title: track.name,
+        albumArt: image.url,
       };
       if (artist in result) {
         result[artist].push(song);
