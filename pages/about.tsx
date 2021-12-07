@@ -36,7 +36,7 @@ const About: FC<IAbout> = ({ top }) => (
   <>
     <SEO title="Home Page" />
     <Container>
-      <div className="mx-auto py-32">
+      <section className="mx-auto py-32">
         <div className="flex space-x-8 flex-col md:flex-row">
           <div className="flex mr-4 mb-8 content-center justify-center">
             <Image
@@ -49,11 +49,11 @@ const About: FC<IAbout> = ({ top }) => (
             />
           </div>
           <div className="flex-1">
-            <h1>
+            <h4>
               Hi, I'm Trevor Atlas,
               <br />
               I'm a Software developer and technology enthusiast.
-            </h1>
+            </h4>
             <p className="faded">
               I am currently employed at iFIT, where I write mobile
               applications, infrastructure, tools, and services in typescript
@@ -61,9 +61,9 @@ const About: FC<IAbout> = ({ top }) => (
             </p>
           </div>
         </div>
-      </div>
-      <div className="flex space-x-4 flex-col md:flex-row">
-        <div className="flex-1 ">
+      </section>
+      <section className="flex space-x-4 flex-col md:flex-row">
+        <div className="flex-1">
           <h2>Values I live by</h2>
           <h3>Kindness</h3>
           <p>
@@ -89,7 +89,7 @@ const About: FC<IAbout> = ({ top }) => (
         </div>
         <div className="flex-1 flex content-center justify-center">
           <Image
-            alt="Mountains"
+            alt="Trevor in the garden"
             src="/images/greenery.jpeg"
             className={styles.values_image}
             objectFit="cover"
@@ -100,56 +100,272 @@ const About: FC<IAbout> = ({ top }) => (
             blurDataURL="LJFYiD?GNEIUTw-;VrV?~URQWDbb"
           />
         </div>
-      </div>
-      <div className="py-32">
+      </section>
+      <section className="py-32">
         <SolarSystem />
-      </div>
+      </section>
 
-      <div className="pb-32">
-        <h2>Some of my hobbies include...</h2>
-        <h4>Music &amp; Audio</h4>
-        <h4>Digital Art</h4>
-        <h4>Technology</h4>
-      </div>
-
-      <div className="pb-32">
-        <h2>Some of my hobbies include...</h2>
-      </div>
-      <ul className="mx-auto bg-gray-900 p-8 rounded-lg border-gray-800 border-solid border">
-      <h2 className="text-center mb-8">Top songs of the past ~6 months</h2>
-        {Object.keys(top).map((e, i) => (
-          <div key={e}>
-            {top[e].map((s) => {
-              return (
-                <li
-                  key={s.songUrl}
-                  className="hover:bg-blue-600 hover:text-blue-200 border-b border-gray-800"
-                >
-                  <a
-                    className="flex items-center p-4 "
-                    target="_blank"
-                    href={s.songUrl}
-                    rel="noreferrer noopener nofollow"
-                  >
-                    <div className="mr-4">
-                      <Image
-                        alt={s.title}
-                        src={s.albumArt}
-                        width={48}
-                        height={48}
-                        quality={100}
-                      />
-                    </div>
-                    <div>
-                      <strong className="text-md text-white m-0">{e} - {s.title}</strong>
-                    </div>
-                  </a>
-                </li>
-              );
-            })}
+      <section className="pb-32 max-w-5xl">
+        <h2 className="text-center pb-8">Some of my hobbies include...</h2>
+        <div className="flex space-x-4 flex-col md:flex-row mb-32">
+          <div className="flex-1 flex  justify-center">
+            <Image
+              alt="ableton push"
+              src="/images/music.gif"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
           </div>
-        ))}
-      </ul>
+          <div className="flex-1 flex flex-col justify-center">
+            <h4 className="mt-0">Music &amp; Audio</h4>
+            <p>
+              I've always been fascinated by music and the process of making
+              music. I haven't spent as much time on this as I'd like, so one of
+              my goals for 2022 is to get back into the swing of things
+            </p>
+            <iframe
+              width="100%"
+              height="166"
+              scrolling="no"
+              frameborder="no"
+              allow="autoplay"
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/98042245&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+            ></iframe>
+            <div
+              style={{
+                fontSize: '10px',
+                color: '#cccccc',
+                lineBreak: 'anywhere',
+                wordBreak: 'normal',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+                fontFamily:
+                  'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif',
+                fontWeight: 100
+              }}
+            >
+              <a
+                href="https://soundcloud.com/ampleheights"
+                title="AmpleHeights"
+                target="_blank"
+                style={{ color: '#cccccc', textDecoration: 'none' }}
+              >
+                AmpleHeights
+              </a>{' '}
+              ·{' '}
+              <a
+                href="https://soundcloud.com/ampleheights/a-remix-or-something"
+                title="Pyramid song remix"
+                target="_blank"
+                style={{ color: '#cccccc', textDecoration: 'none' }}
+              >
+                Pyramid song remix
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex space-x-4 flex-col md:flex-row mb-32">
+          <div className="flex-1 flex flex-col justify-center">
+            <h4>Digital Art</h4>
+            <p>
+              Learning to draw and blend colors has been a fun way to learn
+              something new
+            </p>
+          </div>
+          <div className="flex-1 flex  justify-center">
+            <Image
+              alt="A red car"
+              src="/images/car.JPG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex  justify-center">
+            <Image
+              alt="pikachu"
+              src="/images/pika.JPG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex  justify-center">
+            <Image
+              alt="fractal shapes"
+              src="/images/fractal.png"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex  justify-center">
+            <Image
+              alt="pulp fiction"
+              src="/images/wallace.JPG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+        </div>
+
+        <div className="flex space-x-4 flex-col md:flex-row mb-32">
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="Manassas battlefields"
+              src="/images/battlefields.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="A waterfall in the hills"
+              src="/images/shenandoah.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="rock formations over water"
+              src="/images/great-falls.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="West coast beach"
+              src="/images/beach.JPG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex  justify-center">
+            <h4>Hiking &amp; being outdoors</h4>
+
+          </div>
+          </div>
+
+        <div className="flex space-x-4 flex-col md:flex-row">
+          <div className="flex-1 flex  justify-center">
+            <h4>Being a cat dad</h4>
+
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="cat sleeping in my lap"
+              src="/images/cat1.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="cat sleeping in a blanket"
+              src="/images/cat2.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="cat sleeping in bed"
+              src="/images/cat3.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          <div className="flex-1 flex flex-col justify-center">
+            <Image
+              alt="Cats looking cute"
+              src="/images/cats.JPEG"
+              className={styles.values_image}
+              objectFit="cover"
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </div>
+          </div>
+      </section>
+
+
+      <section className="mx-auto bg-gray-900 p-8 rounded-lg border-gray-800 border-solid border">
+        <ul>
+          <h2 className="text-center mb-8">Top songs of the past ~6 months</h2>
+          {Object.keys(top).map((e, i) => (
+            <div key={e}>
+              {top[e].map((s) => {
+                return (
+                  <li
+                    key={s.songUrl}
+                    className="hover:bg-blue-600 hover:text-blue-200 border-b border-gray-800"
+                  >
+                    <a
+                      className="flex items-center p-4 "
+                      target="_blank"
+                      href={s.songUrl}
+                      rel="noreferrer noopener nofollow"
+                    >
+                      <div className="mr-4">
+                        <Image
+                          alt={s.title}
+                          src={s.albumArt}
+                          width={48}
+                          height={48}
+                          quality={100}
+                        />
+                      </div>
+                      <div>
+                        <strong className="text-md text-white m-0">
+                          {e} - {s.title}
+                        </strong>
+                      </div>
+                    </a>
+                  </li>
+                );
+              })}
+            </div>
+          ))}
+        </ul>
+      </section>
     </Container>
   </>
 );
