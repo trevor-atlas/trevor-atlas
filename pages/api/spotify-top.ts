@@ -1,8 +1,9 @@
 import { ISong } from 'src/components/now-playing/NowPlaying';
 import { getTopTracks } from '../../lib/spotify';
 
+const ONE_DAY = '86400000';
 export default async (_, res) => {
-  res.setHeader('cache-control', 's-maxage=300');
+  res.setHeader('cache-control', `s-maxage=${ONE_DAY}`);
 
   try {
     const response = await getTopTracks();
@@ -11,11 +12,13 @@ export default async (_, res) => {
     const result: Record<string, ISong[]> = {};
 
     for (const track of items) {
+      const image = track.album?.images?.pop();
       const artist = track.artists.map((_artist) => _artist.name).join(', ');
       const song = {
         artist,
         songUrl: track.external_urls.spotify,
-        title: track.name
+        title: track.name,
+        albumArt: image.url,
       };
       if (artist in result) {
         result[artist].push(song);

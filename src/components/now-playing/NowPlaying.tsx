@@ -5,6 +5,7 @@ export interface ISong {
   artist: string;
   songUrl: string;
   title: string;
+  albumArt: string;
 }
 
 export interface ISpotifyCurrentlyPlaying extends ISong {
@@ -30,7 +31,7 @@ export const NowPlaying: FC<ISpotifyCurrentlyPlaying> = React.memo(
         rel="noreferrer noopener nofollow"
       >
         <small>Currently listening to...</small>
-        <div className={styles.player}>
+        <div className={`${styles.player} rounded-lg border-gray-800 border-solid border`}>
           <img src={albumImageUrl} alt={album} />
           <div className={styles.player_metadata}>
             <div className={styles.artist}>{artist}</div>
