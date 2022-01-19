@@ -1,0 +1,17 @@
+.card-zoom {
+  position: relative;
+  overflow: hidden;
+
+  .card-zoom-text {
+    text-shadow: 0 0 2px #000;
+    top: 50%;
+    cursor: pointer;
+  }
+}
+
+.card-zoom:hover .card-zoom-image {
+  transform: scale(1.2);
+}
+.card-zoom:hover .card-zoom-text {
+  transform: scale(1);
+}

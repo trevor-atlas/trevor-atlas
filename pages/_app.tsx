@@ -2,6 +2,7 @@ import React from 'react';
 import '../src/styles/tailwind.scss';
 import '../src/styles/app.scss';
 import '../src/styles/one-dark-highlight.scss';
+import '../src/styles/albums.scss';
 import { Footer } from 'src/components/footer/Footer';
 import { Nav } from 'src/components/nav/Nav';
 import useIsomorphicLayoutEffect from 'src/hooks/useIsomorphicLayoutEffect';

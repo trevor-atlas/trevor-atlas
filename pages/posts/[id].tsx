@@ -6,7 +6,17 @@ import Bio from '../../src/components/Bio';
 import { HumanDate } from '../../src/components/HumanDate';
 import { IPost, getAllPostIds, getPostData } from '../../lib/posts';
 import { Layout } from '../../src/components/Layout';
+import Script from 'next/script'
+import Comments from 'src/components/Comments';
 
+const commentsScript = `<script src="https://utteranc.es/client.js"
+        repo="trevor-atlas/trevor-atlas"
+        issue-term="pathname"
+        label="blog-comment"
+        theme="dark-blue"
+        crossorigin="anonymous"
+        async>
+</script>`;
 export default function Post({
   postData: {
     id,
@@ -28,7 +38,6 @@ export default function Post({
   ) : null;
   return (
     <Layout>
-      <>
         <SEO
           title={title}
           ogTitle={title}
@@ -57,10 +66,10 @@ export default function Post({
                 }}
               />
             )}
+            <Comments/>
           </div>
           <Bio />
         </Container>
-      </>
     </Layout>
   );
 }
