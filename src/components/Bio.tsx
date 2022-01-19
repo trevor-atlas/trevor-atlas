@@ -4,6 +4,8 @@ import { Colors } from 'src/utils/colors';
 import { getCareerLength } from '../utils/helpers';
 import { Container } from './Container';
 import { Section } from 'src/components/section/Section';
+import Image from 'next/image';
+import styles from './bio.module.scss';
 
 interface IProps {}
 const delay = (n: number) => ({ animationDelay: `.${n}s` });
@@ -17,18 +19,13 @@ const Bio: FC<IProps> = () => {
           <Container>
             <div className="max-w-2xl mx-auto">
               <div className="flex flex-col md:flex-row content-center items-center">
-                <div className="flex text-center">
-                  <img
+                <div className={`${visible ? 'slide-in-right' : ''} flex text-center`}>
+                  <Image
                     alt="Portrait of Trevor Atlas"
-                    src={'/portrait2020.png'}
-                    className={`${visible ? 'slide-in-right' : ''}`}
-                    style={{
-                      height: 250,
-                      width: 250,
-                      marginBottom: 0,
-                      backgroundColor: Colors.palette.ocean,
-                      borderRadius: '50%'
-                    }}
+                    src="/portrait2020.png"
+                    className={`${styles.bioPortrait}`}
+                    height={250}
+                    width={250}
                   />
                 </div>
                 <div className="flex-1 ml-8">

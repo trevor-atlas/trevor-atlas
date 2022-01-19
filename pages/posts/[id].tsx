@@ -6,6 +6,7 @@ import Bio from '../../src/components/Bio';
 import { HumanDate } from '../../src/components/HumanDate';
 import { IPost, getAllPostIds, getPostData } from '../../lib/posts';
 import { Layout } from '../../src/components/Layout';
+import Comments from 'src/components/Comments';
 
 export default function Post({
   postData: {
@@ -28,7 +29,6 @@ export default function Post({
   ) : null;
   return (
     <Layout>
-      <>
         <SEO
           title={title}
           ogTitle={title}
@@ -57,10 +57,10 @@ export default function Post({
                 }}
               />
             )}
+            <Comments/>
           </div>
           <Bio />
         </Container>
-      </>
     </Layout>
   );
 }
