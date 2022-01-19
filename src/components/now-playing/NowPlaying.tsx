@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styles from 'src/components/now-playing/now-playing.module.scss';
+import Image from 'next/image';
 
 export interface ISong {
   artist: string;
@@ -32,7 +33,7 @@ export const NowPlaying: FC<ISpotifyCurrentlyPlaying> = React.memo(
       >
         <small>Currently listening to...</small>
         <div className={`${styles.player} rounded-lg border-gray-800 border-solid border`}>
-          <img src={albumImageUrl} alt={album} />
+          <Image src={albumImageUrl} alt={album} />
           <div className={styles.player_metadata}>
             <div className={styles.artist}>{artist}</div>
             {isPlaying && <div className={styles.track}>{title}</div>}

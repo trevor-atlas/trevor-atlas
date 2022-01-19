@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { FC } from 'react';
 import styles from './nav.module.scss';
+import Image from 'next/image';
 
 interface INav {
   links?: { label: string; url: string }[];
@@ -19,9 +20,10 @@ export const Nav: FC<INav> = ({
         <div className="flex flex-col md:flex-row justify-center items-center py-4">
           <Link href="/">
             <a>
-              <img
+              <Image
                 className="inline-block mb-4 md:mb-0 md:mr-4"
                 width="40"
+                height="40"
                 src="/logo.png"
                 alt="logo"
               />
