@@ -31,7 +31,7 @@
 		"remove-markdown": "^0.3.0",
 		"styled-components": "^5.1.1",
 		"swr": "^0.3.2",
-		"three": "^0.134.0"
+		"three": "^0.137.0"
 	},
 	"devDependencies": {
 		"@types/node": "^14.14.35",
