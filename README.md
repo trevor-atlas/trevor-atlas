@@ -8,7 +8,7 @@
 </p>
 -->
 <p align="center">
-<h2>👋 Hello! I'm Trevor Atlas, a Full Stack Developer 🚀 from the United States.</h2>
+<h2>👋 Hello! I'm Trevor Atlas, a Software Engineer 🚀 from the United States.</h2>
 </p>
 
 <img width="35%" align="right" alt="Github" src="https://raw.githubusercontent.com/trevor-atlas/trevor-atlas/master/public/images/1533406601529.jpg" />
@@ -24,7 +24,7 @@
 
 
 
-- 💻 I’m currently working on a flashcard app
+- 💻 I’m currently working on a jira TUI
 - 🌱 I’m currently learning Rust, systems programming and GLSL
 - 💬 Ask me about anything, I am happy to help!
 
