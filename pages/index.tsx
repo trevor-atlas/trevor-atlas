@@ -8,15 +8,15 @@ import { Container } from '../src/components/Container';
 import SEO from '../src/components/Seo';
 import { getSortedPostsData, IPost } from '../lib/posts';
 
-// const SolarSystem = dynamic(
-//   () =>
-//     import('src/components/three-fibers/SolarSystem').then(
-//       (mod) => mod.SolarSystem
-//     ),
-//   {
-//     ssr: false
-//   }
-// );
+const IcosahedronScene = dynamic(
+  () =>
+    import('src/components/three-fibers/IcosahedronScene').then(
+      (mod) => mod
+    ),
+  {
+    ssr: false
+  }
+);
 
 export async function getStaticProps() {
   const data = await getSortedPostsData();
@@ -36,7 +36,7 @@ const Home: FC<IHomeProps> = ({ posts }) => (
   <>
     <SEO title="Home Page" />
     <Bio key="bio" />
-    <RaycastHeader />
+      <IcosahedronScene />
     <Container>
       <div className="mx-auto py-4">
         <h2 className="text-center mb-4">Latest Posts</h2>

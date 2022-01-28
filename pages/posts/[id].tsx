@@ -28,6 +28,7 @@ export default function Post({
     <MDXRemote {...content} components={{ Test: () => 'this is a test lol' }} />
   ) : null;
   return (
+    <>
     <Layout>
         <SEO
           title={title}
@@ -59,9 +60,9 @@ export default function Post({
             )}
             <Comments/>
           </div>
-          <Bio />
         </Container>
     </Layout>
+</>
   );
 }
 

@@ -7,9 +7,12 @@ import {
   Fog,
   Group,
   IcosahedronGeometry,
+  InstancedMesh,
+  Matrix4,
   Mesh,
   MeshPhysicalMaterial,
   MeshStandardMaterial,
+  Object3D,
   PCFSoftShadowMap,
   PerspectiveCamera,
   PointLight,
@@ -20,46 +23,57 @@ import {
   WebGLRenderer
 } from 'three';
 
+
 interface IRaycastHeader {}
 
-interface PolyCube extends Mesh {
-  origin: { x: number; y: number; z: number };
-}
-
-function mathRandom(num = 1) {
+function rand(num = 1) {
   return -Math.random() * num + Math.random() * num;
 }
+
+const dummy = new Object3D();
+const origins: {
+  x: number;
+  y: number;
+  z: number;
+  scale: number;
+  rotation: {
+    x: number;
+    y: number;
+    z: number
+  }
+}[] = [];
 
 export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
   const canvas = React.useRef();
   const renderer: MutableRefObject<WebGLRenderer> = React.useRef();
   const sceneGroup: MutableRefObject<Group> = React.useRef();
   const particleGroup: MutableRefObject<Group> = React.useRef();
-  const modularGroup: MutableRefObject<Group> = React.useRef();
+  const cubeGroup: MutableRefObject<Group> = React.useRef();
   const scene: MutableRefObject<Scene> = React.useRef();
   const camera: MutableRefObject<PerspectiveCamera> = React.useRef();
 
   React.useEffect(() => {
     renderer.current = new WebGLRenderer({
       canvas: canvas.current,
-      antialias: true
+      antialias: true,
+      alpha: true
     });
     renderer.current.setSize(window.innerWidth, window.innerHeight);
     renderer.current.shadowMap.enabled = false;
     renderer.current.shadowMap.type = PCFSoftShadowMap;
     renderer.current.shadowMap.needsUpdate = true;
+    renderer.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     sceneGroup.current = new Group();
-    particleGroup.current = new Group();
-    modularGroup.current = new Group();
+    cubeGroup.current = new Group();
     scene.current = new Scene();
     camera.current = new PerspectiveCamera(
       90,
       window.innerWidth / window.innerHeight,
       0.1,
-      500
+      1000
     );
-    sceneGroup.current.add(particleGroup.current);
-    scene.current.add(modularGroup.current);
+    camera.current.position.set(0, 0, 5);
+    scene.current.add(cubeGroup.current);
     scene.current.add(sceneGroup.current);
 
     function onWindowResize() {
@@ -69,7 +83,6 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
     }
     // @ts-ignore
     renderer.current.domElement.style = `
-			background: rgba(25, 25, 25, .8);
 			backface-visibility: hidden;
 			perspective: 1000;
 			transform: translate3d(0,0,0), translateZ(0);
@@ -83,88 +96,63 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
 			z-index: -5`;
     window.addEventListener('resize', onWindowResize, false);
 
-    const cameraRange = 3;
-    const setcolor = 0x111111;
-    scene.current.background = new Color(setcolor);
-    scene.current.fog = new Fog(setcolor, 1.5, 4.5);
+    scene.current.fog = new Fog(0x111111, 0, 7);
 
-    function generateParticle(num, amp = 2) {
-      const gmaterial = new MeshPhysicalMaterial({
-        color: 0xffffff,
-        clearcoatMap: undefined,
-        clearcoatRoughnessMap: undefined,
-        side: DoubleSide
-      });
+    const geometry = new IcosahedronGeometry(1);
+    const material = new MeshStandardMaterial({
+      flatShading: true,
+      color: 0xf8b03a,// 0xfab576,
+      transparent: false,
+      opacity: 1,
+      wireframe: false
+    });
 
-      const gparticular = new CircleGeometry(0.2, 5);
-
-      for (let i = 1; i < num; i++) {
-        const pscale = 0.001 + Math.abs(mathRandom(0.03));
-        const particular = new Mesh(gparticular, gmaterial);
-        particular.position.set(
-          mathRandom(amp),
-          mathRandom(amp),
-          mathRandom(amp)
-        );
-        particular.rotation.set(mathRandom(), mathRandom(), mathRandom());
-        particular.scale.set(pscale, pscale, pscale);
-        // @ts-ignore
-        particular.speed = particular.position.x + particular.position.z;
-        particleGroup.current.add(particular);
-      }
-    }
-
-    generateParticle(200, 3);
+    const cubes = new InstancedMesh(geometry, material, 30);
+    cubes.castShadow = true;
+    cubes.receiveShadow = true;
 
     function init() {
+      origins.splice(0, origins.length);
+
       for (let i = 0; i < 30; i++) {
-        const geometry = new IcosahedronGeometry(1);
-        const material = new MeshStandardMaterial({
-          flatShading: true,
-          color: 0x001122,
-          transparent: false,
-          opacity: 1,
-          wireframe: false
-        });
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const cube: PolyCube = new Mesh(geometry, material);
-        cube.origin = {
-          x: mathRandom(3),
-          y: mathRandom(3),
-          z: mathRandom(3)
-        };
-        cube.castShadow = true;
-        cube.receiveShadow = true;
-
-        const scale = mathRandom(0.4);
-
-        cube.scale.set(scale, scale, scale);
-        cube.position.set(cube.origin.x, cube.origin.y, cube.origin.z);
-
-        cube.rotation.x = mathRandom((80 * Math.PI) / 180);
-        cube.rotation.y = mathRandom((180 * Math.PI) / 180);
-        cube.rotation.z = mathRandom((280 * Math.PI) / 180);
-        modularGroup.current.add(cube);
+        const scale = Math.abs(rand(.5));
+        const values = {
+          x: rand(4),
+          y: rand(4),
+          z: rand(4),
+          scale,
+          rotation: {
+            x: rand((80 * Math.PI) / 180),
+            y: rand((180 * Math.PI) / 180),
+            z: rand((280 * Math.PI) / 180)
+          }
+        }
+        origins.push(values);
+        
+        dummy.scale.set(scale, scale, scale);
+        dummy.position.set(values.x, values.y, values.z);
+        dummy.rotation.set(values.rotation.x, values.rotation.y, values.rotation.z)
+        dummy.updateMatrix();
+        cubes.setMatrixAt(i, dummy.matrix);
       }
+      cubes.instanceMatrix.needsUpdate = true;
+      cubeGroup.current.add(cubes);
     }
 
-    camera.current.position.set(0, 0, cameraRange);
 
-    //------------------------------------------------------------- SCENE
-    const ambientLight = new AmbientLight(0xffffff, 1.5);
-
-    const light = new SpotLight(0xffffff, 1);
-    light.position.set(5, 8, -6);
+    const ambientLight = new AmbientLight(0xffffff, 0.4);
+    const light = new SpotLight(0xffffff, .5);
+    light.position.set(0, 8, -6);
     light.castShadow = true;
-    light.shadow.mapSize.width = 100000;
-    light.shadow.mapSize.height = 100000;
+    light.shadow.mapSize.width = 1000;
+    light.shadow.mapSize.height = 1000;
     light.penumbra = 1.5;
+    light.lookAt(0, 0, 0)
 
-    const lightBack = new PointLight(0x0fffff, 3);
+    const lightBack = new PointLight(0xffffff, 0.1);
     lightBack.position.set(0, 8, -8);
 
-    const rectLight = new RectAreaLight(0x0fffff, 3, 6, 6);
+    const rectLight = new RectAreaLight(0xffffff, 0.5, 6, 6);
     rectLight.position.set(0, 0, 4);
     rectLight.lookAt(0, 0, 0);
 
@@ -177,34 +165,30 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
     init();
 
     const animate = () => {
-      const time = performance.now() * 0.0001;
-      requestAnimationFrame(animate);
-      for (let i = 0; i < particleGroup.current.children.length; i++) {
-        const particle = particleGroup.current.children[i];
-        // @ts-ignore
-        const rot = particle.speed / 10;
-        particle.rotation.x += rot;
-        particle.rotation.y += rot;
-        particle.rotation.z += rot;
+      const time = performance.now() * 0.00005;
+
+      for (let i = 0; i < 30; i++) {
+        const values = origins[i];
+        values.rotation.x += 0.00008;
+        values.rotation.y += 0.00005;
+        values.rotation.z += 0.00003;
+
+        dummy.rotation.set(values.rotation.x, values.rotation.y, values.rotation.z);
+        dummy.position.x = values.x + Math.sin(time * values.z);
+        dummy.position.y = values.y + Math.cos(time * values.x);
+        dummy.position.z = values.z + Math.sin(time * values.y);
+        dummy.scale.set(values.scale, values.scale, values.scale);
+        dummy.updateMatrix();
+
+        cubes.setMatrixAt(i, dummy.matrix);
+        cubes.instanceMatrix.needsUpdate = true;
       }
 
-      for (let i = 0; i < modularGroup.current.children.length; i++) {
-        const cube = modularGroup.current.children[i] as PolyCube;
-        cube.rotation.x += 0.008;
-        cube.rotation.y += 0.005;
-        cube.rotation.z += 0.003;
-        cube.position.x = Math.sin(time * cube.origin.z) * cube.origin.y;
-
-        cube.position.y = Math.cos(time * cube.origin.x) * cube.origin.z;
-
-        cube.position.z = Math.sin(time * cube.origin.y) * cube.origin.x;
-      }
-
-      modularGroup.current.rotation.y += 0.0005;
-      modularGroup.current.rotation.x += 0.0005;
-      particleGroup.current.rotation.y += 0.005;
-      camera.current.lookAt(scene.current.position);
+      cubeGroup.current.rotation.y += 0.0005;
+      cubeGroup.current.rotation.x += 0.0005;
+      cubeGroup.current.rotation.z += 0.0005;
       renderer.current.render(scene.current, camera.current);
+      requestAnimationFrame(animate);
     };
     animate();
   }, []);

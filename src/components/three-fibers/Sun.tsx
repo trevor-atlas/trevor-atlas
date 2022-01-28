@@ -1,5 +1,5 @@
 import React, { FC, useRef } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import { Color, Mesh } from 'three';
 interface ISun {
 	scale?: number;

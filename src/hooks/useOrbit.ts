@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 
 export const useOrbit = (

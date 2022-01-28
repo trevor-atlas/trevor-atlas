@@ -1,5 +1,5 @@
 import React, { Suspense, useMemo } from 'react';
-import { Canvas, useLoader } from 'react-three-fiber';
+import { Canvas, useLoader } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 

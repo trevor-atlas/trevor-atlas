@@ -44,4 +44,16 @@ $links: $blue-jeans;
 
 $cubic-transition: cubic-bezier(.47,1.07,.46,.93);
 
-$primary-gradient: linear-gradient(90deg, $deep_blue 0%, $dark 100%);
+// https://www.joshwcomeau.com/gradient-generator/
+$primary-gradient: linear-gradient(
+  45deg,
+  hsl(230deg 21% 11%) 0%,
+  hsl(228deg 25% 12%) 22%,
+  hsl(227deg 29% 13%) 33%,
+  hsl(225deg 33% 14%) 42%,
+  hsl(223deg 37% 15%) 50%,
+  hsl(222deg 42% 16%) 58%,
+  hsl(220deg 46% 17%) 67%,
+  hsl(219deg 51% 17%) 78%,
+  hsl(217deg 57% 18%) 100%
+);

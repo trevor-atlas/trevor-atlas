@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useState } from 'react';
 import { TerrainGen } from 'src/components/three-fibers/TerrainGen';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 
 const Sphere = () => {

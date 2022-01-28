@@ -1,5 +1,5 @@
 import React, { FC, MutableRefObject, useRef, memo } from 'react';
-import { useFrame, useLoader } from 'react-three-fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { Moon } from 'src/components/three-fibers/Moon';
 import { Color, DoubleSide, Mesh, Vector3 } from 'three';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';

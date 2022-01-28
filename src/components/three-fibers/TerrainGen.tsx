@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef } from 'react';
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 import useMouse from 'src/hooks/useMouse';
 import { clamp, getRelativeX } from 'src/utils/helpers';
 import { makeNoise2D } from 'open-simplex-noise';

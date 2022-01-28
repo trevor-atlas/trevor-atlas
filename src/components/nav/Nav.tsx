@@ -19,7 +19,7 @@ export const Nav: FC<INav> = ({
       <div className="container mx-auto px-8">
         <div className="flex flex-col md:flex-row justify-center items-center py-4">
           <Link href="/">
-            <a>
+            <a className={styles.logo}>
               <Image
                 className="inline-block mb-4 md:mb-0 md:mr-4"
                 width="40"

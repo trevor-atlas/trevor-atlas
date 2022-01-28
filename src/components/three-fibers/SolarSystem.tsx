@@ -1,6 +1,6 @@
 import React, { FC, Suspense, useState } from 'react';
 import { Stars } from '@react-three/drei';
-import { Canvas } from 'react-three-fiber';
+import { Canvas } from '@react-three/fiber';
 import { Earth } from 'src/components/three-fibers/Earth';
 import { Planet } from 'src/components/three-fibers/Planet';
 import { Sun } from 'src/components/three-fibers/Sun';

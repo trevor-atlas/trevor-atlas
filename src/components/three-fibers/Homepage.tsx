@@ -1,5 +1,5 @@
 import React, { FC, Suspense, useMemo, useRef } from 'react';
-import { Canvas, useFrame, useThree } from 'react-three-fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { CircleGeometry, Color, DoubleSide, Object3D, Vector3 } from 'three';
 
 function mathRandom(num = 1) {

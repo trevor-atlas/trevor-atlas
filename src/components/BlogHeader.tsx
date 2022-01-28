@@ -2,7 +2,7 @@
 import useIsomorphicLayoutEffect from 'src/hooks/useIsomorphicLayoutEffect';
 import { MathUtils, SphereBufferGeometry, MeshBasicMaterial, Color } from 'three';
 import React, { Suspense, useRef, useState, useMemo } from 'react';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 
 function Stars() {
 	const group = useRef();
