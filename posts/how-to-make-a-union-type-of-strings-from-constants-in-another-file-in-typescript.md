@@ -1,6 +1,8 @@
 ---
-title: "'How do I make a union type of strings from constants in another file?'"
+title: "'How do I make a union type of strings from constants in another file in Typescript?'"
 date: '2022-02-18'
+categories:
+  - typescript
 ---
 
 I have a file containing constants that I would like to create a string union from. How can I do that?
