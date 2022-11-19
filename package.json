@@ -9,7 +9,7 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.4.3",
-		"@mdx-js/loader": "^1.6.22",
+		"@mdx-js/loader": "^2.1.5",
 		"@mdx-js/runtime": "^1.6.22",
 		"@next/mdx": "^10.0.9",
 		"@react-three/drei": "^7.22.1",
@@ -20,7 +20,7 @@
 		"framer-motion": "^2.4.2",
 		"gray-matter": "^4.0.2",
 		"isomorphic-unfetch": "^3.0.0",
-		"next": "12.0.8",
+		"next": "12.3.3",
 		"open-simplex-noise": "^2.5.0",
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
