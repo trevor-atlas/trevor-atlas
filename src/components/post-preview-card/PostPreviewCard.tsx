@@ -25,17 +25,17 @@ export function PostPreviewCard(props: Blogpost) {
             >
               {props.title}
             </h5>
-            <div
-              className="text-slate-500 text-xs leading-tight dark:text-slate-400"
+            <p
+              className="text-slate-500 m-0 text-xs leading-tight dark:text-slate-400"
               style={{ fontSize: '.8rem' }}
             >
               {props.excerpt}
-              <div className="flex flex-row justify-between items-center mt-3 mx-0">
-                <Tags tags={props.tags} />
-                <small className="m-0 muted text-xs tracking-tighter">
-                  {props.readTime.text}
-                </small>
-              </div>
+            </p>
+            <div className="flex flex-row justify-between items-center mt-3 mx-0">
+              <Tags tags={props.tags} />
+              <small className="m-0 muted text-xs tracking-tighter">
+                {props.readTime.text}
+              </small>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import { Layout } from 'src/components/Layout';
 import { FiberContainer } from 'src/components/three-fibers/FiberContainer';
 import { Footer } from 'src/components/footer/Footer';
 
-export const karla = Karla({
+const karla = Karla({
   style: ['normal', 'italic'],
   weight: ['400', '700'],
   subsets: ['latin']

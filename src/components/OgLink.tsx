@@ -2,10 +2,8 @@ import { OpenGraphResult } from 'lib/opengraph-scraper';
 import React from 'react';
 import { css } from '@emotion/css';
 import { BiLinkExternal } from 'react-icons/bi';
-import { karla } from 'pages/_app';
 
 const titleStyle = css`
-  font-family: ${karla.style.fontFamily};
   line-height: 1.6;
   font-size: 14px;
   flex-grow: 1.2;
