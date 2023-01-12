@@ -1,6 +1,6 @@
 import { Gallery } from 'src/components/gallery/Gallery';
 import { Link } from 'src/components/link/Link';
-import { Code } from 'src/components/markdoc-nodes/Code';
+import CodeHL from 'src/components/markdoc-nodes/Code';
 import { OgLink } from 'src/components/OgLink';
 import { HoverPopover } from 'src/components/Popover';
 import { Youtube } from 'src/components/youtube/Youtube';
@@ -9,19 +9,19 @@ import { image } from 'src/markdoc/image';
 import { MarkdocConfigurator } from './MarkdocConfigurator';
 
 const markdocConfig = MarkdocConfigurator.getInstance()
-  .addComponentNode(
-    'fence',
-    {
-      attributes: {
-        language: {
-          type: String
-        }
-      }
-    },
-    Code
-  )
-  .addNode('heading', heading)
-  .addNode('image', image)
+  // .addComponentNode(
+  //   'fence',
+  //   {
+  //     attributes: {
+  //       language: {
+  //         type: String
+  //       }
+  //     }
+  //   },
+  //   CodeHL
+  // )
+  // .addNode('heading', heading)
+  // .addNode('image', image)
   // .addTag(
   //   'link',
   //   {
@@ -39,17 +39,17 @@ const markdocConfig = MarkdocConfigurator.getInstance()
   //   },
   //   Link
   // )
-  .addTag(
-    'popover',
-    {
-      attributes: {
-        content: {
-          type: String
-        }
-      }
-    },
-    HoverPopover
-  )
+  // .addTag(
+  //   'popover',
+  //   {
+  //     attributes: {
+  //       content: {
+  //         type: String
+  //       }
+  //     }
+  //   },
+  //   HoverPopover
+  // )
   .addTag(
     'gallery',
     {
