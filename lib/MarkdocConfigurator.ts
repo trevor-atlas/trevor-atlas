@@ -117,15 +117,6 @@ export class MarkdocConfigurator {
         ? component.name
         : // @ts-expect-error - get the name of a class component
           component.constructor.name;
-    if (name in this.config.tags || componentName in this.components) {
-      return this;
-    }
-    if (name in this.config.nodes) {
-      return this;
-    }
-    if (!VALID_NODE_AND_TAG_NAMES.test(name)) {
-      return this;
-    }
     const tag: SchemaWithComponent = {
       ...tagDef,
       render: componentName
@@ -150,15 +141,6 @@ export class MarkdocConfigurator {
     name: NodeType,
     nodeDef: Omit<MarkdocSchema, 'render'>
   ): MarkdocConfigurator => {
-    if (name in this.config.tags) {
-      return this;
-    }
-    if (name in this.config.nodes) {
-      return this;
-    }
-    if (!VALID_NODE_AND_TAG_NAMES.test(name)) {
-      return this;
-    }
     this.config.nodes[name] = nodeDef;
     return this;
   };
