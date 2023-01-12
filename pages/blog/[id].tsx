@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Container } from '../../src/components/Container';
 import SEO from '../../src/components/Seo';
-import { HumanDate } from '../../src/components/HumanDate';
+// import { HumanDate } from '../../src/components/HumanDate';
 import { Blogpost, getAllPostIds, getPostData } from '../../lib/posts';
-import Comments from 'src/components/blog/Comments';
+// import Comments from 'src/components/blog/Comments';
 
 // import { MarkdocRoot } from 'src/components/MarkdocRoot';
 import { css } from '@emotion/css';
-import Balancer from 'react-wrap-balancer';
+// import Balancer from 'react-wrap-balancer';
 
 import dynamic from 'next/dynamic';
 
@@ -124,7 +124,9 @@ export default function Post({ post }: { post: Blogpost }) {
                 text-transform: capitalize;
               `}
             >
-              <Balancer ratio={1}>{title}</Balancer>
+              {/* <Balancer ratio={1}> */}
+              {title}
+              {/* </Balancer> */}
             </h1>
             <span>
               {readTime.text} (~{readTime.words} words)
@@ -151,7 +153,7 @@ export default function Post({ post }: { post: Blogpost }) {
         />
         <div className="max-w-2xl mx-auto">
           <MarkdocRoot ast={post.contentReactAst} />
-          <Comments />
+          {/* <Comments /> */}
         </div>
       </Container>
     </>
