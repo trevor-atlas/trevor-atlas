@@ -42,16 +42,6 @@ type MarkdocSchema<R extends string = string> = {
 type ReactComponent = (...args: any[]) => JSX.Element | React.ComponentType;
 type SchemaWithComponent = MarkdocSchema & { render: string };
 
-const titleCase = (str: string) => {
-  const chars = str.split('');
-  return `${chars[0].toUpperCase()}${chars.slice(1).join('')}`;
-};
-
-const isComponentNode = (node: MarkdocSchema): node is SchemaWithComponent =>
-  'render' in node && typeof node.render === 'string';
-
-const VALID_NODE_AND_TAG_NAMES = /^[a-z0-9_$]+$/i;
-
 export class MarkdocConfigurator {
   private static instance: MarkdocConfigurator;
   /*
@@ -226,7 +216,7 @@ export class MarkdocConfigurator {
    * const config = MarkdocConfigurator.getInstance().getConfig();
    * returns -> { tags: {}, nodes: {}, variables: {}, functions: {}, partials: {}, validation: { validateFunctions: false } } */
   public getConfig = (): typeof this.config => {
-    return { ...this.config };
+    return this.config;
   };
 
   /**
@@ -237,7 +227,7 @@ export class MarkdocConfigurator {
    * const components = MarkdocConfigurator.getInstance().getComponents();
    * returns -> { MyComponent: MyComponent, MyOtherComponent: MyOtherComponent } */
   public getComponents = (): typeof this.components => {
-    return { ...this.components };
+    return this.components;
   };
 
   /**
@@ -291,7 +281,7 @@ export class MarkdocConfigurator {
    * const nodes = MarkdocConfigurator.getInstance().parse(`# Hello World`);
    * const ast = MarkdocConfigurator.getInstance().transform(nodes);
    * const htmlString = MarkdocConfigurator.getInstance().renderHtml(ast); */
-  public renderHtml(content: RenderableTreeNodes) {
+  public renderHtml = (content: RenderableTreeNodes) => {
     Markdoc.renderers.html(content);
-  }
+  };
 }
