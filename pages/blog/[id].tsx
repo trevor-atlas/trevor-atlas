@@ -5,9 +5,15 @@ import { HumanDate } from '../../src/components/HumanDate';
 import { Blogpost, getAllPostIds, getPostData } from '../../lib/posts';
 import Comments from 'src/components/blog/Comments';
 
-import { MarkdocRoot } from 'src/components/MarkdocRoot';
+// import { MarkdocRoot } from 'src/components/MarkdocRoot';
 import { css } from '@emotion/css';
 import Balancer from 'react-wrap-balancer';
+
+import dynamic from 'next/dynamic';
+
+const MarkdocRoot = dynamic(() => import('src/components/MarkdocRoot'), {
+  ssr: false
+});
 
 export async function getStaticPaths() {
   const paths = await getAllPostIds();
