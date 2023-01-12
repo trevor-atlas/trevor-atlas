@@ -1,12 +1,10 @@
 import React from 'react';
-import { RenderableTreeNodes } from '@markdoc/markdoc';
+import Markdoc, { RenderableTreeNodes } from '@markdoc/markdoc';
 import markdocConfig from '../../lib/markdocConfig';
 import { OGMap } from '../../lib/opengraph-scraper';
 
-export default function MarkdocRoot({
-  ast
-}: {
-  ast: RenderableTreeNodes;
-}): JSX.Element {
-  return markdocConfig.renderReact(ast, React) as JSX.Element;
+export default function MarkdocRoot({ ast }: { ast: RenderableTreeNodes }) {
+  return Markdoc.renderers.react(ast, React, {
+    components: markdocConfig.getComponents()
+  });
 }

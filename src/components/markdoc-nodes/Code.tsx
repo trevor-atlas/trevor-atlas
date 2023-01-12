@@ -120,7 +120,7 @@ interface CodeProps {
   language: string;
 }
 
-export function Code({ children, language }: CodeProps) {
+export default function Code({ children, language }: CodeProps) {
   return (
     <SyntaxHighlighter
       className="mb-8"
