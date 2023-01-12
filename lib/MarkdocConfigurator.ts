@@ -51,15 +51,16 @@ export class MarkdocConfigurator {
    * -> TO a component. A Record<nodetypes & tags 'render' value, thing that will be rendered> */
   private components: Record<string, ReactComponent> = {};
 
+  //@ts-ignore
   private config: Config = {
     tags: {},
     nodes: {},
-    variables: {},
-    functions: {},
-    partials: {},
-    validation: {
-      validateFunctions: false
-    }
+    variables: {}
+    // functions: {},
+    // partials: {},
+    // validation: {
+    // validateFunctions: false
+    // }
   };
 
   // Use this to get the MarkdocConfigurator instance
