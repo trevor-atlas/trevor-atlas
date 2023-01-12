@@ -1,19 +1,24 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { ISong } from 'src/components/now-playing/NowPlaying';
 import { getTopTracks } from '../../lib/spotify';
+import { ONE_DAY } from '../../src/utils/constants';
 
-const ONE_DAY = '86400000';
-export default async (_, res) => {
+interface Artist {
+  name: string;
+}
+type Response = Record<string, ISong[]>
+export default async (_: NextApiRequest, res: NextApiResponse<Response>) => {
   res.setHeader('cache-control', `s-maxage=${ONE_DAY}`);
 
   try {
     const response = await getTopTracks();
     const { items } = await response.json();
 
-    const result: Record<string, ISong[]> = {};
+    const result: Response = {};
 
     for (const track of items) {
       const image = track.album?.images?.pop();
-      const artist = track.artists.map((_artist) => _artist.name).join(', ');
+      const artist = track.artists.map((a: Artist) => a.name).join(', ');
       const song = {
         artist,
         songUrl: track.external_urls.spotify,
@@ -29,6 +34,6 @@ export default async (_, res) => {
 
     return res.status(200).json(result);
   } catch (e) {
-    return res.status(200).json({});
+    return res.status(400).json({});
   }
 };

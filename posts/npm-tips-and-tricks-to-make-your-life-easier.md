@@ -1,6 +1,14 @@
 ---
 title: "NPM tips and tricks to make your life easier"
 date: '2019-08-14'
+tags:
+  - javascript
+  - node
+  - npm
+banner: /images/npm.jpg
+bannerAlt: a cool keyboard
+bannerCredit:
+  Photo by [Paul Esch-Laurent](https://unsplash.com/@pinjasaur)
 ---
 
 If you've been using npm and Node for any amount of time, it's likely you've grown tired of typing out `install` or `--save-dev` every time you want to add a package. This article will cover some quality of life tips and tricks to make using npm a breeze!
@@ -51,12 +59,12 @@ npm i react{-router-dom,-bootstrap,-redux}
 
 ## Install a package from a Github repository
 
-Similarly to packages hosted by NPM, you can install packages directly from GitHub repositories.  
+Similarly to packages hosted by NPM, you can install packages directly from GitHub repositories.
 NPM understands how a Github repo works and knows what to do if you only specify the username and repo.
 
 ```bash
 npm i https://github.com/microsoft/TypeScript.git
-npm i microsoft/TypeScript  
+npm i microsoft/TypeScript
 ```
 
 You can even specify a branch name in this manner!

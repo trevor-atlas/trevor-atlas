@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import React, { FC, useRef } from 'react';
+import React, { FC, ReactNode, useRef } from 'react';
 import { useOrbit } from 'src/hooks/useOrbit';
 import { Mesh } from 'three';
 
@@ -10,9 +10,10 @@ interface IPlanet {
   orbitSpeed: number;
   color: string | number;
   showLabel: boolean;
+  children?: ReactNode | null;
 }
 
-export const Planet: FC<IPlanet> = ({
+export function Planet({
   name,
   scale = 20,
   orbitSize = 10,
@@ -20,11 +21,12 @@ export const Planet: FC<IPlanet> = ({
   color = 'red',
   children,
   showLabel
-}) => {
+}: IPlanet) {
   const ref = useRef<Mesh>();
-  useOrbit(ref, orbitSize, orbitSpeed);
+  useOrbit(ref.current, orbitSize, orbitSpeed);
 
   return (
+    // @ts-ignore
     <group ref={ref} position={[0, 0, 0]}>
       {children}
       <mesh
@@ -42,4 +44,4 @@ export const Planet: FC<IPlanet> = ({
       </mesh>
     </group>
   );
-};
+}

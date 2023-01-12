@@ -3,70 +3,63 @@ import { useFrame } from '@react-three/fiber';
 import useMouse from 'src/hooks/useMouse';
 import { clamp, getRelativeX } from 'src/utils/helpers';
 import { makeNoise2D } from 'open-simplex-noise';
+import { BufferGeometry, Mesh } from 'three';
 
 const noise2D = makeNoise2D(Date.now());
 
 const makeNoise = (x: number, y: number) => {
-  const ex = 1.1;
-  return (
-    noise2D(x / 200, y / 200) +
-    noise2D(x / 50, y / 50) * ex ** 1 +
-    noise2D(x / 25, y / 25) * ex ** 2 +
-    noise2D(x / 12.5, y / 12.5) * ex ** 3 +
-    noise2D(x / 4, y / 4) * ex ** 4
-  );
+  return noise2D(x, y);
 };
 
-const onUpdate = ({ geometry }) => {
+//a function to send an email to me when a field is empty
+
+const onUpdate = ({ geometry }: { geometry: BufferGeometry }) => {
   const pos = geometry.getAttribute('position');
-  const heightSegments = 275;
-  const widthSegments = 275;
+  const heightSegments = 1024;
+  const widthSegments = 1024;
   for (let j = 0; j < heightSegments; j++) {
     for (let i = 0; i < widthSegments; i++) {
+      // @ts-ignore
       pos.array[3 * (j * widthSegments + i) + 2] = makeNoise(i, j);
     }
   }
 };
 
 export const TerrainGen: FC = () => {
-  const mesh = useRef();
+  const mesh = useRef<Mesh>();
   const mouse = useMouse();
-  const center = window.innerWidth / 2;
 
-  useFrame((time) => {
+  useFrame(() => {
     if (!mesh.current) return;
     const relativeMouseX = clamp(
-      getRelativeX(mouse.current.x) * 0.00001,
+      getRelativeX(mouse.current.x || 0) * 0.0000001,
       0.00001,
       0.005
     );
-    if (mouse.current.x < center) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      mesh.current.rotation.z += relativeMouseX;
-    } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      mesh.current.rotation.z -= relativeMouseX;
-    }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    mesh.current.rotation.x = 175;
+    mesh.current.rotation.z -= relativeMouseX;
   });
 
   return (
-    <mesh ref={mesh} receiveShadow onUpdate={onUpdate} position={[0, -2, 0]}>
+    <mesh
+      // @ts-ignore
+      ref={mesh}
+      castShadow={true}
+      receiveShadow
+      onUpdate={onUpdate}
+      position={[0, -2, 0]}
+      rotation={[-Math.PI / 2, 0, 0]}
+    >
       <planeBufferGeometry attach="geometry" args={[100, 100, 275, 275]} />
-      <meshPhongMaterial
+      <meshStandardMaterial
         attach="material"
-        color="#2b32be"
+        color="#ffffff"
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        specular={0x999999}
-        shininess={9}
+        shininess={0.0}
+        flatShading={true}
+        clipShadows={true}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        smoothShading
       />
     </mesh>
   );

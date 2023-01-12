@@ -2,9 +2,9 @@
 layout: post
 title: Web Development and Perceived Value
 date: '2016-04-30'
-categories:
-image: https://unsplash.it/2000/1200?image=1003
-image-sm: https://unsplash.it/500/300?image=1003
+tags:
+  - consulting
+draft: true
 ---
 
 ## Let’s try a thought exercise.

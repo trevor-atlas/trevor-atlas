@@ -1,10 +1,9 @@
-
-import { ISong } from 'src/components/now-playing/NowPlaying';
-import { getTopArtists, getTopTracks } from '../../lib/spotify';
-
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getTopArtists } from '../../lib/spotify';
+import { ONE_DAY } from '../../src/utils/constants';
 
 export interface Albums {
-  items?: (ItemsEntity)[] | null;
+  items?: ItemsEntity[] | null;
   total: number;
   limit: number;
   offset: number;
@@ -15,10 +14,10 @@ export interface Albums {
 export interface ItemsEntity {
   external_urls: ExternalUrls;
   followers: Followers;
-  genres?: (string)[] | null;
+  genres?: string[] | null;
   href: string;
   id: string;
-  images?: (ImagesEntity)[] | null;
+  images?: ImagesEntity[] | null;
   name: string;
   popularity: number;
   type: string;
@@ -37,29 +36,31 @@ export interface ImagesEntity {
   width: number;
 }
 
-
-const ONE_DAY = '86400000';
-export default async (_, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader('cache-control', `s-maxage=${ONE_DAY}`);
 
   try {
     const { items } = await getTopArtists();
-    const result: { title: string, image: string }[] = [];
-    const seen = {};
+    const result: { title: string; image: string }[] = [];
+    const seen: Record<string, boolean> = {};
 
     for (const album of items) {
-      const { album: {id} } = album;
+      const {
+        album: { id }
+      } = album;
       if (!seen[id]) {
         seen[id] = true;
       } else {
         continue;
       }
       const image = album?.album?.images[0].url;
-      const artists = album.artists.map(({ name }) => name).join(', ');
+      const artists = album.artists
+        .map(({ name }: { name: string }) => name)
+        .join(', ');
       result.push({
         title: `${artists} - ${album?.name}`,
         image
-      })
+      });
     }
 
     return res.status(200).json(result);

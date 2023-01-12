@@ -8,7 +8,7 @@ export function Pathfinder() {
   const [ran, setRan] = useState(false);
   const [running, setRunning] = useState(false);
   const [tooSmall, setTooSmall] = useState(true);
-  const engine: React.MutableRefObject<GridEngine> = useRef();
+  const engine = useRef<GridEngine>();
 
   useIsomorphicLayoutEffect(() => {
     setTooSmall(window.innerWidth <= 1000);
@@ -40,7 +40,7 @@ export function Pathfinder() {
         <Button
           onClick={() => {
             setRan(false);
-            engine.current.genGrid(30, 50);
+            engine.current!.genGrid(30, 50);
           }}
           disabled={running}
           text="Reset"
@@ -50,7 +50,7 @@ export function Pathfinder() {
           onClick={async () => {
             setRan(true);
             setRunning(true);
-            await engine.current.animateSolution();
+            await engine.current!.animateSolution();
             setRunning(false);
           }}
           disabled={ran || running}

@@ -2,22 +2,20 @@ import React, { FC } from 'react';
 import styles from 'src/components/button/button.module.scss';
 
 interface IButton {
-	text: string;
-	onClick(): void;
-	disabled?: boolean;
-	className?: string;
+  text: string;
+  onClick(): void;
+  disabled?: boolean;
+  className?: string;
 }
 
 export const Button: FC<IButton> = ({ className, disabled, onClick, text }) => {
-	return (
-		<button
-			disabled={disabled}
-			className={`${styles.button} ${
-				disabled && styles.disabled
-			} ${className}`}
-			onClick={onClick}
-		>
-			{text}
-		</button>
-	);
+  return (
+    <button
+      disabled={disabled}
+      className={`${styles.button} ${disabled && styles.disabled} ${className}`}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
 };

@@ -1,6 +1,16 @@
 ---
 title: "Write CLI scripts with Typescript"
 date: '2019-08-17'
+
+tags:
+  - node
+  - typescript
+  - shell
+
+banner: /images/shell.jpg
+bannerAlt: A glowing shell
+bannerCredit:
+  Photo by [Marc Rentschler](https://unsplash.com/photos/F1rES0sVuIw)
 ---
 
 At some point in your career, it's likely you'll need to write scripts for the command line – there are cases where it makes sense to use vanilla bash scripting for this and that will usually work just fine for simple tasks like renaming things and deleting folders.
@@ -26,13 +36,13 @@ touch hello-world.ts
 
 [Learn about the handy npm shortcuts above](https://codinal.co/npm-tips-and-tricks-to-make-your-life-easier/)
 
-Note: If you know of a clean way to do this without  
+Note: If you know of a clean way to do this without
 globally installing ts-node and typescript, I'd love to hear about it!
 
 Now we can place the following code in our `hello-world.ts` file
 
 ```typescript
-#!/bin/sh 
+#!/bin/sh
 ":" //#; exec /usr/bin/env ts-node -P ~/scripts/tsconfig.json "$0" "$@"
 
 console.log('Hello, World!');
@@ -53,8 +63,8 @@ And now we can run it!
 Hello, World!
 ```
 
-Note: You may see an error from ts-node about an unrecognized  
-option 'esModuleInterop' – if this happens to you, you can simply  
+Note: You may see an error from ts-node about an unrecognized
+option 'esModuleInterop' – if this happens to you, you can simply
 remove that line from `~/scripts/tsconfig.json`
 
 * * *
@@ -91,7 +101,7 @@ First we create our script file – I'll call it `list-package-scripts.ts`
 Within `list-package-scripts.ts` I'll add the following code:
 
 ```typescript
-#!/bin/sh 
+#!/bin/sh
 ":" //#; exec /usr/bin/env ts-node -P ~/scripts/tsconfig.json "$0" "$@"
 
 import { readFile } from 'fs';

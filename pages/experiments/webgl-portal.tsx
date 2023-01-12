@@ -7,7 +7,7 @@ function Page() {
     <>
       <SEO title="Experiments: WEBGL Portal" />
       <Container>
-        <div className="mx-auto mx-w-md flex flex-col items-center content-center">
+        <div className="mx-auto mx-w-md flex flex-col items-center content-center mt-32">
           <p>A wormhole renderer written in WEBGL shaders.</p>
           <p>
             This uses modified{' '}

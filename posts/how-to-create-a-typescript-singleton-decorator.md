@@ -1,6 +1,14 @@
 ---
 title: "How to create a Typescript Singleton Decorator"
 date: '2019-08-16'
+tags:
+  - typescript
+  - javascript
+
+banner: /images/typescript-decorator.jpg
+bannerAlt: A single rose
+bannerCredit:
+  Photo by [Annie Spratt](https://unsplash.com/@anniespratt)
 ---
 
 The Singleton pattern is one of the most basic and powerful patterns for creating shared class instances. You may consider using the singleton pattern when you have a class that is a shared dependency for many other classes - such as an ORM(Object Relational Mapper) or database connection, which may be costly to recreate each time you need access to the database.
@@ -98,7 +106,7 @@ Finally, we implement a function that will act as the decorator itself. There's 
 
  Note: You can read more about [decorators and their syntax here](https://www.typescriptlang.org/docs/handbook/decorators.html)
 
-Our Singleton decorator function takes in a single parameter called `type`.  
+Our Singleton decorator function takes in a single parameter called `type`.
 `type` represents a class, before it has been initialize - a type indeed!
 
 It then returns a new Javascript [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) which we use to build a [construct trap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/construct) - essentially we hijack the original constructor of `type` and replace it with our own implementation which will create the instance if it doesn't exist, or return the existing instance!
@@ -151,7 +159,7 @@ export const Singleton = <T extends new (...args: any[]) => any>(type: T) =>
 
 Now we can use this decorator on our Store class and remove all of the Singleton specific code from it!
 
-Note: You will need to enable the experimental decorator   
+Note: You will need to enable the experimental decorator
 flags for typescript in order for this to work!
 
 ```typescript

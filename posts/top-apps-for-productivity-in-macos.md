@@ -1,13 +1,17 @@
 ---
 title: "Top Apps for Productivity in MacOS"
 date: '2019-09-04'
+banner: /images/macbook-neon.jpg
+tags:
+  - productivity
+  - macos
 ---
 
 As developers, we use different apps every day to get the job done. Finding a good tool is worth its weight in gold if it can make you more productive and efficient. Today I'm going to go over some of my favorite tools for MacOS.
 
-<section>
+## 1. Alfred
 
-## [1\. Alfred](https://www.alfredapp.com/)
+[Website](https://www.alfredapp.com/)
 
 **Price:** free with paid option for expanded customization features (£23.00/~$28.00)
 
@@ -24,13 +28,11 @@ There are workflows for converting common units like miles and kilometers, openi
 
 ![alfred create custom workflow](/assets/2019/09/Screenshot-2019-09-02-10.52.10-1024x761.png)
 
-</section>
+## 2. Rectangle
 
-<section>
+{% oglink url="https://rectangleapp.com/" /%}
 
-## [2\. Rectangle](https://rectangleapp.com/)
-
-**Price:** free  
+**Price:** free
 Rectangle is an open source app from [github user rxhanson](https://github.com/rxhanson)
 
 Rectangle does one thing really well – it organizes your windows with keyboard shortcuts. That's it! here's what that looks like
@@ -41,11 +43,10 @@ Rectangle can even move apps across different monitors!
 
 I've remapped it to use the vim movement keys (h j k l) for super intuitive resizing and movement.
 
-</section>
+## 3. Sensible Side Buttons
 
-<section>
-
-## [3\. Sensible Side Buttons](https://sensible-side-buttons.archagon.net/)
+[Website](https://sensible-side-buttons.archagon.net/)
+{% oglink url="https://sensible-side-buttons.archagon.net/" /%}
 
 **Price:** free
 
@@ -64,15 +65,14 @@ To ensure SensibleSideButtons opens whenever you start your computer:
 5. Click the plus button at the bottom
 6. Go to wherever you put the app (probably your Applications folder) and double-click it
 
-</section>
+## 4. Quick Look Tools
 
-<section>
-
-## [4\. Quick Look Tools](https://github.com/sindresorhus/quick-look-plugins)
+{% oglink url="https://github.com/sindresorhus/quick-look-plugins" /%}
+[Website](https://github.com/sindresorhus/quick-look-plugins)
 
 **Price:** free
 
-An open source collection from [github user Sindresorhus](https://github.com/sindresorhus)  
+An open source collection from [github user Sindresorhus](https://github.com/sindresorhus)
 This isn't so much a single app as a series of extensions to the built in MacOX quick look/preview and there's a bunch of really great stuff in here
 
 ![json syntax highlighting](/assets/2019/09/Screenshot-2019-09-02-13.06.14-978x1024.png)
@@ -87,37 +87,19 @@ This isn't so much a single app as a series of extensions to the built in MacOX 
 - [QuickLookASE](https://github.com/rsodre/QuickLookASE) – Preview Adobe ASE Color Swatches generated with Adobe Photoshop, Adobe Illustrator, [Adobe Color CC](https://color.adobe.com/), [Spectrum](http://www.eigenlogik.com/spectrum/mac), [COLOURlovers](http://www.colourlovers.com/), [Prisma](http://www.codeadventure.com/), among many others
 - [QLVideo](https://github.com/Marginal/QLVideo) – Preview most types of video files, as well as their thumbnails, cover art and metadata
 
-</section>
+## 5. Bartender
+[Website](https://www.macbartender.com/Bartender4/)
 
-<section>
+**Price:** $16.00
 
-## [5\. Dozer](https://github.com/Mortennn/Dozer)
-
-**Price:** free
-
-Dozer is an open source app from [github user Mortennn](https://github.com/Mortennn)  
 If you run enough apps, the menu bar can get too cluttered to even use – this really kills my productivity when there are so many icons
 
 ![an ugly menu bar ](/assets/2019/09/Screenshot-2019-09-02-13.15.38-1024x34.png)
 
-Dozer is a free app that lets you hide all of these icons when you don't need them
-
-![dozer's options menu](/assets/2019/09/Screenshot-2019-09-03-14.12.03.png)
-
-![a beautiful menu bar – good job!](/assets/2019/09/Screenshot-2019-09-03-19.39.02-1024x43.png)
+Bartender lets you hide all of these icons when you don't need them
 
 A simple utility that really cleans everything up nicely.
 
-## [](https://github.com/jwilm/alacritty)[](https://github.com/jwilm/alacritty)[](https://github.com/jwilm)[](https://github.com/jwilm/alacritty)[6\. Alacritty](https://github.com/jwilm/alacritty)
-
-**Price:** free
-
-An open source project by [github user jwilm](https://github.com/jwilm)  
-I've been a diehard iTerm user for a long time, but Alacritty is obligatory at this point – it's such a good piece of software. There are fewer options and 'fluffy' features than iTerm, but at its core Alacritty is a rock solid blazing fast terminal. It makes tmux and vim (two tools I am incredibly fond of) a pleasure to use with almost no input delay. It also looks great and supports all platforms, something iTerm doesn't even try to do.
-
-![mmmm, terminals](/assets/2019/09/Screenshot-2019-09-03-19.56.29-1024x624.png)
-
-</section>
-
+## Summary
 
 These are some of the tools I use every day. Please leave a comment or share this post if you found something useful here.

@@ -3,9 +3,9 @@ layout: post
 title: Rdio is dead, long live Spotify
 date: '2015-11-17'
 path: blog/rdio-is-dead-long-live-spotify
-categories:
-image: https://unsplash.it/2000/1200?image=1003
-image-sm: https://unsplash.it/500/300?image=1003
+tags:
+  - music
+draft: true
 ---
 
 This week’s work playlist is brought to us by Jonathan Shariat

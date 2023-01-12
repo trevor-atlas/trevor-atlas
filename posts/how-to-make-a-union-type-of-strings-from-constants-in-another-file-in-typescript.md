@@ -1,8 +1,9 @@
 ---
-title: "'How do I make a union type of strings from constants in another file in Typescript?'"
+title: "TS union from constants in a JS file"
 date: '2022-02-18'
-categories:
+tags:
   - typescript
+banner: /images/blue-arrow.jpg
 ---
 
 I have a file containing constants that I would like to create a string union from. How can I do that?

@@ -1,9 +1,12 @@
 ---
 title: "Using Readline like a pro"
 date: '2019-08-21'
+tags:
+  - shell
+banner: /images/readline.jpg
 ---
 
-Readline is a tool you've probably used many times without even noticing - it's the default text interface for most terminals in [\*nix based operating systems](https://en.wikipedia.org/wiki/Unix-like)! Any time you type stuff into a terminal prompt, you're using Readline!
+Readline is a tool you've probably used many times without even noticing - it's the default text interface for most terminals in [*nix based operating systems](https://en.wikipedia.org/wiki/Unix-like)! Any time you type stuff into a terminal prompt, you're using Readline!
 
 A little known fact is that Readline comes configured out-of-the-box with some extremely useful commands and shortcuts. Today we will examine some of those shortcuts and do some customization of our own.
 
@@ -12,7 +15,7 @@ A little known fact is that Readline comes configured out-of-the-box with some e
 Readline's default function is to enter text. You do this simply by typing commands into the terminal:
 
 ```bash
-➜  ~ ls         
+➜  ~ ls
 bin        Desktop  Music     projects
 Documents  org      Public    Templates
 Downloads  go	    Pictures  Videos

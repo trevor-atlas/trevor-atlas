@@ -1,0 +1,14 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "workbench.colorCustomizations": {
+    "editorGroupHeader.tabsBackground": "#32343d",
+    "tab.activeForeground": "#fdfdfd",
+    "tab.activeBorderTop": "#e7e2d8",
+    "tab.activeBackground": "#26385b",
+    "tab.activeBorder": "#ffba0a",
+    "activityBar.background": "#2A2D39",
+    "titleBar.activeBackground": "#3A3F50",
+    "titleBar.activeForeground": "#FAFAFB"
+  }
+}

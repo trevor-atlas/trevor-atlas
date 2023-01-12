@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 interface Props {
-	className?: string;
+  className?: string;
+  children: React.ReactNode;
 }
 
-export const Container: React.FunctionComponent<Props> = ({
-	className,
-	children
-}) => <div className={`container mx-auto px-8 ${className}`}>{children}</div>;
+export const Container: FC<Props> = ({ className, children }) => (
+  <div className={`container mx-auto p-6 md:p-0 ${className}`}>{children}</div>
+);

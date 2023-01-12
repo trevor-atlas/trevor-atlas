@@ -1,19 +1,21 @@
 .button {
-	appearance: none;
-	vertical-align: middle;
-	text-decoration: none;
-	border: medium none;
-	outline: currentcolor none medium;
-	cursor: pointer;
-	color: white;
-	background-color: white;
-	background: linear-gradient(rgb(7, 136, 222), rgb(17, 106, 184));
-	box-shadow: rgba(67, 90, 111, 0.3) 0px 0px 0px 1px inset, rgba(67, 90, 111, 0.06) 0px -1px 1px 0px inset;
-	padding: 0 16px;
-	border-radius: 3px;
+  appearance: none;
+  vertical-align: middle;
+  text-decoration: none;
+  border: medium none;
+  outline: currentcolor none medium;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(rgb(7, 148, 204), rgb(17, 106, 184));
+  box-shadow: rgba(67, 90, 111, 0.3) 0px 0px 0px 1px inset,
+    rgba(67, 90, 111, 0.06) 0px -1px 1px 0px inset;
+  padding: 6px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+  margin: 0 0.5rem 0 0;
 
-	&.disabled {
-		background: rgb(125, 125, 125);
-		color: #AAA;
-	}
+  &.disabled {
+    background: linear-gradient(rgb(183, 193, 196), rgb(137, 151, 164));
+    color: rgba(37, 60, 81, 0.9);
+  }
 }

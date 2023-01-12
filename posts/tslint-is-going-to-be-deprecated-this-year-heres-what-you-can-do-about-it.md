@@ -1,22 +1,27 @@
 ---
-title: "TSLint is going to be deprecated this year, here's what you can do about it"
-date: '2019-08-13'
+title: TSLint is going to be deprecated this year, here's what you can do about it
+date: 2019-08-13
+banner: /images/tslint.png
+tags:
+  - typescript
+  - javascript
+draft: true
 ---
 
-If you've done any work with typescript, it's likely you've come across the [TSLint](https://palantir.github.io/tslint/) project. TSLint is a Typescript specific linting tool that ensures you and your team write high quality code that conforms to a particular style.  
+If you've done any work with Typescript, it's likely you've come across the [TSLint](https://palantir.github.io/tslint/) project. TSLint is a Typescript specific linting tool that ensures you and your team write high quality code that conforms to a particular style.
 
 > The strategic direction of the TypeScript team is to enable “types on every desk, in every home, for every JS developer”. In other words, the direction is to incrementally enrich the JavaScript developer experience with TypeScript features like types and /assets analysis until, maybe, the TypeScript and JavaScript developer experience converge.
-> 
+>
 > [Palantir on Medium](https://medium.com/palantir/tslint-in-2019-1a144c2317a9)
 
 ![](/assets/2019/08/index.png)
 
-Up til now, TSLint has been the primary way to keep typescript code bases in check.  
-But in 2019, the Typescript team decided to put their efforts into expanding ESLint with support for typescript.  
+Up til now, TSLint has been the primary way to keep typescript code bases in check.
+But in 2019, the Typescript team decided to put their efforts into expanding ESLint with support for typescript.
 With this decision made, Palantir has decided to sunset TSLint and do away with the project entirely.
 
 > 🚧 warning TSLint will be deprecated some time in 2019. [See this issue for more details](https://github.com/palantir/tslint/issues/4534)
-> 
+>
 > Palantir on Github
 
 With this change coming soon, it's important to update your projects to keep up code quality. With this post we'll go over that migration process step by step.

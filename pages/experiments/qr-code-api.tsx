@@ -12,12 +12,13 @@ const smsTemplate = `sms://+1234-567-8910`;
 
 const QRCode: FC<any> = (props) => {
   const [input, setInput] = useState('');
+  const [image, setImage] = useState('/images/qr-wikipedia.png');
+  const [error, setError] = useState('');
+
   const updateInput = (e: ChangeEvent<HTMLInputElement>) => {
     setError('');
     setInput(e.currentTarget.value);
   };
-  const [image, setImage] = useState('/images/qr-wikipedia.png');
-  const [error, setError] = useState('');
 
   const submit = async () => {
     try {

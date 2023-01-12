@@ -1,10 +1,12 @@
 ---
 title: Vue.js and WordPress
 date: '2016-11-06'
-tags:
 path: blog/vue-wordpress
-featured_image: /static/vue.jpg
-thumbnail: https://trevoristall.github.io/images/vue.jpg
+banner: /images/vue.png
+tags:
+  - javascript
+  - wordpress
+draft: true
 ---
 
 I recently had the opportunity to use Vue.js in one of the backend WordPress plugins I was creating. I've used both React and Angular in past projects but I wanted something lightweight and quick to set up and use, Vue seemed like the perfect tool for the job.
@@ -13,7 +15,7 @@ This plugin was being created to make it easier for content and SEO team members
 
 To start out, I get the plugin initialized by adding our admin page. It's important to namespace our plugin as well to prevent global scope pollution.
 
-```php 
+```php
 <?php namespace PageInfo;
 
 // We can pass add_action a closure instead of passing it a function name.

@@ -1,7 +1,12 @@
 ---
 title: "Typescipt Dependency Injection"
 date: '2019-07-07'
-tags: typescript
+tags:
+  - typescript
+banner: /images/dep-injection.jpg
+bannerAlt: An apple full of injections
+bannerCredit:
+  Photo by [Diana Polekhina](https://unsplash.com/@diana_pole)
 ---
 
 [Full working code examples are available on github](https://github.com/trevor-atlas/Typescript-Inject)
@@ -21,7 +26,7 @@ To start things off, lets make sure our `tsconfig.json` is set up and ready to w
 Now in our source code we can set up a lazy factory. This class will be responsible for creating instances of whatever we want and can be as flexible as we need! We'll use the singleton pattern to ensure there's only ever one instance of the factory at a time to avoid duplication.
 
 `di/LazyFactory.ts`
-```ts
+```typescript
 export class LazyFactory {
 
     // this is where we store our singleton reference to this class instance
@@ -55,7 +60,7 @@ export interface IMyService {
 Now we can define a mock and real implementation of the service using this interface:
 
 `services/MyService.ts`
-```ts
+```typescript
 export class MyService implements IMyService {
     public sayHello(name: string): void {
        console.log(`Hello from the real service, ${name}!`);
@@ -64,7 +69,7 @@ export class MyService implements IMyService {
 ```
 
 `services/MockMyService.ts`
-```ts
+```typescript
 export class MockMyService implements IMyService {
     public sayHello(name: string): void {
         console.log(`Hello from the mock service, ${name}!`);
@@ -75,7 +80,7 @@ export class MockMyService implements IMyService {
 Back in our `LazyFactory` we can create a method to return the correct implementation of `IMyService` - in this case I'll use the current environment to determine which instance to return:
 
 `di/LazyFactory.ts`
-```ts
+```typescript
 export class LazyFactory {
     ...
     public myService() {
@@ -94,7 +99,7 @@ Phew! That's a lot - but we're almost done! The last thing we need to do is actu
 for this example, we'll be working in `app.ts` which has need of our `MyService`:
 
 `app.ts`
-```ts
+```typescript
 import {LazyFactory} from './LazyFactory';
 
 class App {
@@ -103,7 +108,7 @@ class App {
     constructor() {
         this.myService = LazyFactory.getInstance().myService();
     }
-    
+
     public main() {
         this.myService.sayHello('internet');
     }
@@ -121,7 +126,7 @@ Now we'll define an `@Inject` typescript decorator that will handle the construc
 The code for `@Inject` looks like this:
 
 `decorators/Inject.ts`
-```ts
+```typescript
 import {LazyFactory} from '../di/LazyFactory';
 
 export const Inject = (target: any, key: string) => {
@@ -149,7 +154,7 @@ What this does is look for `key` in `target` - `target` will be whatever class w
 
 back in `app.ts`:
 
-```ts
+```typescript
 import {Inject} from './Inject';
 
 class App { // <-- App will be the `target` referenced in the Inject function
@@ -172,7 +177,7 @@ But wait! There's more!
 
 `LazyFactory` doesn't actually care what we return from any method - this is super useful because it lets us swap out any kind of data we want. I've used it to return a `baseURL` that differs locally vs in production:
 
-```ts
+```typescript
 export class LazyFactory {
     ...
     public baseURL() {
@@ -187,7 +192,7 @@ export class LazyFactory {
 now back in `MyService` and `MockMyService` we can inject this baseURL as well!
 
 `services/MyService.ts`
-```ts
+```typescript
 export class MyService implements IMyService {
 
     @Inject
@@ -201,7 +206,7 @@ export class MyService implements IMyService {
 ```
 
 `services/MockMyService.ts`
-```ts
+```typescript
 export class MockMyService implements IMyService {
 
     @Inject
@@ -216,4 +221,4 @@ export class MockMyService implements IMyService {
 
 [Full working code examples are available on github](https://github.com/trevor-atlas/Typescript-Inject)
 
-I hope this has been a useful explanation of some of the benefits of dependency injection. While this method is not perfect, it is very flexible and lets you fine tune its behaviour as much as you want/need. 
+I hope this has been a useful explanation of some of the benefits of dependency injection. While this method is not perfect, it is very flexible and lets you fine tune its behaviour as much as you want/need.

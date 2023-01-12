@@ -1,146 +1,175 @@
-import fs from 'fs';
+import { readFile, readdir } from 'fs';
+import util from 'util';
 import path from 'path';
-import matter from 'gray-matter';
-import remark from 'remark';
-import html from 'remark-html';
-import removeMd from 'remove-markdown';
-import highlight from 'remark-highlight.js';
-import { serialize } from 'next-mdx-remote/serialize';
-import { IReadTime, readingTime } from './read-time';
+import { getReadingTime, IReadTime } from './read-time';
+import Markdoc, {
+  Node,
+  RenderableTreeNode,
+  RenderableTreeNodes,
+  Tag
+} from '@markdoc/markdoc';
+import markdocConfig from './markdocConfig';
+// @ts-expect-error no types
+import yaml from 'js-yaml';
+import { getOpengraphDataForPost, OGMap } from './opengraph-scraper';
+import { isOgLinkNode, isTagNode } from './typeguards';
+
+const readdirAsync = util.promisify(readdir);
+const readFileAsync = util.promisify(readFile);
 
 const POSTS_DIRECTORY = path.join(process.cwd(), 'posts');
 
-export interface IRawPost extends Record<string, unknown> {
-  id: string;
-  draft: boolean;
-  content: string; // raw html
-  date: string;
-  title: string;
+export interface IRawPost {
   slug: string;
-  categories: string[];
-  featured_image?: string;
-  thumbnail?: string;
-  contentHtml: string;
-  contentText: string;
-  isMDX: boolean;
+  filename: string;
+  content: Node;
 }
 
-export interface IPost {
-  id: string;
+export interface SerializableBlogpost
+  extends Omit<Blogpost, 'contentReactAst'> {
+  contentReactAst: string;
+}
+
+export interface Blogpost {
   draft: boolean;
-  content: string; // '<h1>Hello world!</h1>',
   date: number;
   title: string;
   slug: string;
-  categories: string[];
-  featuredImage?: string;
-  thumbnail?: string;
-  contentHtml: string;
-  contentText: string;
+  filename: string;
+  tags: string[];
+  featuredImage: string;
+  contentReactAst: RenderableTreeNodes;
   excerpt: string;
   readTime: IReadTime;
-  isMDX: boolean;
 }
 
-const getFile = (filename: string): string => {
-  const fullPath = path.join(POSTS_DIRECTORY, filename);
-  return fs.readFileSync(fullPath, 'utf8');
-};
-
-export const processPostContent = ({
-  id,
-  title,
-  slug,
-  categories,
-  content,
-  contentHtml,
-  contentText,
-  date,
-  draft,
-  featured_image,
-  isMDX
-}: IRawPost): IPost => ({
-  id,
-  title,
-  slug: slug || id,
-  content,
-  contentHtml: contentHtml || '',
-  categories: categories || [],
-  draft: draft || false,
-  date: new Date(date).getTime(),
-  excerpt: getExcerpt(contentText),
-  contentText,
-  readTime: readingTime(contentText),
-  featuredImage: featured_image || null,
-  isMDX
-});
-
-const processMDFile = async (filename: string): Promise<IRawPost> => {
-  const id = filename.replace(/\.(md)$/, '');
-  const fileContents = getFile(filename);
-  const { content, data } = matter(fileContents);
-  const processedContent = await remark()
-    .use(html)
-    .use(highlight)
-    .process(content);
-  const contentHtml = processedContent.toString();
-
+export function getSerializablePost(post: Blogpost): SerializableBlogpost {
   return {
-    id,
-    content,
-    contentHtml,
-    contentText: getRawText(content),
-    ...data, // frontmatter content like date, draft etc
-    isMDX: false
-  } as IRawPost;
-};
+    ...post,
+    contentReactAst: post.contentReactAst
+      ? JSON.stringify(post.contentReactAst)
+      : '{}'
+  };
+}
 
-const processMD = async (filenames: string[]): Promise<IRawPost[]> => {
-  const result: IRawPost[] = [];
-  for (const filename of filenames) {
-    const processed = await processMDFile(filename);
-    result.push(processed);
+export function walkMarkdocAst(
+  nodes: RenderableTreeNodes,
+  callback: (childNode: RenderableTreeNode) => void
+) {
+  if (!nodes) return;
+  if (Array.isArray(nodes)) {
+    for (const child of nodes) {
+      walkMarkdocAst(child, callback);
+    }
+    return;
   }
-  return result;
-};
+  callback(nodes);
+  if (isTagNode(nodes)) {
+    for (const child of nodes.children) {
+      walkMarkdocAst(child, callback);
+    }
+  }
+}
 
-const processMDXFile = async (filename: string): Promise<IRawPost> => {
-  const id = filename.replace(/\.(mdx)$/, '');
-  const fileContents = getFile(filename);
-  const { content, data } = matter(fileContents);
+function getExcerpt(text: string, maxExcerptLength = 140): string {
+  const contentText = text.trim().replace(/[\n]{2,}/gm, '');
+  const excerpt = contentText.split(/\s/).reduce((acc, word) => {
+    if (acc.length + word.length < maxExcerptLength) {
+      return `${acc} ${word}`;
+    }
+    return acc;
+  }, '');
 
-  const mdxSource = await serialize(content, {
-    scope: data
+  return `${excerpt}...`;
+}
+
+async function getFileContents(filename: string) {
+  const fullPath = path.join(POSTS_DIRECTORY, filename);
+  return readFileAsync(fullPath, 'utf8');
+}
+
+function flattenPostContentToText(
+  text: { content: string },
+  children: any[]
+): string {
+  for (const child of children) {
+    if (typeof child === 'string') {
+      text.content += `\n${child}`;
+    } else {
+      flattenPostContentToText(text, child.children);
+    }
+  }
+  return text.content;
+}
+
+export async function processPostContent({
+  slug,
+  content,
+  filename
+}: IRawPost): Promise<Blogpost> {
+  const frontmatter = content.attributes.frontmatter
+    ? yaml.load(content.attributes.frontmatter)
+    : {};
+  const { title, date, tags, draft, banner, excerpt } = frontmatter;
+  markdocConfig.setVariable('frontmatter', frontmatter);
+  const contentReactAst = markdocConfig.transform(content);
+  let text = '';
+  walkMarkdocAst(contentReactAst, (node) => {
+    if (isTagNode(node)) {
+      return;
+    }
+    text += node;
   });
 
+  const readTime = getReadingTime(text);
+
   return {
-    id,
-    content: mdxSource,
-    contentText: getRawText(content),
-    ...data,
-    isMDX: true
-  } as unknown as IRawPost;
+    slug,
+    filename,
+    title,
+    contentReactAst,
+    tags: tags ?? [],
+    draft: Boolean(draft),
+    date: new Date(date).getTime(),
+    excerpt: excerpt ?? getExcerpt(text),
+    readTime,
+    featuredImage: banner ?? null
+  };
+}
+
+const SUPPORTED_EXTENSIONS = ['md'];
+const VALID_POST_FILETYPES = SUPPORTED_EXTENSIONS.map(
+  (str) => new RegExp(`\.${str}$`)
+);
+
+async function getPostsFileNames() {
+  const filenames = await readdirAsync(POSTS_DIRECTORY);
+  return filenames.filter((filename) =>
+    VALID_POST_FILETYPES.every((regex) => regex.test(filename))
+  );
+}
+
+const getSlugFromFilename = (filename: string) => {
+  const extension = path.extname(filename);
+  return filename.replace(extension, '');
 };
 
-const processMDX = async (filenames: string[]): Promise<IRawPost[]> => {
-  const result: IRawPost[] = [];
-  for (const filename of filenames) {
-    const processed = await processMDXFile(filename);
-    result.push(processed);
-  }
-  return result;
-};
+async function parseMDFile(filename: string): Promise<IRawPost> {
+  const file = await getFileContents(filename);
 
-export const getSortedPostsData = async (): Promise<IPost[]> => {
-  const fileNames = fs.readdirSync(POSTS_DIRECTORY);
-  const MD = /\.md$/;
-  const MDX = /\.mdx$/;
-  const mdNames = fileNames.filter((name) => MD.test(name));
-  const mdxNames = fileNames.filter((name) => MDX.test(name));
-  const mdPosts: IRawPost[] = await processMD(mdNames);
-  const mdxPosts: IRawPost[] = await processMDX(mdxNames);
+  return {
+    slug: getSlugFromFilename(filename),
+    filename,
+    content: markdocConfig.parse(file)
+  };
+}
 
-  return [...mdPosts, ...mdxPosts]
+export const getSortedPostsData = async (): Promise<Blogpost[]> => {
+  const filenames = await getPostsFileNames();
+  const parsedMDFiles = await Promise.all(filenames.map(parseMDFile));
+  const posts = await Promise.all(parsedMDFiles.map(processPostContent));
+
+  return posts
     .filter((p) => !p.draft)
     .sort((a, b) => {
       if (a.date < b.date) {
@@ -148,7 +177,7 @@ export const getSortedPostsData = async (): Promise<IPost[]> => {
       }
       return -1;
     })
-    .map(processPostContent);
+    .map(getSerializablePost);
 };
 
 interface IPostID {
@@ -157,41 +186,34 @@ interface IPostID {
   };
 }
 
-export function getAllPostIds(): IPostID[] {
-  const fileNames = fs.readdirSync(POSTS_DIRECTORY);
-  return fileNames.map((fileName) => ({
+export async function getAllPostIds(): Promise<IPostID[]> {
+  const filenames = await getPostsFileNames();
+  return filenames.map((fileName) => ({
     params: {
-      id: fileName.replace(/\.(md|mdx)$/, '')
+      id: getSlugFromFilename(fileName)
     }
   }));
 }
 
-export const getPostFromID = async (id: string): Promise<IRawPost> => {
-  if (!fs.existsSync(path.join(POSTS_DIRECTORY, `${id}.md`))) {
-    return processMDXFile(`${id}.mdx`);
-  }
-  return processMDFile(`${id}.md`);
-};
+export async function getPostData(slug: string): Promise<Blogpost> {
+  const filenames = await getPostsFileNames();
+  const filename = filenames.find(
+    (filename) => getSlugFromFilename(filename) === slug
+  );
+  const markdoc = await parseMDFile(filename!);
+  const post = await processPostContent(markdoc);
+  const opengraph = await getOpengraphDataForPost(post);
 
-export async function getPostData(id: string): Promise<IPost> {
-  const post = await getPostFromID(id);
-  return processPostContent(post);
-}
+  // this isn't working for some reason, maybe here, maybe in the markdoc configurator :shrug:
+  walkMarkdocAst(post.contentReactAst, (node) => {
+    if (isOgLinkNode(node)) {
+      const url = node.attributes.url;
+      const ogData = opengraph[url];
+      if (ogData) {
+        node.attributes.ogData = ogData;
+      }
+    }
+  });
 
-function getRawText(markdown: string): string {
-  const contentText = removeMd(markdown);
-  return contentText.trim().replace(/\s+/gm, ' ');
-}
-
-function getExcerpt(markdown: string, maxExcerptLength = 200): string {
-  const contentText = getRawText(markdown)
-    .trim()
-    .replace(/[\n\\]/gm, '');
-  const excerpt = contentText.slice(0, maxExcerptLength);
-
-  if (contentText.length > maxExcerptLength) {
-    return `${excerpt}...`;
-  }
-
-  return excerpt;
+  return getSerializablePost(post);
 }

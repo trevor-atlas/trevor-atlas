@@ -1,7 +1,12 @@
 ---
 title: "Typescipt 'any' is a code smell"
 date: '2019-03-06'
-tags: typescript
+tags:
+- typescript
+banner: /images/any-stinks.jpg
+bannerAlt: Some minty fresh greens
+bannerCredit:
+  Photo by [Victor Serban](https://unsplash.com/@victorserban)
 ---
 
 Typescript is a really powerful tool for making javascript more maintainable, easier to refactor and faster to write.
@@ -16,28 +21,28 @@ When you use the `any` type, you are saying "please don't typecheck this" typesc
 
 When you use `any`, you change the contract for your application and make it harder to refactor in the future. since there is no type safety, it's inherently harder to reason about and change.
 
-### Makes you look lazy
+### It's the bare minimum
 
-Using `any` (except in the cases listed below) makes me think you were too lazy to do this the right way and provide a minimal typedef for your code.
+Using `any` (except in the cases listed below) makes your code inherently harder to maintain and reason about. It's impolite to not at least provide a minimal typedef for your code.
+
+## When to use any
+
+There are a few cases where using `any` is acceptable:
+
+ 1. When you are using a library that doesn't have types
+ 2. When you are using a library that has types but they are wrong
+ 3. When you are using a library that has types but they are incomplete
+ 4. When you are working with a legacy codebase that has no types, and you don't yet know what the types are
+
 
 ## What to do instead
 
-instead of using `any` I recommend fleshing it out as much as possible:
+instead of using `any` I recommend fleshing your types out as much as possible. Even if you only know part of the type definition, it's better to have something than nothing.
 
-```ts
+```typescript
 type MyType = {
     someField: number,
     otherFunc(): void
-    // ...maybe other stuff
-}
-```
-
-you can also use the optional operator for more flexibility:
-
-```ts
-type MyType = {
-    someField?: number,
-    otherFunc()?: void
     // ...maybe other stuff
 }
 ```

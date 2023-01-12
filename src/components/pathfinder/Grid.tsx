@@ -122,7 +122,10 @@ export class Grid extends React.Component<Props, State> {
     await this.animateShortestPath(nodesInShortestPathOrder, 0);
   };
 
-  animateVisitedNodes = async (visitedNodes: Node[], index: number) => {
+  animateVisitedNodes = async (
+    visitedNodes: Node[],
+    index: number
+  ): Promise<void> => {
     if (index < visitedNodes.length) {
       const node = visitedNodes[index];
       if (node.isStart || node.isEnd)
@@ -139,7 +142,7 @@ export class Grid extends React.Component<Props, State> {
   animateShortestPath = async (
     nodesInShortestPathOrder: Node[],
     index: number
-  ) => {
+  ): Promise<void> => {
     if (index < nodesInShortestPathOrder.length) {
       await sleep(this.state.animationSpeed - Math.log(index));
       const node = nodesInShortestPathOrder[index];

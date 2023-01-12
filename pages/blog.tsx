@@ -1,46 +1,66 @@
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import React, { FC, useMemo } from 'react';
-import { HumanDate } from 'src/components/HumanDate';
-import { getSortedPostsData, IPost } from 'lib/posts';
+import React, { FC, useEffect, useState } from 'react';
+import { getSortedPostsData, Blogpost } from 'lib/posts';
 import { Container } from 'src/components/Container';
 import SEO from 'src/components/Seo';
-
-const Terrain = dynamic(() => import('src/components/three-fibers/Terrain'), {
-  ssr: false
-});
+import { PostPreviewCard } from 'src/components/post-preview-card/PostPreviewCard';
+import { Tag } from 'src/components/tags/Tags';
+import { Button } from 'src/components/button/Button';
+import { useRouter } from 'next/router';
 
 export async function getStaticProps() {
-  const data = await getSortedPostsData();
+  const posts = await getSortedPostsData();
+  const tags = posts.reduce((acc, post) => {
+    post.tags.forEach((tag) => {
+      if (!acc.includes(tag)) {
+        acc.push(tag);
+      }
+    });
+    return acc;
+  }, [] as string[]);
 
   return {
     props: {
-      posts: data
+      posts,
+      tags
     }
   };
 }
 
-const Blog: FC<{ posts: IPost[] }> = ({ posts }) => {
-  const entries = useMemo(
-    () =>
-      posts.map(({ date, id, title, excerpt, readTime, thumbnail }) => (
-        <div key={id} className="mb-16 flex flex-col">
-          <h2 className="mt-0">{title}</h2>
-          <p>{excerpt}</p>
-          <div className="mb-2 flex flex-row justify-between">
-            <small className="muted">
-              <HumanDate date={date} />
-            </small>
-            <br />
-            <small className="muted db mb2">{readTime.text}</small>
-          </div>
-          <Link href="/posts/[id]" as={`/posts/${id}`}>
-            <a className="underline">Read article</a>
-          </Link>
-        </div>
-      )),
-    [posts]
-  );
+const Blog: FC<{ posts: Blogpost[]; tags: string[] }> = ({ posts, tags }) => {
+  const [filteredPosts, setFilteredPosts] = useState<Blogpost[]>(posts);
+  const router = useRouter();
+
+  const setFilterTags = (tag?: string) => {
+    const newState = {
+      query: { ...router.query }
+    };
+    if (tag && typeof tag === 'string') {
+      newState.query.filterTags = tag;
+    }
+    router.replace(newState);
+  };
+
+  const filterPosts = () => {
+    if (!router.query.filterTags) {
+      setFilteredPosts(posts);
+    } else {
+      setFilteredPosts(
+        posts.filter((post) =>
+          post.tags.includes(router.query.filterTags as string)
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    filterPosts();
+  }, [router.query.filterTags]);
+
+  useEffect(() => {
+    if (router.query.filterTags) {
+      filterPosts();
+    }
+  }, []);
 
   return (
     <>
@@ -52,10 +72,29 @@ const Blog: FC<{ posts: IPost[] }> = ({ posts }) => {
         ogImage="/images/blog.png"
       />
       <Container>
-        <Terrain />
         <div className="max-w-xl mx-auto mt-32">
           <h1 className="mb-16">Blog</h1>
-          {entries}
+          <div className="p-4 flex flex-row justify-between items-center">
+            <span>
+              {tags.map((name) => (
+                <div
+                  key={name}
+                  className="inline-block cursor-pointer"
+                  onClick={() => setFilterTags(name)}
+                >
+                  <Tag name={name} />
+                </div>
+              ))}
+            </span>
+            <Button
+              text="Clear Filter"
+              className="inline-block cursor-pointer"
+              onClick={setFilterTags}
+            />
+          </div>
+          {filteredPosts.map((post) => (
+            <PostPreviewCard key={post.slug} {...post} />
+          ))}
         </div>
       </Container>
     </>

@@ -2,10 +2,6 @@
   font-size: 1.2rem;
 }
 
-.animated {
-  animation: jello .5s linear;
-  transform-origin: center center;
-}
 
 .Email {
   color: #00a6fb;
@@ -35,26 +31,3 @@
   color: white;
 }
 
-@keyframes jello {
-  0% {
-    transform: scale(1.68, 1.44);
-  }
-  25% {
-    transform: scale(0.72, 0.82);
-  }
-  50% {
-    transform: scale(1.296, 1);
-  }
-  75% {
-    transform: scale(0.82, 1.15);
-  }
-  80% {
-    transform: scale(0.95, 1.05);
-  }
-  90% {
-    transform: scale(1.05, 0.95);
-  }
-  100% {
-    transform: none;
-  }
-}

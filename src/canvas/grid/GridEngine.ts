@@ -1,9 +1,10 @@
+import { Nullable } from 'src/types';
 import {
   dijkstra,
   getNodesInShortestPathOrder,
   Node
 } from 'src/utils/dijkstra';
-import { sleep } from 'src/utils/helpers';
+import { isNone, sleep } from 'src/utils/helpers';
 
 interface IEngineOptions {
   enableZoom: boolean;
@@ -11,18 +12,18 @@ interface IEngineOptions {
 }
 
 export class GridEngine {
-  private canvas: HTMLCanvasElement | null;
-  private ctx: CanvasRenderingContext2D | null;
-  private width: number;
-  private height: number;
+  private canvas!: HTMLCanvasElement | null;
+  private ctx!: CanvasRenderingContext2D | null;
+  private width!: number;
+  private height!: number;
   private grid!: Node[][];
   private zoom = 1;
-  private drawing: boolean;
+  private drawing!: boolean;
   private scrollX = 0;
   private scrollY = 0;
-  private mouseBeginOrigin!: { x: number; y: number };
-  private activeMouseButton!: number;
-  private pixelRatio: number;
+  private mouseBeginOrigin: Nullable<{ x: number; y: number }> = { x: 0, y: 0 };
+  private activeMouseButton: Nullable<number>;
+  private pixelRatio!: number;
 
   constructor(
     private rows: number,
@@ -32,6 +33,9 @@ export class GridEngine {
       enableZoom: false
     }
   ) {
+    if (!window || !document) {
+      return;
+    }
     this.canvas = document.querySelector('#renderingContext');
     if (!this.canvas) {
       throw new Error('could not start canvas!');
@@ -59,6 +63,9 @@ export class GridEngine {
     });
 
     this.canvas.onmousedown = ({ button, clientX, clientY }) => {
+      if (isNone(this.canvas)) {
+        return;
+      }
       this.drawing = true;
       const { left, top } = this.canvas.getBoundingClientRect();
       const { xOffset, yOffset } = this.getScaledOffsets();
@@ -77,6 +84,9 @@ export class GridEngine {
     };
 
     this.canvas.addEventListener('click', ({ clientX, clientY }) => {
+      if (isNone(this.canvas)) {
+        return;
+      }
       const { left, top } = this.canvas.getBoundingClientRect();
       const { xOffset, yOffset } = this.getScaledOffsets();
       const mx = (clientX - left - xOffset) >> 0;
@@ -95,6 +105,10 @@ export class GridEngine {
     });
 
     this.canvas.onmousemove = (e: MouseEvent) => {
+      if (isNone(this.canvas) || isNone(this.mouseBeginOrigin)) {
+        return;
+      }
+
       const { clientX, clientY } = e;
       e.stopPropagation();
       const { left, top } = this.canvas.getBoundingClientRect();
@@ -134,6 +148,9 @@ export class GridEngine {
       }
     };
     this.canvas.onmouseup = () => {
+      if (isNone(this.canvas)) {
+        return;
+      }
       this.drawing = false;
       this.mouseBeginOrigin = null;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -143,7 +160,7 @@ export class GridEngine {
     };
     if (this.options.enableZoom) this.canvas.onwheel = this.zoomIn;
   }
-  private zoomIn = (event) => {
+  private zoomIn = (event: any) => {
     event.preventDefault();
 
     let result = this.zoom;
@@ -171,6 +188,9 @@ export class GridEngine {
   }
 
   public getSquare = (x: number, y: number) => {
+    if (isNone(this.canvas)) {
+      return { row: 0, col: 0 };
+    }
     const { left, top } = this.canvas.getBoundingClientRect();
     const { xOffset, yOffset } = this.getScaledOffsets();
     const mx = x - left - xOffset;
@@ -191,6 +211,9 @@ export class GridEngine {
   };
 
   private drawCell = (x: number, y: number, size: number, color: string) => {
+    if (isNone(this.ctx)) {
+      return;
+    }
     const { xOffset, yOffset } = this.getScaledOffsets();
     this.ctx.strokeStyle = 'rgba(255, 255, 255, .8)';
     this.ctx.lineWidth = this.pixelRatio;
@@ -213,6 +236,9 @@ export class GridEngine {
     size: number,
     color: string
   ) => {
+    if (isNone(this.ctx)) {
+      return;
+    }
     if (row !== 0) {
       row = (row * this.cellSize) >> 0;
     }
@@ -239,6 +265,9 @@ export class GridEngine {
   };
 
   public drawGrid = () => {
+    if (isNone(this.ctx)) {
+      return;
+    }
     this.ctx.clearRect(0, 0, this.width, this.height);
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.columns; col++) {

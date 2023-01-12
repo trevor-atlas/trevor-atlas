@@ -1,0 +1,71 @@
+@import 'src/styles/vars';
+
+.linkContainer {
+  pointer-events: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  z-index: 9999;
+
+  &:hover {
+    .tooltip {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      pointer-events: auto;
+    }
+  }
+
+  .path {
+    stroke: $ocean;
+    position: absolute;
+    bottom: -.20rem;
+  }
+
+  .link {
+    pointer-events: auto;
+    color: $ocean;
+    cursor: pointer;
+  }
+
+  .tooltip {
+    font-size: 0.68rem;
+    line-height: 1.35;
+    display: block;
+    padding: 1rem 1.2rem 0 1.2rem;
+    color: #fff;
+    -webkit-transform: translate3d(0, -10px, 0);
+    transform: translate3d(0, -10px, 0);
+    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+    transition: opacity 0.3s, transform 0.3s;
+    position: absolute;
+    z-index: 9999;
+    width: 360px;
+    left: calc(50% - 180px);
+    margin: 0 0 20px;
+    bottom: 100%;
+    text-align: left;
+    font-size: 0.765rem;
+    line-height: 1.4;
+    box-shadow: -5px -5px 15px rgb(48 54 61 / 20%);
+    background: #2a3035;
+    opacity: 0;
+    cursor: default;
+    pointer-events: none;
+
+    &::after {
+      content: '';
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-color: transparent;
+      border-top-color: #2a3035;
+      border-width: 10px;
+      margin-left: -10px;
+    }
+  }
+}

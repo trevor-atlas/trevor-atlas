@@ -32,8 +32,10 @@ export const NowPlaying: FC<ISpotifyCurrentlyPlaying> = React.memo(
         rel="noreferrer noopener nofollow"
       >
         <small>Currently listening to...</small>
-        <div className={`${styles.player} rounded-lg border-gray-800 border-solid border`}>
-          <img src={albumImageUrl} alt={album} width={100} height={100} />
+        <div
+          className={`${styles.player} rounded-lg border-gray-800 border-solid border`}
+        >
+          <Image src={albumImageUrl} alt={album} width={100} height={100} />
           <div className={styles.player_metadata}>
             <div className={styles.artist}>{artist}</div>
             {isPlaying && <div className={styles.track}>{title}</div>}

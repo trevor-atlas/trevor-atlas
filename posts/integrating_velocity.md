@@ -1,8 +1,10 @@
 ---
 layout: post
-title:  "Integrating VelocityJS"
-date: '2014-10-05'
-categories: web javascript ui/ux design
+title: Integrating VelocityJS
+date: 2014-10-05
+tags:
+  - javascript
+draft: true
 ---
 
 Seeing recent trends with animation and how they increase overall esthetic and engagement is really cool. I love that the web is finally reaching a stage where animations and content live together natively.

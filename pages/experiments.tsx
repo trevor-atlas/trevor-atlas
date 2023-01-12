@@ -1,6 +1,7 @@
-import { IPost } from 'lib/posts';
+import { Blogpost } from 'lib/posts';
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { Card } from 'src/components/Card';
 import { Container } from 'src/components/Container';
 import SEO from 'src/components/Seo';
 
@@ -8,21 +9,26 @@ const experiments = [
   {
     link: 'experiments/pathfinding-visualizer',
     title: 'Pathfinding Visualizer',
-    image: '/images/experiments/pathfinder.png'
+    image: '/images/experiments/pathfinder.png',
+    description: "Visualize Djikstra's pathfinding algorithm"
   },
   {
     link: 'experiments/qr-code-api',
     title: 'QR code generator',
-    image: '/images/experiments/qr-code.png'
+    image: '/images/experiments/qr-code.png',
+    description:
+      'Generate QR codes for anything, including your Wifi connection!'
   },
   {
     link: 'experiments/webgl-portal',
     title: 'WEBGL Portal',
-    image: '/images/experiments/portal.png'
+    image: '/images/experiments/portal.png',
+    description:
+      'A portal effect using WebGL and a custom shader. Inspired by the Portal game and Blackbody radiation'
   }
 ];
 
-const Experiments: FC<{ posts: IPost[] }> = () => (
+const Experiments: FC<{ posts: Blogpost[] }> = () => (
   <>
     <SEO
       title="All Posts"
@@ -32,31 +38,22 @@ const Experiments: FC<{ posts: IPost[] }> = () => (
       ogImage="/images/blog.png"
     />
     <Container>
-      <div className="max-w-xl mx-auto mt-32">
+      <div className="max-w-4xl mx-auto mt-32">
         <h1 className="">Experiments</h1>
         <p className="text-lg font-semibold mb-8 text-opacity-25">
           Experiments in algorithms, 3d graphics, encryption or whatever else
           strikes my fancy
         </p>
-
         <div className="text-center grid grid-cols-2 gap-4 mx-auto">
           {experiments.map((e) => (
-            <div className="relative max-w-sm min-w-[340px] bg-gray-800 shadow-md rounded p-2 mx-1 my-3">
-              <Link href={e.link}>
-                <img
-                  className="h-40 cursor-pointer rounded w-full object-contain"
-                  src={e.image}
-                  alt={e.title}
-                />
-              </Link>
-              <div className="mt-4 pl-2 mb-2 flex justify-between ">
-                <div>
-                  <Link href={e.link}>
-                    <a className="text-lg font-semibold mb-0">{e.title}</a>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <Card
+              key={e.link}
+              label="Experiment"
+              title={e.title}
+              description={e.description}
+              imageUrl={e.image}
+              url={e.link}
+            />
           ))}
         </div>
       </div>

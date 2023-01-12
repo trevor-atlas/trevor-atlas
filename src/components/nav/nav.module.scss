@@ -1,27 +1,25 @@
-@import "src/styles/vars.scss";
+@import 'src/styles/vars.scss';
 
 .nav {
-	z-index: 100;
-	@include md {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-	}
+  z-index: 100;
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
 }
 
 .navContent {
-	font-size: 16px;
-	background: $primary-bg;
-	color: $cultured;
-	display: flex;
-	box-shadow:
-		0 2.8px 2.2px rgba(0, 0, 0, 0.034),
-		0 6.7px 5.3px rgba(0, 0, 0, 0.048),
-		0 12.5px 10px rgba(0, 0, 0, 0.06),
-		0 22.3px 17.9px rgba(0, 0, 0, 0.072),
-		0 41.8px 33.4px rgba(0, 0, 0, 0.086),
-		0 100px 80px rgba(0, 0, 0, 0.12);
+  color: rgba(255, 255, 255, .9);
+  display: flex;
+  padding: 1rem 2rem;
+  font-size: .8rem;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba($deep_blue, 0.72);
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
 .logo {
@@ -32,29 +30,31 @@
 }
 
 .fade {
-	position: absolute;
-	top: 100%;
+  position: absolute;
+  top: 100%;
 }
 
 .link {
-	text-align: center;
-	color: $cultured;
-	display: inline-block;
-	text-transform: capitalize;
-	transition: all .2s $cubic-transition;
-	border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  text-transform: capitalize;
 
-	a {
-		display: inline-block;
-		color: inherit;
-		padding: .25em .5em;
-	}
+  &.active {
+    a {
+      color: rgba(169, 169, 255, 0.9);
+    }
+  }
 
-	&:hover {
-		background: rgba($blue-jeans, .4);
 
-		a {
-			color: $cultured;
-		}
-	}
+  a {
+    display: inline-block;
+    color: inherit;
+    padding: 0.25em 0.5em;
+  }
+
+  &:hover {
+    a {
+      color: $ocean;
+    }
+  }
 }

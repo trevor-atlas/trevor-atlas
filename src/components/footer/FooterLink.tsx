@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from 'src/components/footer/footer.module.scss';
+import { iconMap } from './sites';
 
-export const FooterLink = ({ title, url, icon: Icon }) => {
-  const [animated, setAnimated] = useState(false);
+interface FooterLinkProps {
+  title: string;
+  url: string;
+}
+
+export const FooterLink = ({ title, url }: FooterLinkProps) => {
+  const Icon = iconMap[title];
   return (
     <a
       key={title}
@@ -10,11 +16,7 @@ export const FooterLink = ({ title, url, icon: Icon }) => {
       href={url}
       rel="noopener noreferrer"
       aria-hidden="true"
-      className={`${styles.site_link} ${styles[title]} ${
-        animated ? styles.animated : ''
-      } p-3 inline-block`}
-      onMouseEnter={() => setAnimated(true)}
-      onAnimationEnd={() => setAnimated(false)}
+      className={`${styles.site_link} ${styles[title]} jello p-3 inline-block`}
     >
       <Icon />
     </a>

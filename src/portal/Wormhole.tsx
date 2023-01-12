@@ -1,16 +1,8 @@
-import React, {
-  FC,
-  useEffect,
-  useRef,
-  useState,
-  Ref,
-  MutableRefObject
-} from 'react';
+import React, { FC, useEffect, useRef, Ref, MutableRefObject } from 'react';
 import {
   Clock,
   PerspectiveCamera,
   Scene,
-  ImageUtils,
   ShaderMaterial,
   PlaneGeometry,
   WebGLRenderer,
@@ -21,19 +13,20 @@ import {
 import { fragmentShader } from 'src/portal/fragment-shader';
 import { vertexShader } from 'src/portal/vertex-shader';
 
+let mounted = false;
 interface IPortalProps {}
 
 export const Wormhole: FC<IPortalProps> = React.memo((props) => {
-  const container: Ref<HTMLDivElement> = useRef();
+  const container = useRef<HTMLDivElement>();
   const uniforms: MutableRefObject<
     Record<string, IUniform & { type: string }>
   > = useRef({
     iGlobalTime: { type: 'f', value: 0.0 },
     iResolution: { type: 'v2', value: new Vector2() }
   });
-  const camera: MutableRefObject<PerspectiveCamera> = useRef();
-  const scene: MutableRefObject<Scene> = useRef(new Scene());
-  const renderer: MutableRefObject<WebGLRenderer> = useRef();
+  const camera = useRef<PerspectiveCamera>();
+  const scene = useRef<Scene>(new Scene());
+  const renderer = useRef<WebGLRenderer>();
 
   const material = useRef(
     new ShaderMaterial({
@@ -51,6 +44,9 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
     if (uniforms.current.iGlobalTime.value >= 100.0) {
       uniforms.current.iGlobalTime.value = 0.0;
     }
+    if (!renderer.current || !camera.current) {
+      return;
+    }
     renderer.current.render(scene.current, camera.current);
   }
 
@@ -60,6 +56,9 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
   }
 
   useEffect(() => {
+    if (mounted) {
+      return;
+    }
     camera.current = new PerspectiveCamera(
       45,
       window.innerWidth / window.innerHeight,
@@ -71,25 +70,27 @@ export const Wormhole: FC<IPortalProps> = React.memo((props) => {
     mesh.current.scale.x = window.innerWidth;
     mesh.current.scale.y = window.innerHeight;
     scene.current.add(mesh.current);
-    container.current.appendChild(renderer.current.domElement);
+    container.current!.appendChild(renderer.current.domElement);
     uniforms.current.iResolution.value.x = window.innerWidth;
     uniforms.current.iResolution.value.y = window.innerHeight;
     renderer.current.setSize(window.innerWidth, window.innerHeight);
 
     function onWindowResize() {
-      camera.current.aspect = window.innerWidth / window.innerHeight;
-      camera.current.updateProjectionMatrix();
-      renderer.current.setSize(window.innerWidth, window.innerHeight);
+      camera.current!.aspect = window.innerWidth / window.innerHeight;
+      camera.current!.updateProjectionMatrix();
+      renderer.current!.setSize(window.innerWidth, window.innerHeight);
       uniforms.current.iResolution.value.x = window.innerWidth;
       uniforms.current.iResolution.value.y = window.innerHeight;
     }
     window.addEventListener('resize', onWindowResize, false);
 
     animate();
+    mounted = true;
     return () => {
       window.removeEventListener('resize', onWindowResize);
     };
   }, []);
 
+  // @ts-ignore
   return <div ref={container} className="portal-root" />;
 });

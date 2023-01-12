@@ -23,7 +23,6 @@ import {
   WebGLRenderer
 } from 'three';
 
-
 interface IRaycastHeader {}
 
 function rand(num = 1) {
@@ -39,18 +38,18 @@ const origins: {
   rotation: {
     x: number;
     y: number;
-    z: number
-  }
+    z: number;
+  };
 }[] = [];
 
 export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
-  const canvas = React.useRef();
-  const renderer: MutableRefObject<WebGLRenderer> = React.useRef();
-  const sceneGroup: MutableRefObject<Group> = React.useRef();
-  const particleGroup: MutableRefObject<Group> = React.useRef();
-  const cubeGroup: MutableRefObject<Group> = React.useRef();
-  const scene: MutableRefObject<Scene> = React.useRef();
-  const camera: MutableRefObject<PerspectiveCamera> = React.useRef();
+  const canvas = React.useRef<HTMLCanvasElement | undefined>();
+  const renderer = React.useRef<WebGLRenderer>();
+  const sceneGroup = React.useRef<Group>();
+  const particleGroup = React.useRef<Group>();
+  const cubeGroup = React.useRef<Group>();
+  const scene = React.useRef<Scene>();
+  const camera = React.useRef<PerspectiveCamera>();
 
   React.useEffect(() => {
     renderer.current = new WebGLRenderer({
@@ -77,9 +76,9 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
     scene.current.add(sceneGroup.current);
 
     function onWindowResize() {
-      camera.current.aspect = window.innerWidth / window.innerHeight;
-      camera.current.updateProjectionMatrix();
-      renderer.current.setSize(window.innerWidth, window.innerHeight);
+      camera.current!.aspect = window.innerWidth / window.innerHeight;
+      camera.current!.updateProjectionMatrix();
+      renderer.current!.setSize(window.innerWidth, window.innerHeight);
     }
     // @ts-ignore
     renderer.current.domElement.style = `
@@ -101,7 +100,7 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
     const geometry = new IcosahedronGeometry(1);
     const material = new MeshStandardMaterial({
       flatShading: true,
-      color: 0xf8b03a,// 0xfab576,
+      color: 0xf8b03a, // 0xfab576,
       transparent: false,
       opacity: 1,
       wireframe: false
@@ -115,7 +114,7 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
       origins.splice(0, origins.length);
 
       for (let i = 0; i < 30; i++) {
-        const scale = Math.abs(rand(.5));
+        const scale = Math.abs(rand(0.5));
         const values = {
           x: rand(4),
           y: rand(4),
@@ -126,28 +125,31 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
             y: rand((180 * Math.PI) / 180),
             z: rand((280 * Math.PI) / 180)
           }
-        }
+        };
         origins.push(values);
-        
+
         dummy.scale.set(scale, scale, scale);
         dummy.position.set(values.x, values.y, values.z);
-        dummy.rotation.set(values.rotation.x, values.rotation.y, values.rotation.z)
+        dummy.rotation.set(
+          values.rotation.x,
+          values.rotation.y,
+          values.rotation.z
+        );
         dummy.updateMatrix();
         cubes.setMatrixAt(i, dummy.matrix);
       }
       cubes.instanceMatrix.needsUpdate = true;
-      cubeGroup.current.add(cubes);
+      cubeGroup.current!.add(cubes);
     }
 
-
     const ambientLight = new AmbientLight(0xffffff, 0.4);
-    const light = new SpotLight(0xffffff, .5);
+    const light = new SpotLight(0xffffff, 0.5);
     light.position.set(0, 8, -6);
     light.castShadow = true;
     light.shadow.mapSize.width = 1000;
     light.shadow.mapSize.height = 1000;
     light.penumbra = 1.5;
-    light.lookAt(0, 0, 0)
+    light.lookAt(0, 0, 0);
 
     const lightBack = new PointLight(0xffffff, 0.1);
     lightBack.position.set(0, 8, -8);
@@ -173,7 +175,11 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
         values.rotation.y += 0.00005;
         values.rotation.z += 0.00003;
 
-        dummy.rotation.set(values.rotation.x, values.rotation.y, values.rotation.z);
+        dummy.rotation.set(
+          values.rotation.x,
+          values.rotation.y,
+          values.rotation.z
+        );
         dummy.position.x = values.x + Math.sin(time * values.z);
         dummy.position.y = values.y + Math.cos(time * values.x);
         dummy.position.z = values.z + Math.sin(time * values.y);
@@ -184,14 +190,15 @@ export const RaycastHeader: FC<IRaycastHeader> = React.memo((props) => {
         cubes.instanceMatrix.needsUpdate = true;
       }
 
-      cubeGroup.current.rotation.y += 0.0005;
-      cubeGroup.current.rotation.x += 0.0005;
-      cubeGroup.current.rotation.z += 0.0005;
-      renderer.current.render(scene.current, camera.current);
+      cubeGroup.current!.rotation.y += 0.0005;
+      cubeGroup.current!.rotation.x += 0.0005;
+      cubeGroup.current!.rotation.z += 0.0005;
+      renderer.current!.render(scene.current!, camera.current!);
       requestAnimationFrame(animate);
     };
     animate();
   }, []);
 
+  // @ts-ignore TS is stupid
   return <canvas ref={canvas} />;
 });

@@ -13,6 +13,39 @@ const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`;
 const TOP_ALBUMS_ENDPOINT =
   'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50';
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
+const AUTHORIZE_ENDPOINT = `https://accounts.spotify.com/authorize`;
+const SCOPES = `user-read-recently-played,user-top-read`
+const REDIRECT_URL = 'http://localhost%3A3000'
+
+
+// used to get a one-time code to create a refresh token
+export const getGrantCode = async (params = `?response_type=code&client_id=${client_id}&scope=${SCOPES}&redirect_uri=${REDIRECT_URL}
+`) => {
+  console.log(`${AUTHORIZE_ENDPOINT}${params}`)
+  console.log('getGrantCode')
+  const response = await fetch(`${AUTHORIZE_ENDPOINT}${params}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+  const data = await response.json();
+  console.log(data)
+  console.log(response.url)
+  return response.url.split('=')[1];
+}
+
+export const getRefreshToken = async () => {
+  const grantCode = await getGrantCode();
+  const params = `?client_id=${client_id}&client_secret=${client_secret}}&grant_type=authorization_code&code=${grantCode}&redirect_uri=${REDIRECT_URL}`
+  const res = await fetch(`https://accounts.spotify.com/api/token${params}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  });
+  return res;
+}
 
 const getAccessToken = async () => {
   const response = await fetch(TOKEN_ENDPOINT, {

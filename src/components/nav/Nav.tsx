@@ -1,46 +1,52 @@
+import React, { Fragment } from 'react';
 import Link from 'next/link';
-import React, { FC } from 'react';
 import styles from './nav.module.scss';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-interface INav {
-  links?: { label: string; url: string }[];
+const links = [
+  { label: 'About', url: '/about' },
+  { label: 'Blog', url: '/blog' },
+  { label: 'Experiments', url: '/experiments' }
+];
+
+function isActive(url: string, router: any) {
+  for (const part of router.pathname.split('/')) {
+    if (part === url.replace('/', '') && part !== '') {
+      return true;
+    }
+  }
+
+  return router.pathname === url;
 }
 
-export const Nav: FC<INav> = ({
-  links = [
-    { label: 'about', url: '/about' },
-    { label: 'blog', url: '/blog' },
-    { label: 'experiments', url: '/experiments' }
-  ]
-}) => (
-  <nav className={`${styles.nav} middle-xs`}>
-    <div className={styles.navContent}>
-      <div className="container mx-auto px-8">
-        <div className="flex flex-col md:flex-row justify-center items-center py-4">
-          <Link href="/">
-            <a className={styles.logo}>
-              <Image
-                className="inline-block mb-4 md:mb-0 md:mr-4"
-                width="40"
-                height="40"
-                src="/logo.png"
-                alt="logo"
-              />
-            </a>
+export function Nav() {
+  const router = useRouter();
+  return (
+    <nav className={`${styles.nav} mx-auto`}>
+      <ul className={`${styles.navContent} flex px-3 text-sm font-medium`}>
+        <li
+          className={`${styles.link} ${
+            isActive('/', router) && styles.active
+          } relative block px-3 py-1 `}
+        >
+          <Link href="/" className="no-underline">
+            <Image src="/logo.png" width="25" height="25" alt="logo" />
           </Link>
-          {links.map((l, i) => (
-            <div
-              key={l.label}
-              className={`${styles.link} mb-2 md:mb-0 md:mr-2`}
-            >
-              <Link href={l.url}>
-                <a>{l.label}</a>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </nav>
-);
+        </li>
+        {links.map((l) => (
+          <li
+            key={l.label}
+            className={`${styles.link} ${
+              isActive(l.url, router) && styles.active
+            } relative block pr-1 py-1 `}
+          >
+            <Link className="no-underline" href={l.url}>
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}

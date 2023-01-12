@@ -1,0 +1,30 @@
+@import 'src/styles/vars';
+$max-img-width: 600px;
+$max-img-height: 600px;
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+  max-width: $max-img-width;
+  position: relative;
+}
+
+.gallery__img {
+  display: block;
+  max-width: 100%;
+}
+
+.gallery__thumb {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 4px solid $deep_blue;
+  display: block;
+  z-index: 5;
+}
+
+
+.gallery__thumb__selected {
+  border: 4px solid $blue-jeans;
+}

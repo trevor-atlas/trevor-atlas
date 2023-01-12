@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 function getInitialColorMode() {
   const persistedColorPreference = window.localStorage.getItem('color-mode');
@@ -22,9 +22,9 @@ function getInitialColorMode() {
 
 // @ts-ignore
 export const ThemeContext = React.createContext();
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [colorMode, rawSetColorMode] = React.useState(getInitialColorMode);
-  const setColorMode = (value) => {
+  const setColorMode = (value: 'light' | 'dark') => {
     rawSetColorMode(value);
     // Persist it on update
     window.localStorage.setItem('color-mode', value);
