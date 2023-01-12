@@ -18,6 +18,63 @@ export async function getStaticProps() {
   };
 }
 
+const images = {
+  'Digital Art': [
+    {
+      alt: 'A red car',
+      src: '/images/car.jpg'
+    },
+    {
+      alt: 'pikachu',
+      src: '/images/pika.jpg'
+    },
+    {
+      alt: 'fractal shapes',
+      src: '/images/fractal.png'
+    },
+    {
+      alt: 'pulp fiction',
+      src: '/images/wallace.jpg'
+    }
+  ],
+  'Hiking & being outdoors': [
+    {
+      alt: 'Manassas battlefields',
+      src: '/images/battlefields.jpeg'
+    },
+    {
+      alt: 'A waterfall in the hills',
+      src: '/images/shenandoah.jpeg'
+    },
+    {
+      alt: 'rock formations over water',
+      src: '/images/great-falls.jpeg'
+    },
+    {
+      alt: 'West coast beach',
+      src: '/images/beach.jpg'
+    }
+  ],
+  'Being a cat dad': [
+    {
+      alt: 'cat sleeping in my lap',
+      src: '/images/cat1.jpeg'
+    },
+    {
+      alt: 'cat sleeping in a blanket',
+      src: '/images/cat2.jpeg'
+    },
+    {
+      alt: 'cat sleeping in bed',
+      src: '/images/cat3.jpeg'
+    },
+    {
+      alt: 'Cats looking cute',
+      src: '/images/cats.jpeg'
+    }
+  ]
+} as const;
+
 interface IAbout {
   top: Record<string, ISong[]>;
 }
@@ -27,25 +84,25 @@ const About: FC<IAbout> = ({ top }) => (
     <SEO title="Home Page" />
     <Container>
       <div className="max-w-5xl mx-auto py-32">
-        <section className="py-32 ">
-          <div className="flex space-x-8 flex-col md:flex-row">
-            <div className="flex mr-4 mb-8 content-center justify-center">
+        <section className="py-8 md:py-32">
+          <div className="flex flex-col md:flex-row content-center justify-center w-full">
+            <div className="flex flex-wrap w-full md:w-1/3 md:mr-8 flex-row md:flex-col content-center justify-center wrap">
               <Image
                 alt="meeeee"
                 src={profileImage}
                 width={300}
                 height={300}
                 quality={100}
-                className={styles.intro_image}
+                className={`${styles.intro_image} w-60 md:w-full`}
                 placeholder="blur"
               />
             </div>
-            <div className="flex-1">
-              <h4>
-                Hi there, I'm Trevor Atlas,
-                <br />a tech enthusiast with over a decade of experience
-                building web applications and software.
-              </h4>
+            <div className="shrink w-full md:w-2/3">
+              <h4 className="mb-0">Hi there, I'm Trevor Atlas,</h4>
+              <strong className="mt-0">
+                I'm a tech enthusiast with over a decade of experience building
+                web applications and software.
+              </strong>
               <p className="faded">
                 I am currently employed at{' '}
                 <a href="hubpot.com" target="_blank">
@@ -59,26 +116,25 @@ const About: FC<IAbout> = ({ top }) => (
                 large-scale international SaaS applications, and I'm well-versed
                 in both front-end and back-end technologies like React,
                 React-Native, Typescript, Rust, Go, Java, and PHP. I also have
-                experience with cloud infrastructure, including AWS, Heroku, and
-                various CI/CD tools.
-                <br />I strongly value kindness and believe that being kind to
-                those around you is essential to reaching your full potential. I
-                also enjoy sharing what I know through blog posts, talks, and
-                code reviews, and I believe that when working together with
-                others, we can achieve great things.
+                experience with cloud infrastructure, having worked extensively
+                in AWS using Lambda, DynamoDB, S3, APIGateway etc. I'm also well
+                versed in various CI/CD tools, and Infrastructure As Code
+                (primarily through Terraform).
               </p>
             </div>
           </div>
         </section>
-        <section className="flex space-x-4 flex-col md:flex-row">
-          <div className="flex-1">
+        <section className="flex flex-col-reverse md:flex-row">
+          <div className="w-full md:w-2/3">
             <h2>Values I live by</h2>
             <h3>Kindness</h3>
             <p>
-              You can be the smartest, most 'correct' software engineer in the
-              world, but if you're not kind to the people around you, you'll
-              never reach your full potential and you'll always be playing
-              catch-up in life. <em>Be kind.</em>
+              I strongly believe in the value of kindness and that being kind to
+              those around you is essential if you want reach your full
+              potential. You can be the smartest, most 'correct' software
+              engineer in the world, but if you're not kind to the people around
+              you, you'll never reach your full potential and you'll always be
+              playing catch-up in life. <em>Be kind.</em>
             </p>
             <h3>Share knowledge</h3>
             <p>
@@ -89,15 +145,17 @@ const About: FC<IAbout> = ({ top }) => (
             </p>
             <h3>Collaborate with others</h3>
             <p>
-              Collaboration with others is almost like a super power. I firmly
-              believe that those who are most successful lift others up and
-              celebrate their successes as a team. We can accomplish so much
+              I firmly believe that when we work together with others, we can
+              achieve much greater things than we could on our own.
+              Collaboration with others is almost like a super power and I
+              firmly believe that those who are most successful lift others up
+              and celebrate their successes as a team. We can accomplish so much
               more together than apart.
             </p>
           </div>
-          <div className="flex-1 flex content-center justify-center">
+          <div className="flex w-full md:w-1/3 md:ml-8 content-center justify-center">
             <Image
-              alt="Trevor in the garden"
+              alt="Dall-e austronaut"
               src="/images/about-astronaut.jpeg"
               className={styles.values_image}
               width={750}
@@ -107,20 +165,20 @@ const About: FC<IAbout> = ({ top }) => (
           </div>
         </section>
 
-        <section className="pb-32 max-w-5xl">
+        <section className="pb-8 md:pb-32 max-w-5xl">
           <h2 className="text-center pb-8">Some of my hobbies include...</h2>
-          <div className="flex space-x-4 flex-col md:flex-row mb-32">
-            <div className="flex-1 flex  justify-center">
+          <div className="flex space-x-4 flex-col-reverse md:flex-row mb-8 md:mb-32">
+            <div className="flex justify-center md:w-1/3 w-full">
               <Image
                 alt="ableton push"
                 src="/images/music.gif"
-                className={styles.values_image}
+                className={`${styles.values_image} w-full`}
                 width={350}
                 height={350}
                 quality={100}
               />
             </div>
-            <div className="flex-1 flex flex-col justify-center">
+            <div className="flex flex-col justify-center md:w-2/3 mb-8">
               <h4 className="mt-0">Music &amp; Audio</h4>
               <p>
                 I've always been fascinated by music and the process of making
@@ -170,146 +228,34 @@ const About: FC<IAbout> = ({ top }) => (
             </div>
           </div>
 
-          <div className="flex space-x-4 flex-col md:flex-row mb-32">
-            <div className="flex-1 flex flex-col justify-center">
-              <h4>Digital Art</h4>
-              <p>
-                Learning to draw and blend colors has been a fun way to learn
-                something new
-              </p>
-            </div>
-            <div className="flex-1 flex  justify-center">
-              <Image
-                alt="A red car"
-                src="/images/car.jpg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex  justify-center">
-              <Image
-                alt="pikachu"
-                src="/images/pika.jpg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex  justify-center">
-              <Image
-                alt="fractal shapes"
-                src="/images/fractal.png"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex  justify-center">
-              <Image
-                alt="pulp fiction"
-                src="/images/wallace.jpg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-          </div>
-
-          <div className="flex space-x-4 flex-col md:flex-row mb-32">
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="Manassas battlefields"
-                src="/images/battlefields.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="A waterfall in the hills"
-                src="/images/shenandoah.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="rock formations over water"
-                src="/images/great-falls.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="West coast beach"
-                src="/images/beach.jpg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex  justify-center">
-              <h4>Hiking &amp; being outdoors</h4>
-            </div>
-          </div>
-
-          <div className="flex space-x-4 flex-col md:flex-row">
-            <div className="flex-1 flex  justify-center">
-              <h4>Being a cat dad</h4>
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="cat sleeping in my lap"
-                src="/images/cat1.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="cat sleeping in a blanket"
-                src="/images/cat2.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="cat sleeping in bed"
-                src="/images/cat3.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex-1 flex flex-col justify-center">
-              <Image
-                alt="Cats looking cute"
-                src="/images/cats.jpeg"
-                className={styles.values_image}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
+          <div className="flex flex-col mb-32">
+            {Object.entries(images).map(([title, images], i) => {
+              return (
+                <div
+                  className={`${
+                    i % 2 === 0 ? 'md:flex-row-reverse' : ''
+                  } flex flex-col md:flex-row mb-4 md:mb-8`}
+                >
+                  <div className={`flex md:flex-col justify-center md:w-1/5`}>
+                    <h3>{title}</h3>
+                  </div>
+                  {images.map(({ src, alt }) => {
+                    return (
+                      <div className="mb-4 m-2 flex justify-center md:w-1/5">
+                        <Image
+                          alt={alt}
+                          src={src}
+                          className={`${styles.values_image} w-full`}
+                          width={350}
+                          height={350}
+                          quality={100}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </section>
 

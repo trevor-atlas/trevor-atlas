@@ -13,13 +13,6 @@
 
 .intro_image {
   display: block;
-  width: 300px!important;
-  height: 300px!important;
-  max-width: 300px!important;
-  max-height: 300px!important;
-  min-height: 300px!important;
-  min-width: 300px!important;
-  background-color: $forest;
   border-radius: 50%;
   background-image: linear-gradient(
   	335deg,
@@ -31,8 +24,8 @@
 
 .values_image {
   border-radius: 6px;
-            object-fit: cover;
-            object-position: center;
+  object-fit: cover;
+  object-position: center;
 }
 
 @keyframes strokeanim {

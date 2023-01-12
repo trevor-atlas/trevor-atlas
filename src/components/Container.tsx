@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const Container: FC<Props> = ({ className, children }) => (
-  <div className={`container mx-auto p-6 md:p-0 ${className}`}>{children}</div>
+  <div className={`container mx-auto p-2 md:p-6 ${className}`}>{children}</div>
 );
