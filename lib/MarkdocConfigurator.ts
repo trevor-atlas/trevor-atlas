@@ -51,16 +51,15 @@ export class MarkdocConfigurator {
    * -> TO a component. A Record<nodetypes & tags 'render' value, thing that will be rendered> */
   private components: Record<string, ReactComponent> = {};
 
-  //@ts-ignore
   private config: Config = {
-    // tags: {},
-    // nodes: {},
-    variables: {}
-    // functions: {},
-    // partials: {},
-    // validation: {
-    // validateFunctions: false
-    // }
+    tags: {},
+    nodes: {},
+    variables: {},
+    functions: {},
+    partials: {},
+    validation: {
+      validateFunctions: false
+    }
   };
 
   // Use this to get the MarkdocConfigurator instance
@@ -100,20 +99,11 @@ export class MarkdocConfigurator {
    * {% mytag /%} */
   public addTag = (
     name: Lowercase<string>,
-    tagDef: Omit<MarkdocSchema, 'render'>,
+    tagDef: MarkdocSchema,
     component: ReactComponent
   ): MarkdocConfigurator => {
-    const componentName: string =
-      typeof component === 'function'
-        ? component.name
-        : // @ts-expect-error - get the name of a class component
-          component.constructor.name;
-    const tag: SchemaWithComponent = {
-      ...tagDef,
-      render: componentName
-    };
-    this.config.tags[name] = tag;
-    this.components[tag.render] = component;
+    this.config.tags[name] = tagDef;
+    this.components[tagDef.render] = component;
     return this;
   };
 
@@ -150,17 +140,11 @@ export class MarkdocConfigurator {
    * enables custom code highlighting for markdoc fences -> ```ts const thing = {}``` */
   public addComponentNode = (
     name: NodeType,
-    nodeDef: Omit<MarkdocSchema, 'render'>,
+    nodeDef: SchemaWithComponent,
     component: ReactComponent
   ): MarkdocConfigurator => {
-    const componentName: string =
-      typeof component === 'function'
-        ? component.name
-        : // @ts-expect-error - get the name of a class component
-          component.constructor.name;
-    const node: SchemaWithComponent = { ...nodeDef, render: componentName };
-    this.config.nodes[name] = node;
-    this.components[node.render] = component;
+    this.config.nodes[name] = nodeDef;
+    this.components[nodeDef.render] = component;
     return this;
   };
 
