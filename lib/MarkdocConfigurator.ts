@@ -99,7 +99,7 @@ export class MarkdocConfigurator {
    * {% mytag /%} */
   public addTag = (
     name: Lowercase<string>,
-    tagDef: MarkdocSchema,
+    tagDef: SchemaWithComponent,
     component: ReactComponent
   ): MarkdocConfigurator => {
     this.config.tags[name] = tagDef;
