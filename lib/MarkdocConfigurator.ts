@@ -53,8 +53,8 @@ export class MarkdocConfigurator {
 
   //@ts-ignore
   private config: Config = {
-    tags: {},
-    nodes: {},
+    // tags: {},
+    // nodes: {},
     variables: {}
     // functions: {},
     // partials: {},
