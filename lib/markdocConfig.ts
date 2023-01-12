@@ -22,23 +22,23 @@ const markdocConfig = MarkdocConfigurator.getInstance()
   )
   .addNode('heading', heading)
   .addNode('image', image)
-  .addTag(
-    'link',
-    {
-      attributes: {
-        text: {
-          type: String
-        },
-        href: {
-          type: String
-        },
-        tooltipMessage: {
-          type: String
-        }
-      }
-    },
-    Link
-  )
+  // .addTag(
+  //   'link',
+  //   {
+  //     attributes: {
+  //       text: {
+  //         type: String
+  //       },
+  //       href: {
+  //         type: String
+  //       },
+  //       tooltipMessage: {
+  //         type: String
+  //       }
+  //     }
+  //   },
+  //   Link
+  // )
   .addTag(
     'popover',
     {

@@ -118,13 +118,13 @@ export class MarkdocConfigurator {
         : // @ts-expect-error - get the name of a class component
           component.constructor.name;
     if (name in this.config.tags || componentName in this.components) {
-      throw new Error(`Tag ${name} already exists`);
+      return this;
     }
     if (name in this.config.nodes) {
-      throw new Error(`Tag ${name} is already a Node`);
+      return this;
     }
     if (!VALID_NODE_AND_TAG_NAMES.test(name)) {
-      throw new Error(`Tag ${name} is not a valid name`);
+      return this;
     }
     const tag: SchemaWithComponent = {
       ...tagDef,
@@ -151,13 +151,13 @@ export class MarkdocConfigurator {
     nodeDef: Omit<MarkdocSchema, 'render'>
   ): MarkdocConfigurator => {
     if (name in this.config.tags) {
-      throw new Error(`Node '${name}' is already a Tag`);
+      return this;
     }
     if (name in this.config.nodes) {
-      throw new Error(`Node '${name}' is already a Node`);
+      return this;
     }
     if (!VALID_NODE_AND_TAG_NAMES.test(name)) {
-      throw new Error(`'${name}' is not a valid name`);
+      return this;
     }
     this.config.nodes[name] = nodeDef;
     return this;
@@ -185,15 +185,6 @@ export class MarkdocConfigurator {
         ? component.name
         : // @ts-expect-error - get the name of a class component
           component.constructor.name;
-    if (name in this.config.tags || componentName in this.components) {
-      throw new Error(`Node '${name}' is already a Tag`);
-    }
-    if (name in this.config.nodes) {
-      throw new Error(`Node '${name}' is already a Node`);
-    }
-    if (!VALID_NODE_AND_TAG_NAMES.test(name)) {
-      throw new Error(`'${name}' is not a valid name`);
-    }
     const node: SchemaWithComponent = { ...nodeDef, render: componentName };
     this.config.nodes[name] = node;
     this.components[node.render] = component;
