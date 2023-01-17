@@ -2,7 +2,9 @@ import { shaderMaterial } from '@react-three/drei';
 import { extend } from '@react-three/fiber';
 import { Color } from 'three';
 
-const vertexShader = `
+const glsl = (x: TemplateStringsArray) => x.join('\n');
+
+const vertexShader = glsl`
   varying vec2 vUv;
   void main() {
     vUv = uv;
@@ -10,7 +12,7 @@ const vertexShader = `
   }
 `;
 
-const fragmentShader = `
+const fragmentShader = glsl`
   precision highp float;
 
   uniform float scale;
@@ -21,7 +23,7 @@ const fragmentShader = `
   uniform vec3 top_right_color;
   uniform vec3 bottom_left_color;
   varying vec2 vUv;
-  //
+
 // Description : Array and textureless GLSL 2D/3D/4D simplex
 //               noise functions.
 //      Author : Ian McEwan, Ashima Arts.

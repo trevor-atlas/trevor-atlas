@@ -1,11 +1,18 @@
 ---
-layout: post
 title: Rdio is dead, long live Spotify
-date: '2015-11-17'
-path: blog/rdio-is-dead-long-live-spotify
+description: Rdio has gone the way of the dodo, but Spotify is still going strong.
+date: 2015-11-17
 tags:
   - music
-draft: true
+meta:
+  keywords:
+    - Spotify
+    - Rdio
+banner: /images/music.jpg
+bannerAlt: A music tape
+bannerCredit:
+  Photo by [Namroud Gorguis
+  on unsplash](https://unsplash.com/@namroud)
 ---
 
 This week’s work playlist is brought to us by Jonathan Shariat

@@ -3,7 +3,7 @@ import styles from 'src/components/footer/footer.module.scss';
 import { iconMap } from './sites';
 
 interface FooterLinkProps {
-  title: string;
+  title: keyof typeof iconMap;
   url: string;
 }
 

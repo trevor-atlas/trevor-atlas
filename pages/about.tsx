@@ -6,6 +6,8 @@ import SEO from 'src/components/Seo';
 import Image from 'next/image';
 import styles from '../src/styles/about.module.scss';
 import profileImage from '../public/images/lensa-1.jpg';
+import astronaut from '../public/images/about-astronaut.jpeg';
+import Balancer from 'react-wrap-balancer';
 
 export async function getStaticProps() {
   const { URL } = process.env;
@@ -81,12 +83,12 @@ interface IAbout {
 
 const About: FC<IAbout> = ({ top }) => (
   <>
-    <SEO title="Home Page" />
+    <SEO title="About Me" />
     <Container>
-      <div className="max-w-5xl mx-auto py-32">
-        <section className="py-8 md:py-32">
+      <div className="max-w-5xl mx-auto">
+        <section className="mt-16 mb-16">
           <div className="flex flex-col md:flex-row content-center justify-center w-full">
-            <div className="flex flex-wrap w-full md:w-1/3 md:mr-8 flex-row md:flex-col content-center justify-center wrap">
+            <div className="flex flex-wrap w-full md:w-1/4 md:mr-8 flex-row md:flex-col content-center justify-center wrap">
               <Image
                 alt="meeeee"
                 src={profileImage}
@@ -97,12 +99,14 @@ const About: FC<IAbout> = ({ top }) => (
                 placeholder="blur"
               />
             </div>
-            <div className="shrink w-full md:w-2/3">
-              <h4 className="mb-0">Hi there, I'm Trevor Atlas,</h4>
-              <strong className="mt-0">
-                I'm a tech enthusiast with over a decade of experience building
-                web applications and software.
-              </strong>
+            <div className="shrink w-full md:w-3/4">
+              <h2 className="mb-0">Hi there, I'm Trevor Atlas</h2>
+              <Balancer ratio={1}>
+                <h4 className="mt-0">
+                  I'm a tech enthusiast with over a decade of experience
+                  building web applications and software.
+                </h4>
+              </Balancer>
               <p className="faded">
                 I am currently employed at{' '}
                 <a href="hubpot.com" target="_blank">
@@ -124,7 +128,8 @@ const About: FC<IAbout> = ({ top }) => (
             </div>
           </div>
         </section>
-        <section className="flex flex-col-reverse md:flex-row">
+
+        <section className="flex flex-col-reverse md:flex-row mb-16 md:mb-32">
           <div className="w-full md:w-2/3">
             <h2>Values I live by</h2>
             <h3>Kindness</h3>
@@ -133,15 +138,17 @@ const About: FC<IAbout> = ({ top }) => (
               those around you is essential if you want reach your full
               potential. You can be the smartest, most 'correct' software
               engineer in the world, but if you're not kind to the people around
-              you, you'll never reach your full potential and you'll always be
-              playing catch-up in life. <em>Be kind.</em>
+              you, you'll never reach your full potential. More than what you
+              say or do, people remember how you make them feel.{' '}
+              <em>Be excellent to each other.</em>
             </p>
             <h3>Share knowledge</h3>
             <p>
-              One of the biggest things that has helped me learn is sharing what
-              I know with others. Between blog posts, talks, and code reviews, I
-              force myself into situations where I have to be accountable to
-              those around me to really know my stuff.
+              One of the biggest things that has helped me learn and grow is
+              sharing what I know with others. Between blog posts, talks, 1:1s
+              and code reviews, I force myself into situations where I have to
+              be accountable to those around me to really know my stuff. (Or
+              find someone who does)
             </p>
             <h3>Collaborate with others</h3>
             <p>
@@ -153,85 +160,36 @@ const About: FC<IAbout> = ({ top }) => (
               more together than apart.
             </p>
           </div>
-          <div className="flex w-full md:w-1/3 md:ml-8 content-center justify-center">
+          <figure className="relative flex w-full md:w-1/3 md:ml-8 content-center justify-center">
+            <div
+              className="z-10 absolute top-0 left-0 right-0 bottom-0 w-full h-full"
+              style={{
+                background:
+                  'linear-gradient(45deg, rgba(0,25,50,.8), transparent);'
+              }}
+            />
             <Image
               alt="Dall-e austronaut"
-              src="/images/about-astronaut.jpeg"
-              className={styles.values_image}
+              src={astronaut}
+              className={`${styles.values_image} drop-shadow-md`}
               width={750}
               height={750}
               quality={100}
+              placeholder="blur"
             />
-          </div>
+            <figcaption className="z-10 absolute bottom-3 text-slate-300 text-center">
+              Dall-E makes some pretty cool stuff!
+            </figcaption>
+          </figure>
         </section>
 
-        <section className="pb-8 md:pb-32 max-w-5xl">
+        <section>
           <h2 className="text-center pb-8">Some of my hobbies include...</h2>
-          <div className="flex space-x-4 flex-col-reverse md:flex-row mb-8 md:mb-32">
-            <div className="flex justify-center md:w-1/3 w-full">
-              <Image
-                alt="ableton push"
-                src="/images/music.gif"
-                className={`${styles.values_image} w-full`}
-                width={350}
-                height={350}
-                quality={100}
-              />
-            </div>
-            <div className="flex flex-col justify-center md:w-2/3 mb-8">
-              <h4 className="mt-0">Music &amp; Audio</h4>
-              <p>
-                I've always been fascinated by music and the process of making
-                music. I haven't spent as much time on this as I'd like, so one
-                of my goals for 2022 is to get back into the swing of things
-              </p>
-              <iframe
-                width="100%"
-                height="166"
-                scrolling="no"
-                frameBorder="no"
-                allow="autoplay"
-                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/98042245&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-              />
-              <div
-                style={{
-                  fontSize: '10px',
-                  color: '#cccccc',
-                  lineBreak: 'anywhere',
-                  wordBreak: 'normal',
-                  overflow: 'hidden',
-                  whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
-                  fontFamily:
-                    'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif',
-                  fontWeight: 100
-                }}
-              >
-                <a
-                  href="https://soundcloud.com/ampleheights"
-                  title="AmpleHeights"
-                  target="_blank"
-                  style={{ color: '#cccccc', textDecoration: 'none' }}
-                >
-                  AmpleHeights
-                </a>{' '}
-                ·{' '}
-                <a
-                  href="https://soundcloud.com/ampleheights/a-remix-or-something"
-                  title="Pyramid song remix"
-                  target="_blank"
-                  style={{ color: '#cccccc', textDecoration: 'none' }}
-                >
-                  Pyramid song remix
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col mb-32">
+          <div className="flex flex-col">
             {Object.entries(images).map(([title, images], i) => {
               return (
                 <div
+                  key={title}
                   className={`${
                     i % 2 === 0 ? 'md:flex-row-reverse' : ''
                   } flex flex-col md:flex-row mb-4 md:mb-8`}
@@ -241,11 +199,14 @@ const About: FC<IAbout> = ({ top }) => (
                   </div>
                   {images.map(({ src, alt }) => {
                     return (
-                      <div className="mb-4 m-2 flex justify-center md:w-1/5">
+                      <div
+                        key={src}
+                        className="mb-4 m-2 flex justify-center md:w-1/5"
+                      >
                         <Image
                           alt={alt}
                           src={src}
-                          className={`${styles.values_image} w-full`}
+                          className={`${styles.values_image} drop-shadow-md w-full`}
                           width={350}
                           height={350}
                           quality={100}
@@ -259,46 +220,111 @@ const About: FC<IAbout> = ({ top }) => (
           </div>
         </section>
 
-        <section className="mx-auto bg-gray-900 p-8 rounded-lg border-gray-800 border-solid border">
-          <ul>
-            <h2 className="text-center mb-8 text-slate-400">
-              Top songs of the past ~6 months
-            </h2>
-            {Object.entries(top).map(([key, value]) => (
-              <div key={key}>
-                {value.map((s) => {
-                  return (
-                    <li
-                      key={s.songUrl}
-                      className="hover:bg-blue-600 hover:text-blue-200 border-b border-gray-800"
+        <section className="p-4 max-w-5xl mb-8 md:mb-16">
+          <div className="mx-auto bg-gray-900 text-slate-300 p-8 rounded-lg border-gray-800 border-solid border">
+            <div className="flex flex-col">
+              <div className="flex md:flex-row flex-col">
+                <div className="flex justify-center md:w-1/4 w-full mb-8 md:mb-0 md:mr-8">
+                  <Image
+                    alt="ableton push"
+                    src="/images/music.gif"
+                    className={`${styles.values_image} w-full`}
+                    width={350}
+                    height={350}
+                    quality={100}
+                  />
+                </div>
+                <div className="flex flex-col justify-center md:w-3/4 mb-8">
+                  <h3 className="mt-0">Music &amp; Audio</h3>
+                  <p>
+                    I've always been fascinated by music and the process of
+                    making music. I haven't spent as much time on this as I'd
+                    like, so one of my goals for 2023 is to get back into the
+                    swing of things
+                  </p>
+                  <iframe
+                    width="100%"
+                    height="166"
+                    scrolling="no"
+                    frameBorder="no"
+                    allow="autoplay"
+                    src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/98042245&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
+                  />
+                  <div
+                    style={{
+                      fontSize: '10px',
+                      color: '#cccccc',
+                      lineBreak: 'anywhere',
+                      wordBreak: 'normal',
+                      overflow: 'hidden',
+                      whiteSpace: 'nowrap',
+                      textOverflow: 'ellipsis',
+                      fontFamily:
+                        'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif',
+                      fontWeight: 100
+                    }}
+                  >
+                    <a
+                      href="https://soundcloud.com/ampleheights"
+                      title="AmpleHeights"
+                      target="_blank"
+                      style={{ color: '#cccccc', textDecoration: 'none' }}
                     >
-                      <a
-                        className="flex items-center p-4 no-underline"
-                        target="_blank"
-                        href={s.songUrl}
-                        rel="noreferrer noopener nofollow"
-                      >
-                        <div className="mr-4">
-                          <Image
-                            alt={s.title}
-                            src={s.albumArt}
-                            width={48}
-                            height={48}
-                            quality={100}
-                          />
-                        </div>
-                        <div>
-                          <strong className="text-md text-white m-0">
-                            {key} - {s.title}
-                          </strong>
-                        </div>
-                      </a>
-                    </li>
-                  );
-                })}
+                      AmpleHeights
+                    </a>{' '}
+                    ·{' '}
+                    <a
+                      href="https://soundcloud.com/ampleheights/a-remix-or-something"
+                      title="Pyramid song remix"
+                      target="_blank"
+                      style={{ color: '#cccccc', textDecoration: 'none' }}
+                    >
+                      Pyramid song remix
+                    </a>
+                  </div>
+                </div>
               </div>
-            ))}
-          </ul>
+              <ul>
+                <h3 className="text-center mb-8 text-slate-300">
+                  Top songs of the past ~6 months
+                </h3>
+                {Object.entries(top).map(([key, value]) => (
+                  <div key={key}>
+                    {value.map((s) => {
+                      return (
+                        <li
+                          key={s.songUrl}
+                          className="hover:bg-blue-600 hover:text-blue-200 border-b border-gray-800"
+                        >
+                          <a
+                            className="flex items-center p-4 no-underline"
+                            target="_blank"
+                            href={s.songUrl}
+                            rel="noreferrer noopener nofollow"
+                          >
+                            <div className="mr-4">
+                              <Image
+                                alt={s.title}
+                                src={s.albumArt}
+                                width={48}
+                                height={48}
+                                quality={100}
+                              />
+                            </div>
+                            <div>
+                              <strong className="text-md text-white m-0">
+                                {key} - {s.title}
+                              </strong>
+                            </div>
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
         </section>
       </div>
     </Container>

@@ -52,7 +52,7 @@ export function getReadingTime(
   const displayed = Math.ceil(Number(minutes.toFixed(2)));
 
   return {
-    text: `${displayed} min read`,
+    text: `${displayed} min`,
     minutes,
     seconds,
     time,

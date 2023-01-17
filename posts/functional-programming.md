@@ -1,10 +1,16 @@
 ---
 title: Functional Programming
 date: '2016-10-28'
-banner: /images/functional.png
 tags:
   - javascript
-draft: true
+meta:
+  keywords:
+    - javascript
+    - functional programming
+    - es6
+banner: /images/functional.png
+bannerAlt: Functional Programming lambda
+bannerCredit: null
 ---
 
 # Functional Programming in ES6
@@ -21,31 +27,29 @@ _Here's one example of a recent problem I solved:_
 
 
 ## Convert number to reversed array of digits
-<blockquote>Given a random number, You have to return the digits of this number within an array in reverse order.
-example: 348597 -> [7,9,5,8,4,3]</blockquote>
+> Given a random number, You have to return the digits of this number within an array in reverse order.
+`digitize(348597) -> [7,9,5,8,4,3]`
 
 
 And my solution could look like this (there are shorter methods, but this is the one I wrote):
 
-```js
-const digitize = n => n.toString().split('').reverse().map(s => parseInt(s));
+```javascript
+const digitize = num => num.toString().split('').reverse().map(parseInt);
 ```
 
 
-No variables are created, no existing data is mutated. It operates like a coin machine, data in, data out.
+No variables are created, no existing data is mutated. It operates like a coin machine: data in, data out.
 
 
-
-Here's another problem:
 
 ## Double String
 
-<blockquote>Given a string, you have to return a string in which each character (case-sensitive) is repeated once.
-example: doubleChar("String") ==> "SSttrriinngg"</blockquote>
+> Given a string, you have to return a string in which each character (case-sensitive) is repeated once.
+`doubleChar("String") ==> "SSttrriinngg"`
 
 And my solution:
 
-```js
+```javascript
 const doubleChar = str => str.split('').map((t) => t+t).join('');
 ```
 
@@ -53,3 +57,5 @@ const doubleChar = str => str.split('').map((t) => t+t).join('');
 Simple and easy to understand.
 
 If you haven't given it a try, I highly recommend CodeWars as a place to improve your skills and see new ways to solve old problems.
+
+{% oglink url="https://www.codewars.com/" /%}

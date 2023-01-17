@@ -1,3 +1,4 @@
+import { css } from '@emotion/css';
 import styles from './tags.module.scss';
 
 interface TagsProps {
@@ -59,13 +60,19 @@ function getFormattedTag(name: string) {
   }
 }
 
+const tagstyles = css`
+  font-size: 0.7rem;
+  margin-right: 0.5rem;
+  border-radius: 3px;
+  text-transform: capitalize;
+  padding: 0.2rem 0.5rem;
+  color: rgba(0, 0, 0, 0.8);
+`;
+
 export function Tag({ name }: { name: string }) {
   const { label, color } = getFormattedTag(name);
   return (
-    <span
-      style={{ fontSize: '0.65rem' }}
-      className={`${styles.tagContainer} ${color} mr-2 capitalize rounded-md p-1 text-xs tracking-tighter`}
-    >
+    <span className={`${styles.tagContainer} ${color} ${tagstyles} `}>
       {label}
     </span>
   );

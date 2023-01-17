@@ -1,10 +1,19 @@
 ---
-layout: post
-title:  "GulpJS"
-date: '2014-11-06'
+title:  GulpJS
+date: 2014-11-06
+description: Gulping up our build system
 tags:
   - javascript
-draft: true
+meta:
+  keywords:
+    - gulpjs
+    - CI/CD
+    - javascript
+banner: /images/gulp.jpg
+bannerAlt: A tiny fish
+bannerCredit:
+  Photo by [yu tang
+  on unsplash](https://unsplash.com/@tangyu)
 ---
 
 Working on websites regularly leaves you needing certain things automated from time to time. Scripts minified and concatenated, Scss compiled autoprefixed and minified, code linted and built for production.

@@ -45,7 +45,7 @@ export function OgLink({ title, url, ogData }: OgLinkProps) {
         color: #181919;
         overflow: hidden;
         display: flex;
-        text-decoration: none;
+        text-decoration: none !important;
         position: relative;
         transition-duration: 150ms;
         transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);

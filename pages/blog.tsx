@@ -31,8 +31,9 @@ const Blog: FC<{ posts: Blogpost[]; tags: string[] }> = ({ posts, tags }) => {
   const router = useRouter();
 
   const setFilterTags = (tag?: string) => {
+    const { filterTags, ...rest } = router.query;
     const newState = {
-      query: { ...router.query }
+      query: { ...rest }
     };
     if (tag && typeof tag === 'string') {
       newState.query.filterTags = tag;
@@ -65,7 +66,7 @@ const Blog: FC<{ posts: Blogpost[]; tags: string[] }> = ({ posts, tags }) => {
   return (
     <>
       <SEO
-        title="All Posts"
+        title="Blog"
         ogTitle="Blog | Trevor Atlas"
         ogUrl="https://trevoratlas.com/blog"
         ogDescription="Tutorials, musings and random information from the tech world."

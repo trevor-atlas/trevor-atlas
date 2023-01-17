@@ -12,7 +12,6 @@ html,
   font-size: clamp(0.75rem, 1vw + 0.5rem, 1.25rem);
 }
 
-
 h1,
 h2,
 h3,
@@ -58,7 +57,7 @@ h6 {
     background-color: rgba(0, 0, 0, 0.6);
     color: rgba(255, 255, 255, 0.75);
     border: 1px solid rgba(0, 0, 0, 0.6);
-    border-radius: 5px;;
+    border-radius: 5px;
     transition: opacity 250ms ease;
   }
 
@@ -106,44 +105,70 @@ a {
 }
 
 blockquote {
-  border-left: 5px solid #ddd;
+  border-left: 5px solid rgba(0, 225, 4, 0.45);
   position: relative;
-  padding-left: 1rem;
-  font-size: 1rem;
+  padding: 1rem;
   font-weight: 500;
-}
-
-blockquote.quote {
-  position: relative;
-  padding-left: 1rem;
   font-size: 1rem;
-  font-weight: 500;
+  color: rgba(232, 233, 239, 0.9);
+  background: linear-gradient(45deg, #28272f, #3026499b);
+  margin-bottom: 1.5rem;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 3px 3px 8px #130c2815;
   quotes: '\201C''\201D''\2018''\2019';
+
+  p {
+    margin-bottom: 0;
+  }
 }
 
-blockquote.quote::before,
-blockquote::after {
-  color: #c6c6c6;
-  font-size: 2rem;
+blockquote {
+}
+
+blockquote::before {
+  content: open-quote;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 8rem;
   font-weight: 400;
   line-height: 0.1em;
-}
-
-blockquote.quote::before {
   position: absolute;
-  left: 0;
-  content: open-quote;
+  left: 1rem;
+  top: 3rem;
   margin-right: 0.15rem;
   vertical-align: -0.15rem;
+  z-index: -1;
 }
 
-blockquote::after {
-  content: close-quote;
-  vertical-align: -0.7rem;
+code {
+  font-size: 0.8rem;
+  color: #c5c8c6;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
 }
 
 pre {
-  border-radius: 5px;
+  background-color: rgba(40, 44, 52, 0.9) !important;
+  color: #c5c8c6;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  tab-size: 4;
+  hyphens: none;
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+  border-radius: 0.3em;
 }
 
 .muted {

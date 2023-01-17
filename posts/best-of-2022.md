@@ -1,7 +1,7 @@
 ---
 title: Best of 2022
 date: 2022-12-25
-description: 'TODO: add a description'
+description: 'My favorite things from the year 2022, in no particular order.'
 tags:
   - roundup
 meta:

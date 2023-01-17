@@ -39,7 +39,7 @@ export interface Blogpost {
   tags: string[];
   featuredImage: string;
   contentReactAst: RenderableTreeNodes;
-  excerpt: string;
+  description: string;
   readTime: IReadTime;
 }
 
@@ -73,14 +73,14 @@ export function walkMarkdocAst(
 
 function getExcerpt(text: string, maxExcerptLength = 140): string {
   const contentText = text.trim().replace(/[\n]{2,}/gm, '');
-  const excerpt = contentText.split(/\s/).reduce((acc, word) => {
+  const description = contentText.split(/\s/).reduce((acc, word) => {
     if (acc.length + word.length < maxExcerptLength) {
       return `${acc} ${word}`;
     }
     return acc;
   }, '');
 
-  return `${excerpt}...`;
+  return `${description}...`;
 }
 
 async function getFileContents(filename: string) {
@@ -101,16 +101,48 @@ function flattenPostContentToText(
   }
   return text.content;
 }
+/**
+ *
+title: Best of 2022
+date: 2022-12-25
+description: 'My favorite things from the year 2022, in no particular order.'
+tags:
+  - roundup
+meta:
+  keywords:
+    - roundup
+    - best of the year
+banner: /images/unsplash-5xK-Zum4kOA.png
+bannerAlt: China Spring 2022 April
+bannerCredit:
+  Photo by [Jéan
+  Béller](https://images.unsplash.com/photo-1650846097544-bcb4f32bfe80?ixid=MnwzOTI4NjJ8MHwxfHNlYXJjaHw0fHxiZXN0LW9mLTIwMjJ8ZW58MHx8fHwxNjcyMDEwNzA3&ixlib=rb-4.0.3)
+ */
+
+type Frontmatter = Record<string, any> & {
+  title: string;
+  date: string;
+  description: string;
+  tags: string[];
+  meta: {
+    keywords: string[];
+  };
+  draft: boolean;
+  banner: string;
+  bannerAlt: string;
+  bannerCredit: string;
+};
 
 export async function processPostContent({
   slug,
   content,
   filename
 }: IRawPost): Promise<Blogpost> {
-  const frontmatter = content.attributes.frontmatter
+  const frontmatter: Frontmatter = content.attributes.frontmatter
     ? yaml.load(content.attributes.frontmatter)
     : {};
-  const { title, date, tags, draft, banner, excerpt } = frontmatter;
+  const { title, date, tags, draft, banner, description } = frontmatter;
+
   markdocConfig.setVariable('frontmatter', frontmatter);
   const contentReactAst = markdocConfig.transform(content);
   let text = '';
@@ -131,7 +163,7 @@ export async function processPostContent({
     tags: tags ?? [],
     draft: Boolean(draft),
     date: new Date(date).getTime(),
-    excerpt: excerpt ?? getExcerpt(text),
+    description: description ?? getExcerpt(text),
     readTime,
     featuredImage: banner ?? null
   };
