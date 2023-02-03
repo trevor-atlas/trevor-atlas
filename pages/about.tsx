@@ -1,5 +1,4 @@
-import { GetStaticProps } from 'next';
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Container } from 'src/components/Container';
 import { ISong } from 'src/components/now-playing/NowPlaying';
 import SEO from 'src/components/Seo';
@@ -8,8 +7,7 @@ import styles from '../src/styles/about.module.scss';
 import profileImage from '../public/images/lensa-1.jpg';
 import astronaut from '../public/images/about-astronaut.jpeg';
 import Balancer from 'react-wrap-balancer';
-import { m, motion, useScroll, useTransform } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { m } from 'framer-motion';
 import { useIsVisible } from 'src/hooks/useIsVisible';
 
 const container = {
@@ -64,7 +62,7 @@ function AnimatedImages({
   );
 }
 
-function Animated({ children }: { children: React.ReactNode }) {
+function Animated({ children }: { children: ReactNode }) {
   const [visible, ref] = useIsVisible();
 
   return (
