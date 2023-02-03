@@ -50,8 +50,7 @@ function Bio() {
                       text-lg
                     `}
                     style={{
-                      ...delay(4),
-                      fontFamily: `'Patua One', sans-serif`
+                      ...delay(4)
                     }}
                   >
                     For {getCareerLength()}, I've worked at agencies, startups

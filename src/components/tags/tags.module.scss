@@ -13,13 +13,24 @@
     right: -4px;
     width: calc(100% + 8px);
     height: calc(100% + 8px);
-    transition: opacity 0.3s ease;
-    background: inherit;
-    opacity: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(0);
     border-radius: 3px;
   }
 
   &:hover::after {
-    opacity: .3;
+    animation: scale-easeInOutElastic .2s ease-in-out 0s 1 normal both;
+  }
+}
+
+@keyframes scale-easeInOutElastic {
+  0% {
+    transform: scale(0)
+  }
+  40% {
+    transform: scale(1.1)
+  }
+  100% {
+    transform: scale(1)
   }
 }

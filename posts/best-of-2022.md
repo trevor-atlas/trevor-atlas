@@ -5,9 +5,7 @@ description: 'My favorite things from the year 2022, in no particular order.'
 tags:
   - roundup
 meta:
-  keywords:
-    - roundup
-    - best of the year
+  keywords: roundup, best of the year
 banner: /images/unsplash-5xK-Zum4kOA.png
 bannerAlt: China Spring 2022 April
 bannerCredit:

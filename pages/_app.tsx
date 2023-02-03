@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import { LazyMotion, domAnimation } from 'framer-motion';
-import { Karla, Patua_One } from '@next/font/google';
+import { Lexend_Deca, Patua_One } from '@next/font/google';
 
 import { Nav } from 'src/components/nav/Nav';
 import { Layout } from 'src/components/Layout';
@@ -11,16 +11,17 @@ import '../src/styles/app.scss';
 import '../src/styles/one-dark-highlight.scss';
 import '../src/styles/albums.scss';
 
-const karla = Karla({
-  style: ['normal', 'italic'],
-  weight: ['400', '700'],
+const lexend = Lexend_Deca({
+  style: 'normal',
+  weight: 'variable',
   subsets: ['latin']
 });
+
 const patuaOne = Patua_One({ weight: '400', subsets: ['latin'] });
 
 const globalStyles = `
   html, body, #__next {
-    font-family: ${karla.style.fontFamily};
+    font-family: ${lexend.style.fontFamily};
   }
   h1,
   h2,
@@ -29,6 +30,7 @@ const globalStyles = `
   h5,
   h6 {
     font-family: ${patuaOne.style.fontFamily};
+    font-weight: 700;
   }
 
   .post p > code, .code-fence pre, .code-fence code, .code-fence pre code {

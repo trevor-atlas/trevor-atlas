@@ -21,7 +21,7 @@ export function getReadingTime(
     wordBound: ansiWordBound,
     wordsPerMinute: 200
   }
-): IReadTime {
+): string {
   const { wordBound, wordsPerMinute } = options;
   let words = 0;
   let start = 0;
@@ -47,15 +47,9 @@ export function getReadingTime(
 
   // reading time stats
   const minutes = words / wordsPerMinute;
-  const seconds = minutes * 60;
-  const time = minutes * 60 * 1000;
+  // const seconds = minutes * 60;
+  // const time = minutes * 60 * 1000;
   const displayed = Math.ceil(Number(minutes.toFixed(2)));
 
-  return {
-    text: `${displayed} min`,
-    minutes,
-    seconds,
-    time,
-    words
-  };
+  return `${displayed} min (~${words} words)`;
 }

@@ -13,11 +13,12 @@ export const getRelativeY = (x: number) => {
   return x < center ? center - x : x - center;
 };
 
+export const CAREER_START_DATE: Readonly<Date> = new Date('03/14/2013');
+
 export const getCareerLength = (): string => {
-  const start = new Date('06/14/2012');
   const now = new Date();
-  const years = now.getFullYear() - start.getFullYear();
-  const months = now.getMonth() - start.getMonth();
+  const years = now.getFullYear() - CAREER_START_DATE.getFullYear();
+  const months = now.getMonth() - CAREER_START_DATE.getMonth();
 
   if (months >= 8) {
     return `nearly ${years + 1} years`;
@@ -28,7 +29,18 @@ export const getCareerLength = (): string => {
   return `${years} years`;
 };
 
-export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+export function fetcher<T>(resource: RequestInfo | URL, init?: RequestInit) {
+  return async (): Promise<T> => {
+    try {
+      const response = await fetch(resource, init);
+      const json = await response.json();
+      return json;
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
+  };
+}
 
 export const clamp = (n: number, min: number, max: number) =>
   Math.min(max, Math.max(n, min));

@@ -27,7 +27,7 @@ export const heading = {
     const children: Array<string | Tag> = node.transformChildren(config);
 
     const id = generateID(children, attributes);
-    children.unshift(new Tag('div', { id, class: 'header-hash' }, ['#']));
+    children.push(new Tag('div', { id, class: 'header-hash' }, ['#']));
     return new Tag(`h${node.attributes['level']}`, { ...attributes }, children);
   }
 };

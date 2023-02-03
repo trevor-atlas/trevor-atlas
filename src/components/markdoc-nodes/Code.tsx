@@ -1,5 +1,8 @@
+import { css } from '@emotion/css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-
+import { VscCopy } from 'react-icons/vsc';
+import { MouseEventHandler, useState } from 'react';
+import { mq } from 'src/utils/constants';
 const newTheme = {
   'comment': {
     color: '#7C9C7C'
@@ -229,17 +232,102 @@ interface CodeProps {
   language: string;
 }
 
+function CopyAndLangLabel({
+  language,
+  code
+}: {
+  language: string;
+  code: string;
+}) {
+  const [text, setText] = useState('Copy');
+  const [hovered, setHovered] = useState(false);
+  const reset = () => {
+    setText('Copy');
+    setHovered(false);
+  };
+  return (
+    <button
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={reset}
+      onClick={() => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(code);
+          setText('Copied!');
+        }
+        setTimeout(reset, 1000);
+      }}
+      title="Copy to clipboard"
+      className={css`
+        ${mq.mobile} {
+          width: 2.9rem;
+          height: 2.9rem;
+          font-size: 1rem;
+        }
+        display: flex;
+        width: auto;
+        height: 1.5rem;
+        border-radius: 0.25rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.6rem;
+        padding: 0.3rem 0.5rem;
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+        background: rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        transition: border 0.2s ease-in-out, background 0.2s ease-in-out;
+
+        &:hover {
+          color: rgba(105, 205, 255, 0.6);
+          background: rgba(0, 0, 0, 0.2);
+          border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+      `}
+    >
+      <span
+        className={css`
+          position: absolute;
+          left: calc(50% - 0.5rem);
+          padding: 0.5rem;
+          top: -2rem;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 0, 0, 0.8);
+          color: rgba(255, 255, 255, 0.6);
+          border-radius: 0.25rem;
+          opacity: 1;
+          transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+          transform: translateY(${hovered ? 0 : -25}px);
+          opacity: ${hovered ? 1 : 0};
+          pointer-events: none;
+          @media (max-width: 600px) {
+            top: -3.5rem;
+            padding: 1rem;
+            left: calc(50% - 4rem);
+          }
+        `}
+      >
+        {text}
+      </span>
+
+      <span>{language.toUpperCase()}</span>
+    </button>
+  );
+}
+
 export default function Code({ children, language }: CodeProps) {
   let code = children.trim();
   const hideLineNumbers = code.split('\n').length < 2;
   return (
-    <SyntaxHighlighter
-      className="code-fence mb-6"
-      showLineNumbers={!hideLineNumbers}
-      language={language}
-      style={newTheme as any}
-    >
-      {code}
-    </SyntaxHighlighter>
+    <div className="code-fence mb-6 relative">
+      <CopyAndLangLabel language={language} code={code} />
+      <SyntaxHighlighter
+        showLineNumbers={!hideLineNumbers}
+        language={language}
+        style={newTheme as any}
+      >
+        {code}
+      </SyntaxHighlighter>
+    </div>
   );
 }

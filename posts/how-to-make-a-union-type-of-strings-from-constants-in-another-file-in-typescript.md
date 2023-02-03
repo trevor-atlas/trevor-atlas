@@ -4,13 +4,20 @@ date: '2022-02-18'
 tags:
   - typescript
 banner: /images/blue-arrow.jpg
+description: Do you have a file containing constants that you'd like to create a string union from? Here's how you can do that.
 ---
 
-I have a file containing constants that I would like to create a string union from. How can I do that?
+**The problem:**
+You have a file containing many constants that you'd like to create a string union from the names or values of.
+
+**The solution:**
+Use `keyof` and `typeof` to create a union from the keys and values of an object.
+
+## Example
 
 in `constaints.ts`
 
-```typescript
+```ts
 export const MY_NAME = 'Trevor';
 export const I_LIKE = 'Music';
 export const MY_CAT = 'IS_CUTE';

@@ -13,6 +13,7 @@ import markdocConfig from './markdocConfig';
 import yaml from 'js-yaml';
 import { getOpengraphDataForPost, OGMap } from './opengraph-scraper';
 import { isOgLinkNode, isTagNode } from './typeguards';
+import { Nullable } from 'src/types';
 
 const readdirAsync = util.promisify(readdir);
 const readFileAsync = util.promisify(readFile);
@@ -40,7 +41,10 @@ export interface Blogpost {
   featuredImage: string;
   contentReactAst: RenderableTreeNodes;
   description: string;
-  readTime: IReadTime;
+  readTime: string;
+  meta: Nullable<{
+    keywords: string;
+  }>;
 }
 
 export function getSerializablePost(post: Blogpost): SerializableBlogpost {
@@ -109,9 +113,7 @@ description: 'My favorite things from the year 2022, in no particular order.'
 tags:
   - roundup
 meta:
-  keywords:
-    - roundup
-    - best of the year
+  keywords: roundup, best of the year
 banner: /images/unsplash-5xK-Zum4kOA.png
 bannerAlt: China Spring 2022 April
 bannerCredit:
@@ -125,7 +127,7 @@ type Frontmatter = Record<string, any> & {
   description: string;
   tags: string[];
   meta: {
-    keywords: string[];
+    keywords: string;
   };
   draft: boolean;
   banner: string;
@@ -165,7 +167,8 @@ export async function processPostContent({
     date: new Date(date).getTime(),
     description: description ?? getExcerpt(text),
     readTime,
-    featuredImage: banner ?? null
+    featuredImage: banner ?? null,
+    meta: frontmatter?.meta ?? null
   };
 }
 

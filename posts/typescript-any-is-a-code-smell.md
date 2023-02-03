@@ -39,7 +39,7 @@ There are a few cases where using `any` is acceptable:
 
 instead of using `any` I recommend fleshing your types out as much as possible. Even if you only know part of the type definition, it's better to have something than nothing.
 
-```typescript
+```ts
 type MyType = {
     someField: number,
     otherFunc(): void

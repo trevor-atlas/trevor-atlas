@@ -8,6 +8,82 @@ import styles from '../src/styles/about.module.scss';
 import profileImage from '../public/images/lensa-1.jpg';
 import astronaut from '../public/images/about-astronaut.jpeg';
 import Balancer from 'react-wrap-balancer';
+import { m, motion, useScroll, useTransform } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { useIsVisible } from 'src/hooks/useIsVisible';
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
+
+const item = {
+  hidden: { opacity: 0, y: -100 },
+  show: { opacity: 1, y: 0 }
+};
+
+function AnimatedImages({
+  images
+}: {
+  images: ReadonlyArray<{ src: string; alt: string }>;
+}) {
+  const [visible, ref] = useIsVisible();
+
+  return (
+    <m.div
+      className="flex flex-col md:flex-row"
+      variants={container}
+      animate={visible ? 'show' : 'hidden'}
+      initial="hidden"
+    >
+      {images.map(({ src, alt }) => {
+        return (
+          <m.div
+            ref={ref}
+            className="mb-4 m-2 flex justify-center md:w-1/5"
+            key={src}
+            variants={item}
+          >
+            <Image
+              alt={alt}
+              src={src}
+              className={`${styles.values_image} drop-shadow-md w-full`}
+              width={350}
+              height={350}
+              quality={100}
+            />
+          </m.div>
+        );
+      })}
+    </m.div>
+  );
+}
+
+function Animated({ children }: { children: React.ReactNode }) {
+  const [visible, ref] = useIsVisible();
+
+  return (
+    <m.div
+      ref={ref}
+      transition={{
+        type: 'spring',
+        damping: 15,
+        stiffness: 100
+      }}
+      animate={{
+        x: visible ? 0 : -1000,
+        opacity: visible ? 1 : 0
+      }}
+    >
+      {children}
+    </m.div>
+  );
+}
 
 export async function getStaticProps() {
   const { URL } = process.env;
@@ -88,7 +164,19 @@ const About: FC<IAbout> = ({ top }) => (
       <div className="max-w-5xl mx-auto">
         <section className="mt-16 mb-16">
           <div className="flex flex-col md:flex-row content-center justify-center w-full">
-            <div className="flex flex-wrap w-full md:w-1/4 md:mr-8 flex-row md:flex-col content-center justify-center wrap">
+            <m.div
+              transition={{
+                delay: 0.5,
+                type: 'spring',
+                damping: 15,
+                stiffness: 100
+              }}
+              animate={{
+                y: [-200, 0],
+                opacity: [0, 1]
+              }}
+              className="flex flex-wrap w-full md:w-1/4 md:mr-8 flex-row md:flex-col content-center justify-center wrap"
+            >
               <Image
                 alt="meeeee"
                 src={profileImage}
@@ -98,7 +186,7 @@ const About: FC<IAbout> = ({ top }) => (
                 className={`${styles.intro_image} w-60 md:w-full`}
                 placeholder="blur"
               />
-            </div>
+            </m.div>
             <div className="shrink w-full md:w-3/4">
               <h2 className="mb-0">Hi there, I'm Trevor Atlas</h2>
               <Balancer ratio={1}>
@@ -132,35 +220,53 @@ const About: FC<IAbout> = ({ top }) => (
         <section className="flex flex-col-reverse md:flex-row mb-16 md:mb-32">
           <div className="w-full md:w-2/3">
             <h2>Values I live by</h2>
-            <h3>Kindness</h3>
-            <p>
-              I strongly believe in the value of kindness and that being kind to
-              those around you is essential if you want reach your full
-              potential. You can be the smartest, most 'correct' software
-              engineer in the world, but if you're not kind to the people around
-              you, you'll never reach your full potential. More than what you
-              say or do, people remember how you make them feel.{' '}
-              <em>Be excellent to each other.</em>
-            </p>
-            <h3>Share knowledge</h3>
-            <p>
-              One of the biggest things that has helped me learn and grow is
-              sharing what I know with others. Between blog posts, talks, 1:1s
-              and code reviews, I force myself into situations where I have to
-              be accountable to those around me to really know my stuff. (Or
-              find someone who does)
-            </p>
-            <h3>Collaborate with others</h3>
-            <p>
-              I firmly believe that when we work together with others, we can
-              achieve much greater things than we could on our own.
-              Collaboration with others is almost like a super power and I
-              firmly believe that those who are most successful lift others up
-              and celebrate their successes as a team. We can accomplish so much
-              more together than apart.
-            </p>
+            <Animated>
+              <h3>Kindness</h3>
+              <p>
+                I strongly believe in the value of kindness and that being kind
+                to those around you is essential if you want reach your full
+                potential. You can be the smartest, most 'correct' software
+                engineer in the world, but if you're not kind to the people
+                around you, you'll never reach your full potential. More than
+                what you say or do, people remember how you make them feel.{' '}
+                <em>Be excellent to each other.</em>
+              </p>
+            </Animated>
+            <Animated>
+              <h3>Share knowledge</h3>
+              <p>
+                One of the biggest things that has helped me learn and grow is
+                sharing what I know with others. Between blog posts, talks, 1:1s
+                and code reviews, I force myself into situations where I have to
+                be accountable to those around me to really know my stuff. (Or
+                find someone who does)
+              </p>
+            </Animated>
+            <Animated>
+              <h3>Collaborate with others</h3>
+              <p>
+                I firmly believe that when we work together with others, we can
+                achieve much greater things than we could on our own.
+                Collaboration with others is almost like a super power and I
+                firmly believe that those who are most successful lift others up
+                and celebrate their successes as a team. We can accomplish so
+                much more together than apart.
+              </p>
+            </Animated>
           </div>
-          <figure className="relative flex w-full md:w-1/3 md:ml-8 content-center justify-center">
+          <m.figure
+            className="relative flex w-full md:w-1/3 md:ml-8 content-center justify-center"
+            transition={{
+              delay: 0.5,
+              type: 'spring',
+              damping: 15,
+              stiffness: 100
+            }}
+            animate={{
+              x: [300, 0],
+              opacity: [0, 1]
+            }}
+          >
             <div
               className="z-10 absolute top-0 left-0 right-0 bottom-0 w-full h-full"
               style={{
@@ -180,7 +286,7 @@ const About: FC<IAbout> = ({ top }) => (
             <figcaption className="z-10 absolute bottom-3 text-slate-300 text-center">
               Dall-E makes some pretty cool stuff!
             </figcaption>
-          </figure>
+          </m.figure>
         </section>
 
         <section>
@@ -197,23 +303,7 @@ const About: FC<IAbout> = ({ top }) => (
                   <div className={`flex md:flex-col justify-center md:w-1/5`}>
                     <h3>{title}</h3>
                   </div>
-                  {images.map(({ src, alt }) => {
-                    return (
-                      <div
-                        key={src}
-                        className="mb-4 m-2 flex justify-center md:w-1/5"
-                      >
-                        <Image
-                          alt={alt}
-                          src={src}
-                          className={`${styles.values_image} drop-shadow-md w-full`}
-                          width={350}
-                          height={350}
-                          quality={100}
-                        />
-                      </div>
-                    );
-                  })}
+                  <AnimatedImages images={images} />
                 </div>
               );
             })}

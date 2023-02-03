@@ -1,4 +1,6 @@
 import { css } from '@emotion/css';
+import { m } from 'framer-motion';
+import { useState } from 'react';
 import styles from './tags.module.scss';
 
 interface TagsProps {
@@ -42,7 +44,7 @@ function getFormattedTag(name: string) {
     case 'node':
       return getTag('Node', 'bg-green-200 text-green-700');
     case 'npm':
-      return getTag('Npm', 'bg-red-400 text-slate-100');
+      return getTag('Npm', 'bg-red-300 text-slate-100');
     case 'wordpress':
       return getTag('Wordpress', 'bg-stone-300 text-stone-900');
     case 'philosophy':
@@ -52,7 +54,7 @@ function getFormattedTag(name: string) {
     case 'books':
       return getTag('Books', 'bg-gray-600 text-gray-100');
     case 'music':
-      return getTag('Music', 'bg-teal-700 text-slate-100');
+      return getTag('Music', 'bg-teal-500 text-slate-800');
     case 'ERROR':
       return getTag('No Tag!', 'bg-red-400 text-red-900');
     default:

@@ -201,7 +201,11 @@ export class MarkdocConfigurator {
    * const config = MarkdocConfigurator.getInstance().getConfig();
    * returns -> { tags: {}, nodes: {}, variables: {}, functions: {}, partials: {}, validation: { validateFunctions: false } } */
   public getConfig = (): typeof this.config => {
-    return this.config;
+    return { ...this.config };
+  };
+
+  public getVariables = (): typeof this.config.variables => {
+    return { ...this.config.variables };
   };
 
   /**
@@ -212,7 +216,7 @@ export class MarkdocConfigurator {
    * const components = MarkdocConfigurator.getInstance().getComponents();
    * returns -> { MyComponent: MyComponent, MyOtherComponent: MyOtherComponent } */
   public getComponents = (): typeof this.components => {
-    return this.components;
+    return { ...this.components };
   };
 
   /**

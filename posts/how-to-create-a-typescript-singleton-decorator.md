@@ -47,7 +47,7 @@ This code is also not reusable, which means we will have to reimplement the same
 
 For the Typescript version, we will do essentially the same thing, but with a class.
 
-```typescript
+```ts
 class Store {
     private static instance: Store;
     private data: {id: number}[];
@@ -90,13 +90,13 @@ The next example is going to go over how to implement a `@Singleton` decorator t
 
 The first thing we're going to do is use a Javascript [Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol) to create a unique key that represents the instance of whatever class we are converting to a singleton. We do this because otherwise, we have to worry about the possibility of overwriting a field or method name on the original class.
 
-```typescript
+```ts
 export const SINGLETON_KEY = Symbol();
 ```
 
 Next we define the type for a Singleton – a class that is the same as the original class, which also uses the `SINGLETON_KEY` to create a unique field that represents the instance.
 
-```typescript
+```ts
 export type Singleton<T extends new (...args: any[]) => any> = T & {
     [SINGLETON_KEY]: T extends new (...args: any[]) => infer I ? I : never
 };
@@ -111,7 +111,7 @@ Our Singleton decorator function takes in a single parameter called `type`.
 
 It then returns a new Javascript [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) which we use to build a [construct trap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/construct) - essentially we hijack the original constructor of `type` and replace it with our own implementation which will create the instance if it doesn't exist, or return the existing instance!
 
-```typescript
+```ts
 export const Singleton = <T extends new (...args: any[]) => any>(type: T) =>
     new Proxy(type, {
         // this will hijack the constructor
@@ -132,7 +132,7 @@ export const Singleton = <T extends new (...args: any[]) => any>(type: T) =>
 
 Put that all together in a file called Singleton.ts and this is what is should look like:
 
-```typescript
+```ts
 export const SINGLETON_KEY = Symbol();
 
 export type Singleton<T extends new (...args: any[]) => any> = T & {
@@ -162,13 +162,13 @@ Now we can use this decorator on our Store class and remove all of the Singleton
 Note: You will need to enable the experimental decorator
 flags for typescript in order for this to work!
 
-```typescript
+```ts
 // in tsconfig.json add the following
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 ```
 
-```typescript
+```ts
 import {Singleton} from './Singleton';
 
 @Singleton

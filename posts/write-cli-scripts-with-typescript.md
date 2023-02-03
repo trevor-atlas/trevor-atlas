@@ -41,7 +41,7 @@ globally installing ts-node and typescript, I'd love to hear about it!
 
 Now we can place the following code in our `hello-world.ts` file
 
-```typescript
+```ts
 #!/bin/sh
 ":" //#; exec /usr/bin/env ts-node -P ~/scripts/tsconfig.json "$0" "$@"
 
@@ -100,7 +100,7 @@ First we create our script file – I'll call it `list-package-scripts.ts`
 
 Within `list-package-scripts.ts` I'll add the following code:
 
-```typescript
+```ts
 #!/bin/sh
 ":" //#; exec /usr/bin/env ts-node -P ~/scripts/tsconfig.json "$0" "$@"
 

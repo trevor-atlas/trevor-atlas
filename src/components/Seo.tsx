@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
+import { isSome } from 'src/utils/helpers';
+import { Nullable } from 'src/types';
 
 interface ISEOProps {
   title: string;
@@ -7,16 +9,17 @@ interface ISEOProps {
   ogDescription?: string;
   ogUrl?: string;
   ogImage?: string;
+  keywords?: string;
 }
 
-const SEO: FC<ISEOProps> = (
-  { title, ogTitle, ogDescription, ogImage, ogUrl } = {
-    title: 'Trevor Atlas',
-    ogDescription: 'Personal website and portfolio of Trevor Atlas',
-    ogUrl: 'https://trevoratlas.com',
-    ogImage: '/portrait-2023.png'
-  }
-) => {
+const SEO: FC<ISEOProps> = ({
+  title = 'Trevor Atlas',
+  ogTitle = 'Trevor Atlas Personal Website',
+  ogDescription = 'Portfolio and blog of Trevor Atlas',
+  ogImage = '/portrait-2023.png',
+  ogUrl = 'https://trevoratlas.com',
+  keywords = 'Trevor Atlas, Software Development, Typescript, Javascript, Programming, Educational'
+}) => {
   const combinedTitle = `${title} | Trevor Atlas`;
   return (
     <Head>
@@ -33,10 +36,7 @@ const SEO: FC<ISEOProps> = (
 
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta
-        name="keywords"
-        content="Software Development, Typescript, Javascript, Programming, Educational"
-      />
+      <meta name="keywords" content={keywords} />
 
       <meta property="og:title" content={ogTitle} />
       <meta property="og:type" content="website" />

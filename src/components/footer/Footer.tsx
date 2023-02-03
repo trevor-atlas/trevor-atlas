@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import { FooterLink } from 'src/components/footer/FooterLink';
 import { links } from 'src/components/footer/sites';
-import { Container } from 'src/components/Container';
 import { css } from '@emotion/css';
-import { Entries } from 'src/types';
+import { CAREER_START_DATE } from 'src/utils/helpers';
 
 interface IFooter {}
 
@@ -36,7 +35,8 @@ export const Footer: FC<IFooter> = () => {
           </div>
           <div className="flex">
             <p className="p-3 inline-block mb-0">
-              © 2012 - {`${new Date().getFullYear()}`} Trevor Atlas
+              © {CAREER_START_DATE.getFullYear()} -{' '}
+              {`${new Date().getFullYear()}`} Trevor Atlas
             </p>
           </div>
         </div>
