@@ -35,7 +35,7 @@ export function PostPreviewCard(props: Blogpost) {
             <div className="flex flex-row justify-between items-center mt-3 mx-0 w-full">
               <Tags tags={props.tags} />
               <small className="m-0 muted text-xs tracking-tighter">
-                {props.readTime.text}
+                {props.readTime}
               </small>
             </div>
           </div>
