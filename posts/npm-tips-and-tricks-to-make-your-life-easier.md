@@ -1,5 +1,5 @@
 ---
-title: "NPM tips and tricks to make your life easier"
+title: 'NPM tips and tricks to make your life easier'
 date: '2019-08-14'
 tags:
   - javascript
@@ -7,26 +7,25 @@ tags:
   - npm
 banner: /images/npm.jpg
 bannerAlt: a cool keyboard
-bannerCredit:
-  Photo by [Paul Esch-Laurent](https://unsplash.com/@pinjasaur)
+bannerCredit: Photo by [Paul Esch-Laurent](https://unsplash.com/@pinjasaur)
 ---
 
 If you've been using npm and Node for any amount of time, it's likely you've grown tired of typing out `install` or `--save-dev` every time you want to add a package. This article will cover some quality of life tips and tricks to make using npm a breeze!
 
-| Command/flag | Shortcut |
-| --- | ----------- |
-| `install` | `i` |
-| `test` | `t` |
-| `--save-dev` | `-D` |
-| `--save` | `-s` |
-| `--save-exact` | `-E` |
-| `--global` | `-g` |
-| `--version` | `-v` |
-| `--help` | `-h` |
-| `--silent, --loglevel silent` | `-s` |
-| `--quiet, --loglevel warn` | `-q` |
-| `--loglevel info` | `-d` |
-| `--verbose --loglevel verbose` | `-dd` |
+| Command/flag                   | Shortcut |
+| ------------------------------ | -------- |
+| `install`                      | `i`      |
+| `test`                         | `t`      |
+| `--save-dev`                   | `-D`     |
+| `--save`                       | `-s`     |
+| `--save-exact`                 | `-E`     |
+| `--global`                     | `-g`     |
+| `--version`                    | `-v`     |
+| `--help`                       | `-h`     |
+| `--silent, --loglevel silent`  | `-s`     |
+| `--quiet, --loglevel warn`     | `-q`     |
+| `--loglevel info`              | `-d`     |
+| `--verbose --loglevel verbose` | `-dd`    |
 
 ## Install multiple npm packages at once
 
@@ -87,7 +86,7 @@ This command can be run without having the package installed locally or globally
 
 ## Open a package’s GitHub repository
 
-```
+```bash
 npm repo packagename
 ```
 
@@ -146,6 +145,6 @@ npx rimraf ./build # delete the build directory
 
 Now you can easily run node scripts and tools from your CI system or other CLI scripts.
 
-* * *
+---
 
 These are just some of the cool things you can do with npm. While this is not an exhaustive list of everything it can do, I hope it was helpful and makes your life easier in some small way!

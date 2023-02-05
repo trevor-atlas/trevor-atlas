@@ -56,11 +56,12 @@ const overlay = css`
     right: 0;
     bottom: 0;
     left: 0;
-    opacity: 0.5;
+    opacity: 0.1;
     width: 100vw;
     height: 100vh;
     pointer-events: none;
     background-image: linear-gradient(to right, #06b6d4 0%, #3b82f6 100%);
+    // background: rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -73,9 +74,9 @@ export default function NoisePlane() {
       className={classes}
       resize={{ scroll: false, debounce: { scroll: 150, resize: 50 } }}
       dpr={[1, 2]}
-      camera={{ position: [0, 1, 1] }}
+      camera={{ position: [0, 0, 1] }}
     >
-      <NoisyPlane rotation={[-1, -0.1, 0]} position={[0, 0, 0]} />
+      <NoisyPlane rotation={[0, 0, 0]} position={[0, 0, 0]} />
     </Canvas>
   );
 }

@@ -310,7 +310,7 @@ function CopyAndLangLabel({
         {text}
       </span>
 
-      <span>{language.toUpperCase()}</span>
+      <span>{language?.toUpperCase()}</span>
     </button>
   );
 }
