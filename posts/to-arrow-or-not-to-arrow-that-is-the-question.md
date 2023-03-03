@@ -12,20 +12,19 @@ meta:
 draft: false
 banner: /images/unsplash-H_tdgaW-0fU.png
 bannerAlt: low angle photography of plane contrail
-bannerCredit:
-  Photo by [Nick
+bannerCredit: Photo by [Nick
   Fewings](https://images.unsplash.com/photo-1517933508318-acc52a49cc04?ixid=MnwzOTI4NjJ8MHwxfHNlYXJjaHwyfHx0by1hcnJvdy1vci1ub3QtdG8tYXJyb3ctdGhhdC1pcy10aGUtcXVlc3Rpb258ZW58MHx8fHwxNjc3ODE0NTA4&ixlib=rb-4.0.3)
 ---
 
 JS arrow functions are great.
 
-✅ Concise
-✅ Optional implicit return
-✅ Don't have their own “this” context
+- ✅ Concise
+- ✅ Optional implicit return
+- ✅ Don't have their own “this” context
 
 But, I don't recommended using them everywhere.
 
-We should prefer function declarations for *top-level* functions, here's why.
+We should prefer function declarations for _top-level_ functions, here's why.
 
 ```typescript
 // Looks like a variable at a glance (especially in larger files, this can seriously hurt readability) 👎
@@ -50,16 +49,19 @@ The way I think about this:
 Do I need a callback or one-liner? Is this function nested? Use an arrow.
 
 ```typescript
-[1,2,3].map(n => n**n)
+[1, 2, 3].map((n) => n ** n);
 
 somePromise
-  .then(() => { /* do something */ })
-  .catch(() => { /* do something else */ })
+  .then(() => {
+    /* do something */
+  })
+  .catch(() => {
+    /* do something else */
+  });
 
 useEffect(() => {
   // do something
-}, [])
-
+}, []);
 ```
 
 Everything else as `function`.
@@ -73,7 +75,7 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   const handleClick = () => {
-    setCount(c => add(c, 1));
+    setCount((c) => add(c, 1));
   };
 
   return (
@@ -83,6 +85,4 @@ function MyComponent() {
     </div>
   );
 }
-
-
-
+```
